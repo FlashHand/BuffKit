@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		FE51CBFC1CD8DE2B00A7E897 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CBFB1CD8DE2B00A7E897 /* main.m */; };
 		FE51CBFF1CD8DE2B00A7E897 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CBFE1CD8DE2B00A7E897 /* AppDelegate.m */; };
-		FE51CC021CD8DE2B00A7E897 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC011CD8DE2B00A7E897 /* ViewController.m */; };
-		FE51CC051CD8DE2B00A7E897 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE51CC031CD8DE2B00A7E897 /* Main.storyboard */; };
 		FE51CC071CD8DE2B00A7E897 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE51CC061CD8DE2B00A7E897 /* Assets.xcassets */; };
 		FE51CC0A1CD8DE2B00A7E897 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE51CC081CD8DE2B00A7E897 /* LaunchScreen.storyboard */; };
 		FE51CC151CD8DE2B00A7E897 /* BuffDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC141CD8DE2B00A7E897 /* BuffDemoTests.m */; };
+		FE51CC221CDAE7C400A7E897 /* CryptoBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC211CDAE7C400A7E897 /* CryptoBuff.m */; };
+		FE51CC231CDAE7C400A7E897 /* CryptoBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC211CDAE7C400A7E897 /* CryptoBuff.m */; };
+		FE51CC261CDAE9D600A7E897 /* BuffListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC251CDAE9D600A7E897 /* BuffListViewController.m */; };
+		FE51CC271CDAE9D600A7E897 /* BuffListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC251CDAE9D600A7E897 /* BuffListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,15 +33,17 @@
 		FE51CBFB1CD8DE2B00A7E897 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FE51CBFD1CD8DE2B00A7E897 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FE51CBFE1CD8DE2B00A7E897 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FE51CC001CD8DE2B00A7E897 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FE51CC011CD8DE2B00A7E897 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		FE51CC041CD8DE2B00A7E897 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE51CC061CD8DE2B00A7E897 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE51CC091CD8DE2B00A7E897 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE51CC0B1CD8DE2B00A7E897 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE51CC101CD8DE2B00A7E897 /* BuffDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuffDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE51CC141CD8DE2B00A7E897 /* BuffDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuffDemoTests.m; sourceTree = "<group>"; };
 		FE51CC161CD8DE2B00A7E897 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE51CC201CDAE7C400A7E897 /* CryptoBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptoBuff.h; sourceTree = "<group>"; };
+		FE51CC211CDAE7C400A7E897 /* CryptoBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptoBuff.m; sourceTree = "<group>"; };
+		FE51CC241CDAE9D600A7E897 /* BuffListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffListViewController.h; sourceTree = "<group>"; };
+		FE51CC251CDAE9D600A7E897 /* BuffListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffListViewController.m; sourceTree = "<group>"; };
+		FEE05EB81CDB061A0019F2D3 /* BuffKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuffKit.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,12 +87,12 @@
 			children = (
 				FE51CBFD1CD8DE2B00A7E897 /* AppDelegate.h */,
 				FE51CBFE1CD8DE2B00A7E897 /* AppDelegate.m */,
-				FE51CC001CD8DE2B00A7E897 /* ViewController.h */,
-				FE51CC011CD8DE2B00A7E897 /* ViewController.m */,
-				FE51CC031CD8DE2B00A7E897 /* Main.storyboard */,
+				FE51CC241CDAE9D600A7E897 /* BuffListViewController.h */,
+				FE51CC251CDAE9D600A7E897 /* BuffListViewController.m */,
 				FE51CC061CD8DE2B00A7E897 /* Assets.xcassets */,
 				FE51CC081CD8DE2B00A7E897 /* LaunchScreen.storyboard */,
 				FE51CC0B1CD8DE2B00A7E897 /* Info.plist */,
+				FE51CC1F1CDAE7C400A7E897 /* BuffKit */,
 				FE51CBFA1CD8DE2B00A7E897 /* Supporting Files */,
 			);
 			path = BuffDemo;
@@ -109,6 +113,17 @@
 				FE51CC161CD8DE2B00A7E897 /* Info.plist */,
 			);
 			path = BuffDemoTests;
+			sourceTree = "<group>";
+		};
+		FE51CC1F1CDAE7C400A7E897 /* BuffKit */ = {
+			isa = PBXGroup;
+			children = (
+				FE51CC201CDAE7C400A7E897 /* CryptoBuff.h */,
+				FE51CC211CDAE7C400A7E897 /* CryptoBuff.m */,
+				FEE05EB81CDB061A0019F2D3 /* BuffKit.h */,
+			);
+			name = BuffKit;
+			path = ../../BuffKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,7 +208,6 @@
 			files = (
 				FE51CC0A1CD8DE2B00A7E897 /* LaunchScreen.storyboard in Resources */,
 				FE51CC071CD8DE2B00A7E897 /* Assets.xcassets in Resources */,
-				FE51CC051CD8DE2B00A7E897 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,9 +225,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE51CC021CD8DE2B00A7E897 /* ViewController.m in Sources */,
 				FE51CBFF1CD8DE2B00A7E897 /* AppDelegate.m in Sources */,
+				FE51CC261CDAE9D600A7E897 /* BuffListViewController.m in Sources */,
 				FE51CBFC1CD8DE2B00A7E897 /* main.m in Sources */,
+				FE51CC221CDAE7C400A7E897 /* CryptoBuff.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +237,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE51CC151CD8DE2B00A7E897 /* BuffDemoTests.m in Sources */,
+				FE51CC271CDAE9D600A7E897 /* BuffListViewController.m in Sources */,
+				FE51CC231CDAE7C400A7E897 /* CryptoBuff.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,14 +253,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		FE51CC031CD8DE2B00A7E897 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FE51CC041CD8DE2B00A7E897 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FE51CC081CD8DE2B00A7E897 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -258,7 +267,7 @@
 		FE51CC171CD8DE2B00A7E897 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -302,7 +311,7 @@
 		FE51CC181CD8DE2B00A7E897 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -342,6 +351,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BuffDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = r4l.BuffDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -353,6 +363,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BuffDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = r4l.BuffDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -402,6 +413,7 @@
 				FE51CC1B1CD8DE2B00A7E897 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FE51CC1C1CD8DE2B00A7E897 /* Build configuration list for PBXNativeTarget "BuffDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +422,7 @@
 				FE51CC1E1CD8DE2B00A7E897 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

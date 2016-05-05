@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "BuffListViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    CGRect screenBounds=[[UIScreen mainScreen]bounds];
+    _window=[[UIWindow alloc]initWithFrame:CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height)];
+    BuffListViewController  *buffListVC=[[BuffListViewController alloc]init];
+    UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
+    [_window setRootViewController:navi];
+    
+    [_window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }
