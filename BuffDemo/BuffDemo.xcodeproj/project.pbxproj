@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FE2933521CE21DB30096B1DF /* CryptoBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */; };
 		FE2933531CE21DB30096B1DF /* CryptoBuffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */; };
+		FE2933571CE24D240096B1DF /* LBSBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933561CE24D240096B1DF /* LBSBuff.m */; };
 		FE51CBFC1CD8DE2B00A7E897 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CBFB1CD8DE2B00A7E897 /* main.m */; };
 		FE51CBFF1CD8DE2B00A7E897 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CBFE1CD8DE2B00A7E897 /* AppDelegate.m */; };
 		FE51CC071CD8DE2B00A7E897 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE51CC061CD8DE2B00A7E897 /* Assets.xcassets */; };
@@ -35,6 +36,8 @@
 		FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptoBuffViewController.m; sourceTree = "<group>"; };
 		FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CryptoBuffViewController.xib; sourceTree = "<group>"; };
 		FE2933541CE21DFC0096B1DF /* Buff.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buff.pch; sourceTree = "<group>"; };
+		FE2933551CE24D240096B1DF /* LBSBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBSBuff.h; sourceTree = "<group>"; };
+		FE2933561CE24D240096B1DF /* LBSBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBSBuff.m; sourceTree = "<group>"; };
 		FE51CBF71CD8DE2B00A7E897 /* BuffDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuffDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE51CBFB1CD8DE2B00A7E897 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FE51CBFD1CD8DE2B00A7E897 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 			children = (
 				FE51CC201CDAE7C400A7E897 /* CryptoBuff.h */,
 				FE51CC211CDAE7C400A7E897 /* CryptoBuff.m */,
+				FE2933551CE24D240096B1DF /* LBSBuff.h */,
+				FE2933561CE24D240096B1DF /* LBSBuff.m */,
 				FEE05EB81CDB061A0019F2D3 /* BuffKit.h */,
 			);
 			name = BuffKit;
@@ -248,6 +253,7 @@
 				FE51CBFF1CD8DE2B00A7E897 /* AppDelegate.m in Sources */,
 				FE51CC261CDAE9D600A7E897 /* BuffListViewController.m in Sources */,
 				FE51CBFC1CD8DE2B00A7E897 /* main.m in Sources */,
+				FE2933571CE24D240096B1DF /* LBSBuff.m in Sources */,
 				FE51CC221CDAE7C400A7E897 /* CryptoBuff.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

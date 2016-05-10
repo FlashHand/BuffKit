@@ -19,7 +19,6 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     NSString *sourceStr=@"12345678901234561";
     NSData *source=[sourceStr dataUsingEncoding:NSUTF8StringEncoding];
-    
     [source bfCryptoBlowFishEncodeWithMode:BuffCryptoModeCFB padding:YES iv:@"1234567890" key:@"1234567890" completion:^(NSData *cryptoData) {
         [cryptoData bfCryptoBlowFishDecodeWithMode:BuffCryptoModeCFB padding:NO iv:@"1234567890" key:@"1234567890" completion:^(NSData *cryptoData2) {
             NSString *result = [[NSString alloc] initWithData: cryptoData2 encoding: NSUTF8StringEncoding];
