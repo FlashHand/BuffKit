@@ -61,10 +61,16 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
 -(void)bfCryptoDESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
 -(void)bfCryptoDESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
 
+#pragma mark 3DES
+
 -(void)bfCrypto3DESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
 -(void)bfCrypto3DESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
 
-#pragma mark 3DES
+#pragma mark BlowFish
+
+-(void)bfCryptoBlowFishEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key keySize:(int)keySize completion:(void(^)(NSData *cryptoData))cryptoBlock;
+-(void)bfCryptoBlowFishDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key keySize:(int)keySize completion:(void(^)(NSData *cryptoData))cryptoBlock;
+
 
 @end
 
