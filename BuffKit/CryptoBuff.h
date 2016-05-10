@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonCryptor.h>
+#pragma mark 支持的CCMode
 typedef NS_ENUM(NSInteger, BuffCryptoMode) {
     BuffCryptoModeECB		= 1,//kCCModeECB
     BuffCryptoModeCBC		= 2,//kCCModeCBC
@@ -68,8 +69,8 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
 
 #pragma mark BlowFish
 
--(void)bfCryptoBlowFishEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key keySize:(int)keySize completion:(void(^)(NSData *cryptoData))cryptoBlock;
--(void)bfCryptoBlowFishDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key keySize:(int)keySize completion:(void(^)(NSData *cryptoData))cryptoBlock;
+-(void)bfCryptoBlowFishEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+-(void)bfCryptoBlowFishDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
 
 
 @end
