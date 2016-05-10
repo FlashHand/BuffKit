@@ -15,6 +15,8 @@ NSData* _buffMD5FromData(NSData *source)
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5(source.bytes, (CC_LONG)source.length, result);
     NSData *md5=[[NSData alloc] initWithBytes:result length:CC_MD5_DIGEST_LENGTH];
+    NSData *data;
+    [data bytes];
     return md5;
 }
 //SHA1
@@ -54,69 +56,192 @@ NSData *_buffSHA512FromData(NSData *source)
     NSData *sha512 = [[NSData alloc] initWithBytes:result length:CC_SHA512_DIGEST_LENGTH];
     return sha512;
 }
+NSData *_buffAESEncodeFromData(NSData *source,BuffCryptoMode mode,BOOL isPadding,NSString *iv,NSString *key)
+{
+    CCCryptorRef cryptor;
+    int padding=isPadding?1:0;
+    NSData *ivData=[iv dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *keyData=[key dataUsingEncoding:NSUTF8StringEncoding];
+    CCCryptorStatus result = CCCryptorCreateWithMode(kCCEncrypt,
+                                                     mode,
+                                                     kCCAlgorithmAES,
+                                                     padding,
+                                                     [ivData bytes],
+                                                     [keyData bytes],
+                                                     kCCKeySizeAES256,
+                                                     NULL,
+                                                     0,
+                                                     0,
+                                                     0,
+                                                     &cryptor);
+    size_t bufferLength = CCCryptorGetOutputLength(cryptor, [source length], false);
+    size_t outLength;
+    NSMutableData *outData=[[NSMutableData alloc]initWithLength:bufferLength];
+    if (result) {
+    result = CCCryptorUpdate(cryptor,
+                             [source bytes],
+                             [source length],
+                             [outData mutableBytes],
+                             bufferLength,
+                             &outLength);
+        if (result) {
+            if (isPadding) {
+                result = CCCryptorFinal(cryptor,
+                                        [outData mutableBytes],
+                                        bufferLength,
+                                        &outLength);
+                if (result) {
+                    result = CCCryptorRelease(cryptor);
+                }
+                else
+                {
+                    outData=nil;
+                }
+            }
+        }
+        else
+        {
+            outData=nil;
+        }
+    }
+    else
+    {
+        outData=nil;
+    }
+    return outData;
+}
+NSData *_buffAESDecodeFromData(NSData *source,BuffCryptoMode mode,BOOL isPadding,NSString *iv,NSString *key)
+{
+    CCCryptorRef cryptor;
+    int padding=isPadding?1:0;
+    NSData *ivData=[iv dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *keyData=[key dataUsingEncoding:NSUTF8StringEncoding];
+    CCCryptorStatus result = CCCryptorCreateWithMode(kCCDecrypt,
+                                                     mode,
+                                                     kCCAlgorithmAES,
+                                                     padding,
+                                                     [ivData bytes],
+                                                     [keyData bytes],
+                                                     kCCKeySizeAES256,
+                                                     NULL,
+                                                     0,
+                                                     0,
+                                                     0,
+                                                     &cryptor);
+    size_t bufferLength = CCCryptorGetOutputLength(cryptor, [source length], false);
+    size_t outLength;
+    NSMutableData *outData=[[NSMutableData alloc]initWithLength:bufferLength];
+    if (result) {
+        result = CCCryptorUpdate(cryptor,
+                                 [source bytes],
+                                 [source length],
+                                 [outData mutableBytes],
+                                 bufferLength,
+                                 &outLength);
+        if (result) {
+            if (isPadding) {
+                result = CCCryptorFinal(cryptor,
+                                        [outData mutableBytes],
+                                        bufferLength,
+                                        &outLength);
+                if (result) {
+                    result = CCCryptorRelease(cryptor);
+                }
+                else
+                {
+                    outData=nil;
+                }
+            }
+        }
+        else
+        {
+            outData=nil;
+        }
+    }
+    else
+    {
+        outData=nil;
+    }
+    return outData;
+}
 @implementation NSData (CryptoBuff)
 #pragma mark MD5,SHA1,SHA2,
 
--(NSData *)buffCryptoMD5
+-(NSData *)bfCryptoMD5
 {
     return _buffMD5FromData(self);
 }
--(void)buffCryptoMD5Async:(void (^)(NSData *))cryptoBlock
+-(void)bfCryptoMD5Async:(void (^)(NSData *))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffMD5FromData(self));
     });
 }
--(NSData *)buffCryptoSHA1
+-(NSData *)bfCryptoSHA1
 {
     return _buffSHA1FromData(self);
 }
--(void)buffCryptoSHA1Async:(void (^)(NSData *))cryptoBlock
+-(void)bfCryptoSHA1Async:(void (^)(NSData *))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA1FromData(self));
     });
 }
--(NSData *)buffCryptoSHA224
+-(NSData *)bfCryptoSHA224
 {
     return _buffSHA224FromData(self);
 }
--(void)buffCryptoSHA224Async:(void (^)(NSData *))cryptoBlock
+-(void)bfCryptoSHA224Async:(void (^)(NSData *))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA224FromData(self));
     });
 }
--(NSData *)buffCryptoSHA256
+-(NSData *)bfCryptoSHA256
 {
     return _buffSHA256FromData(self);
 }
--(void)buffCryptoSHA256Async:(void(^)(NSData *cryptoData))cryptoBlock
+-(void)bfCryptoSHA256Async:(void(^)(NSData *cryptoData))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA256FromData(self));
     });
 }
--(NSData *)buffCryptoSHA384
+-(NSData *)bfCryptoSHA384
 {
     return _buffSHA384FromData(self);
 }
--(void)buffCryptoSHA384Async:(void(^)(NSData *cryptoData))cryptoBlock
+-(void)bfCryptoSHA384Async:(void(^)(NSData *cryptoData))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA384FromData(self));
     });
 }
--(NSData *)buffCryptoSHA512
+-(NSData *)bfCryptoSHA512
 {
     return _buffSHA512FromData(self);
 }
--(void)buffCryptoSHA512Async:(void(^)(NSData *cryptoData))cryptoBlock
+-(void)bfCryptoSHA512Async:(void(^)(NSData *cryptoData))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA512FromData(self));
     });
 }
+#pragma mark AES
+-(void)bfCryptoAESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock
+{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffAESEncodeFromData(self, mode, isPadding, iv, key));
+    });
+}
+-(void)bfCryptoAESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffAESEncodeFromData(self, mode, isPadding, iv, key));
+    });
+}
+
 @end
 
 #pragma mark - NSString extension
@@ -197,62 +322,62 @@ NSString* _buffSHA512FromString(NSString *source)
 }
 @implementation NSString (CryptoBuff)
 #pragma mark MD5,SHA1,SHA2,
--(NSString *)buffCryptoMD5
+-(NSString *)bfCryptoMD5
 {
     return _buffMD5FromString(self);
 }
--(void)buffCryptoMD5Async:(void (^)(NSString *))cryptoBlock
+-(void)bfCryptoMD5Async:(void (^)(NSString *))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffMD5FromString(self));
     });
 }
--(NSString *)buffCryptoSHA1
+-(NSString *)bfCryptoSHA1
 {
     return _buffSHA1FromString(self);
 }
--(void)buffCryptoSHA1Async:(void (^)(NSString *))cryptoBlock
+-(void)bfCryptoSHA1Async:(void (^)(NSString *))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA1FromString(self));
     });
 }
--(NSString *)buffCryptoSHA224
+-(NSString *)bfCryptoSHA224
 {
     return _buffSHA224FromString(self);
 
 }
--(void)buffCryptoSHA224Async:(void(^)(NSString *cryptoString))cryptoBlock
+-(void)bfCryptoSHA224Async:(void(^)(NSString *cryptoString))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA224FromString(self));
     });
 }
--(NSString *)buffCryptoSHA256
+-(NSString *)bfCryptoSHA256
 {
     return _buffSHA256FromString(self);
 }
--(void)buffCryptoSHA256Async:(void(^)(NSString *cryptoString))cryptoBlock
+-(void)bfCryptoSHA256Async:(void(^)(NSString *cryptoString))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA256FromString(self));
     });
 }
--(NSString *)buffCryptoSHA384
+-(NSString *)bfCryptoSHA384
 {
     return _buffSHA384FromString(self);
 }
--(void)buffCryptoSHA384Async:(void(^)(NSString *cryptoString))cryptoBlock
+-(void)bfCryptoSHA384Async:(void(^)(NSString *cryptoString))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA384FromString(self));
     });
 }
--(NSString *)buffCryptoSHA512
+-(NSString *)bfCryptoSHA512
 {
     return _buffSHA512FromString(self);
 }
--(void)buffCryptoSHA512Async:(void(^)(NSString *cryptoString))cryptoBlock
+-(void)bfCryptoSHA512Async:(void(^)(NSString *cryptoString))cryptoBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffSHA512FromString(self));

@@ -17,9 +17,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-        [@"" buffCryptoSHA512Async:^(NSString *cryptoString) {
-            NSLog(@"%@",cryptoString);
-        }];
+    NSString *str=@"5492557823faec274708eb34d263029084abe5544789340a1d3ccf6bd74774ad";
+    NSData *key=[str dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *sourceStr=@"21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava";
+    NSData *source=[sourceStr dataUsingEncoding:NSUTF8StringEncoding];
+    [source buffCryptoAESEncodeWithMode:BuffCryptoModeECB padding:NO iv:nil key:@"1231111" completion:^(NSData *cryptoData) {
+        NSString *aesStr=[[NSString alloc]initWithData:cryptoData encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",aesStr);
+    }];
     // Do any additional setup after loading the view.
 }
 
