@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonCryptor.h>
-typedef NS_ENUM(NSUInteger, BuffCryptoMode) {
+typedef NS_ENUM(NSInteger, BuffCryptoMode) {
     BuffCryptoModeECB		= 1,//kCCModeECB
     BuffCryptoModeCBC		= 2,//kCCModeCBC
     BuffCryptoModeCFB		= 3,//kCCModeCFB
@@ -32,15 +32,17 @@ typedef NS_ENUM(NSUInteger, BuffCryptoMode) {
 -(NSData *)bfCryptoSHA512;
 -(void)bfCryptoSHA512Async:(void(^)(NSData *cryptoData))cryptoBlock;
 #pragma mark AES
+
 /**
  *  对NSData进行AES加密
  *
- *  @param mode        加密模式：ECB,CBC,CFB,CTR,OFB,CFB8
- *  @param isPadding   是否padding(PKCS7Padding)
- *  @param iv          Initialization vector，使用UTF8编码进行加密，ECB下无效
- *  @param key         密钥，使用UTF8编码进行加密
- *  @param cryptoBlock 加密完成后回调，出错则返回nil
+ *  @param mode         加密模式：ECB,CBC,CFB,CTR,OFB,CFB8
+ *  @param isPadding    是否padding(PKCS7Padding)
+ *  @param iv           Initialization vector，使用UTF8编码进行加密，ECB下无效
+ *  @param key          密钥，使用UTF8编码进行加密
+ *  @param cryptoBlock  加密完成后回调，出错则返回nil
  */
+
 -(void)bfCryptoAESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
 /**
  *  对NSData进行AES解密
@@ -52,6 +54,18 @@ typedef NS_ENUM(NSUInteger, BuffCryptoMode) {
  *  @param cryptoBlock 解密完成后回调，出错则返回nil
  */
 -(void)bfCryptoAESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+
+//参数同上
+#pragma mark DES
+
+-(void)bfCryptoDESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+-(void)bfCryptoDESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+
+-(void)bfCrypto3DESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+-(void)bfCrypto3DESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+
+#pragma mark 3DES
+
 @end
 
 #pragma mark - NSString(CryptoBuff)

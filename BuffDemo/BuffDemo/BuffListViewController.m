@@ -22,9 +22,20 @@
     
     NSString *sourceStr=@"21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava";
     NSData *source=[sourceStr dataUsingEncoding:NSUTF8StringEncoding];
-    [source buffCryptoAESEncodeWithMode:BuffCryptoModeECB padding:NO iv:nil key:@"1231111" completion:^(NSData *cryptoData) {
-        NSString *aesStr=[[NSString alloc]initWithData:cryptoData encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",aesStr);
+    [source bfCryptoDESEncodeWithMode:BuffCryptoModeECB padding:YES iv:@"9999" key:@"1211313131" completion:^(NSData *cryptoData) {
+        NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[cryptoData length]];
+        [cryptoData enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
+            unsigned char *dataBytes = (unsigned char*)bytes;
+            for (NSInteger i = 0; i < byteRange.length; i++) {
+                NSString *hexStr = [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
+                if ([hexStr length] == 2) {
+                    [string appendString:hexStr];
+                } else {
+                    [string appendFormat:@"0%@", hexStr];
+                }
+            }
+        }];
+
     }];
     // Do any additional setup after loading the view.
 }

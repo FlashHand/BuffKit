@@ -18,6 +18,7 @@ NSData* _buffMD5FromData(NSData *source)
     NSData *data;
     [data bytes];
     return md5;
+    
 }
 //SHA1
 NSData *_buffSHA1FromData(NSData *source)
@@ -77,20 +78,21 @@ NSData *_buffAESEncodeFromData(NSData *source,BuffCryptoMode mode,BOOL isPadding
     size_t bufferLength = CCCryptorGetOutputLength(cryptor, [source length], false);
     size_t outLength;
     NSMutableData *outData=[[NSMutableData alloc]initWithLength:bufferLength];
-    if (result) {
+    if (result==kCCSuccess) {
     result = CCCryptorUpdate(cryptor,
                              [source bytes],
                              [source length],
                              [outData mutableBytes],
                              bufferLength,
                              &outLength);
-        if (result) {
+        if (result==kCCSuccess) {
             if (isPadding) {
+                bufferLength = CCCryptorGetOutputLength(cryptor, [source length], true);
                 result = CCCryptorFinal(cryptor,
                                         [outData mutableBytes],
                                         bufferLength,
                                         &outLength);
-                if (result) {
+                if (result==kCCSuccess) {
                     result = CCCryptorRelease(cryptor);
                 }
                 else
@@ -131,20 +133,131 @@ NSData *_buffAESDecodeFromData(NSData *source,BuffCryptoMode mode,BOOL isPadding
     size_t bufferLength = CCCryptorGetOutputLength(cryptor, [source length], false);
     size_t outLength;
     NSMutableData *outData=[[NSMutableData alloc]initWithLength:bufferLength];
-    if (result) {
+    if (result==kCCSuccess) {
         result = CCCryptorUpdate(cryptor,
                                  [source bytes],
                                  [source length],
                                  [outData mutableBytes],
                                  bufferLength,
                                  &outLength);
-        if (result) {
+        if (result==kCCSuccess) {
             if (isPadding) {
+                bufferLength = CCCryptorGetOutputLength(cryptor, [source length], true);
                 result = CCCryptorFinal(cryptor,
                                         [outData mutableBytes],
                                         bufferLength,
                                         &outLength);
-                if (result) {
+                if (result==kCCSuccess) {
+                    result = CCCryptorRelease(cryptor);
+                }
+                else
+                {
+                    outData=nil;
+                }
+            }
+        }
+        else
+        {
+            outData=nil;
+        }
+    }
+    else
+    {
+        outData=nil;
+    }
+    return outData;
+}
+NSData *_buffDESEncodeFromData(NSData *source,BuffCryptoMode mode,BOOL isPadding,NSString *iv,NSString *key)
+{
+    CCCryptorRef cryptor;
+    int padding=isPadding?1:0;
+    NSData *ivData=[iv dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *keyData=[key dataUsingEncoding:NSUTF8StringEncoding];
+    CCCryptorStatus result = CCCryptorCreateWithMode(kCCEncrypt,
+                                                     mode,
+                                                     kCCAlgorithmDES,
+                                                     padding,
+                                                     [ivData bytes],
+                                                     [keyData bytes],
+                                                     kCCKeySizeDES,
+                                                     NULL,
+                                                     0,
+                                                     0,
+                                                     0,
+                                                     &cryptor);
+    size_t bufferLength = CCCryptorGetOutputLength(cryptor, [source length], false);
+    size_t outLength;
+    NSMutableData *outData=[[NSMutableData alloc]initWithLength:bufferLength];
+    if (result==kCCSuccess) {
+        result = CCCryptorUpdate(cryptor,
+                                 [source bytes],
+                                 [source length],
+                                 [outData mutableBytes],
+                                 bufferLength,
+                                 &outLength);
+        if (result==kCCSuccess) {
+            if (isPadding) {
+                bufferLength = CCCryptorGetOutputLength(cryptor, [source length], true);
+                result = CCCryptorFinal(cryptor,
+                                        [outData mutableBytes],
+                                        bufferLength,
+                                        &outLength);
+                if (result==kCCSuccess) {
+                    result = CCCryptorRelease(cryptor);
+                }
+                else
+                {
+                    outData=nil;
+                }
+            }
+        }
+        else
+        {
+            outData=nil;
+        }
+    }
+    else
+    {
+        outData=nil;
+    }
+    return outData;
+}
+NSData *_buffDESDecodeFromData(NSData *source,BuffCryptoMode mode,BOOL isPadding,NSString *iv,NSString *key)
+{
+    CCCryptorRef cryptor;
+    int padding=isPadding?1:0;
+    NSData *ivData=[iv dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *keyData=[key dataUsingEncoding:NSUTF8StringEncoding];
+    CCCryptorStatus result = CCCryptorCreateWithMode(kCCDecrypt,
+                                                     mode,
+                                                     kCCAlgorithmDES,
+                                                     padding,
+                                                     [ivData bytes],
+                                                     [keyData bytes],
+                                                     kCCKeySizeDES,
+                                                     NULL,
+                                                     0,
+                                                     0,
+                                                     0,
+                                                     &cryptor);
+    size_t bufferLength = CCCryptorGetOutputLength(cryptor, [source length], false);
+    size_t outLength;
+    NSMutableData *outData=[[NSMutableData alloc]initWithLength:bufferLength];
+    if (result==kCCSuccess) {
+        result = CCCryptorUpdate(cryptor,
+                                 [source bytes],
+                                 [source length],
+                                 [outData mutableBytes],
+                                 bufferLength,
+                                 &outLength);
+        if (result==kCCSuccess) {
+            if (isPadding) {
+                bufferLength = CCCryptorGetOutputLength(cryptor, [source length], true);
+                result = CCCryptorFinal(cryptor,
+                                        [outData mutableBytes],
+                                        bufferLength,
+                                        &outLength);
+                if (result==kCCSuccess) {
                     result = CCCryptorRelease(cryptor);
                 }
                 else
@@ -228,6 +341,8 @@ NSData *_buffAESDecodeFromData(NSData *source,BuffCryptoMode mode,BOOL isPadding
     });
 }
 #pragma mark AES
+
+
 -(void)bfCryptoAESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock
 {
     
@@ -239,6 +354,22 @@ NSData *_buffAESDecodeFromData(NSData *source,BuffCryptoMode mode,BOOL isPadding
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         cryptoBlock(_buffAESEncodeFromData(self, mode, isPadding, iv, key));
+    });
+}
+#pragma mark DES
+
+
+-(void)bfCryptoDESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock
+{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffDESEncodeFromData(self, mode, isPadding, iv, key));
+    });
+}
+-(void)bfCryptoDESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffDESEncodeFromData(self, mode, isPadding, iv, key));
     });
 }
 
