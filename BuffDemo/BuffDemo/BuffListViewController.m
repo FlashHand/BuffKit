@@ -22,7 +22,7 @@
     
     NSString *sourceStr=@"21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava21214fjafodpafa90via09dva0vava";
     NSData *source=[sourceStr dataUsingEncoding:NSUTF8StringEncoding];
-    [source bfCryptoDESEncodeWithMode:BuffCryptoModeECB padding:YES iv:@"9999" key:@"1211313131" completion:^(NSData *cryptoData) {
+    [source bfCryptoBlowFishEncodeWithMode:BuffCryptoModeECB padding:YES iv:@"9999" key:@"1211313131" keySize:10 completion:^(NSData *cryptoData) {
         NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[cryptoData length]];
         [cryptoData enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
             unsigned char *dataBytes = (unsigned char*)bytes;
@@ -35,6 +35,7 @@
                 }
             }
         }];
+        NSLog(@"%@",string);
 
     }];
     // Do any additional setup after loading the view.

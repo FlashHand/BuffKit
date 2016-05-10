@@ -9,6 +9,8 @@
 #import "CryptoBuff.h"
 #import <CommonCrypto/CommonCrypto.h>
 #pragma mark - NSData extension
+#pragma mark NSData functions
+
 //MD5
 NSData* _buffMD5FromData(NSData *source)
 {
