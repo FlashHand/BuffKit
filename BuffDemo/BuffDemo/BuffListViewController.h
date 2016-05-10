@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BuffListViewController : UIViewController
-
+@interface BuffListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *buffListTableView;
+}
 @end

@@ -1,0 +1,15 @@
+//
+//  Buffpch.pch
+//  BuffDemo
+//
+//  Created by BoWang on 16/5/10.
+//  Copyright © 2016年 BoWang. All rights reserved.
+//
+
+#ifndef Buffpch_pch
+#define Buffpch_pch
+#import "BuffKit.h"
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* Buffpch_pch */

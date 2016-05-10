@@ -7,7 +7,7 @@
 //
 
 #import "BuffListViewController.h"
-#import "BuffKit.h"
+#import "CryptoBuffViewController.h"
 @interface BuffListViewController ()
 
 @end
@@ -17,15 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    NSString *sourceStr=@"12345678901234561";
-    NSData *source=[sourceStr dataUsingEncoding:NSUTF8StringEncoding];
-    
-    [source bfCryptoBlowFishEncodeWithMode:BuffCryptoModeCFB padding:YES iv:@"1234567890" key:@"1234567890" completion:^(NSData *cryptoData) {
-        [cryptoData bfCryptoBlowFishDecodeWithMode:BuffCryptoModeCFB padding:NO iv:@"1234567890" key:@"1234567890" completion:^(NSData *cryptoData2) {
-            NSString *result = [[NSString alloc] initWithData: cryptoData2 encoding: NSUTF8StringEncoding];
-            NSLog(@"%@",result);
-        }];
-    }];
+    buffListTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) style:UITableViewStylePlain];
+    [buffListTableView setDelegate:self];
+    [buffListTableView setDataSource:self];
+    [self.view addSubview:buffListTableView];
     // Do any additional setup after loading the view.
 }
 
@@ -33,15 +28,32 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
 }
-*/
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    }
+    switch (indexPath.row) {
+        case 0:
+            [cell.textLabel setText:@"加解密(CryptoBuff.h)"];
+            [cell.detailTextLabel setText:@"MD5,SHA1,SHA2,AES,DES,3DES,BLOWFISH"];
+            break;
+            
+        default:
+            break;
+    }
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CryptoBuffViewController *cryptoVC=[[CryptoBuffViewController alloc]init];
+    [self.navigationController pushViewController:cryptoVC animated:YES];
+}
 
 @end

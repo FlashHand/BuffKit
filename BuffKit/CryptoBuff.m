@@ -169,6 +169,7 @@ NSData *_buffCryptoFromData(CCOperation op,BuffCryptoMode mode,CCAlgorithm al,BO
                                  outData.length,
                                  &outLength);
         if (result==kCCSuccess) {
+            //没padding则没必要调用CCCryptorFinal
             if (isPadding) {
                 result = CCCryptorFinal(cryptor,
                                         [outData mutableBytes],
