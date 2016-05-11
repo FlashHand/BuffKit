@@ -1,5 +1,5 @@
-# BuffKit
-iOS基础框架封装
+# BuffKit(developing)
+iOS基础功能组件 
 
 [加密工具CryptoBuff](http://r4l.xyz/2016/04/12/BuffKit-%E5%8A%A0%E8%A7%A3%E5%AF%86/)
 
