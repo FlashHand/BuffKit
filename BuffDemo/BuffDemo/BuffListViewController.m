@@ -8,6 +8,7 @@
 
 #import "BuffListViewController.h"
 #import "CryptoBuffViewController.h"
+#import "LBSBuffViewController.h"
 @interface BuffListViewController ()
 
 @end
@@ -30,7 +31,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 2;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -43,7 +44,10 @@
             [cell.textLabel setText:@"加解密(CryptoBuff.h)"];
             [cell.detailTextLabel setText:@"MD5,SHA1,SHA2,AES,DES,3DES,BLOWFISH"];
             break;
-            
+        case 1:
+            [cell.textLabel setText:@"坐标纠偏(LBSBuff.h)"];
+            [cell.detailTextLabel setText:@"来源:http://emq.googlecode.com/svn/emq/src/Algorithm/Coords/Converter.java"];
+            break;
         default:
             break;
     }
@@ -52,8 +56,22 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CryptoBuffViewController *cryptoVC=[[CryptoBuffViewController alloc]init];
-    [self.navigationController pushViewController:cryptoVC animated:YES];
+    switch (indexPath.row) {
+        case 0:
+        {
+            CryptoBuffViewController *cryptoVC=[[CryptoBuffViewController alloc]init];
+            [self.navigationController pushViewController:cryptoVC animated:YES];
+        }
+            break;
+        case 1:
+        {
+            LBSBuffViewController *lbsVC=[[LBSBuffViewController alloc]init];
+            [self.navigationController pushViewController:lbsVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

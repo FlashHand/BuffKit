@@ -9,5 +9,5 @@
 #ifndef BuffKit_h
 #define BuffKit_h
 #import "CryptoBuff.h"
-
+#import "LBSBuff.h"
 #endif /* BuffKit_h */

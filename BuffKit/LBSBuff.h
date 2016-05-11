@@ -1,12 +1,14 @@
 //
 //  LBSBuff.h
-//  BuffDemo
 //
-//  Created by BoWang on 16/5/11.
-//  Copyright © 2016年 BoWang. All rights reserved.
+//  Created by BoWang on 13-7-17.
+//  Copyright © 2013年 BoWang. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CLLocation.h>
+CLLocationCoordinate2D bfLBSWgsToMars(CLLocationCoordinate2D wgsLoc);
+CLLocationCoordinate2D bfLBSWgsToMars2(double lon,double lat);
 
 @interface LBSBuff : NSObject
 
