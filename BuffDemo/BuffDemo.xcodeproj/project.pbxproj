@@ -36,6 +36,7 @@
 /* Begin PBXFileReference section */
 		13A6A5954022D69E9B1BF953 /* ColorBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorBuff.m; sourceTree = "<group>"; };
 		13A6A6D26375ED727545E612 /* ColorBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorBuff.h; sourceTree = "<group>"; };
+		13A6A86E24FB256EED94DA8E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FE29334F1CE21DB30096B1DF /* CryptoBuffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptoBuffViewController.h; sourceTree = "<group>"; };
 		FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptoBuffViewController.m; sourceTree = "<group>"; };
 		FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CryptoBuffViewController.xib; sourceTree = "<group>"; };
@@ -142,6 +143,7 @@
 				FE51CBF91CD8DE2B00A7E897 /* BuffDemo */,
 				FE51CC131CD8DE2B00A7E897 /* BuffDemoTests */,
 				FE51CBF81CD8DE2B00A7E897 /* Products */,
+				13A6A86E24FB256EED94DA8E /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
