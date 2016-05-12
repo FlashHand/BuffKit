@@ -7,7 +7,7 @@
 //
 
 
-
+@interface UIColor (Color)
 @interface ColorBuff : NSObject
 
 @end
