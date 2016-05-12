@@ -233,7 +233,16 @@
 }
 
 @end
+@implementation UIImage (FrameBuff)
+- (CGFloat)width {
+    return self.size.width;
+}
 
+- (CGFloat)height {
+    return self.size.height;
+}
+
+@end
 @implementation FrameBuff
 
 @end

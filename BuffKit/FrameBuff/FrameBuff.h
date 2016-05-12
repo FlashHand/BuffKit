@@ -58,7 +58,10 @@
 @property (readonly)CGFloat midX;
 @property (readonly)CGFloat midY;
 @end
-
+@interface UIImage (FrameBuff)
+@property (readonly)CGFloat width;
+@property (readonly)CGFloat height;
+@end
 @interface FrameBuff : NSObject
 
 @end

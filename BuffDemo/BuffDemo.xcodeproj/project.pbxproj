@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13A6A5AB58F71E3F4E4A9E42 /* ColorBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6A5954022D69E9B1BF953 /* ColorBuff.m */; };
 		FE2933521CE21DB30096B1DF /* CryptoBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */; };
 		FE2933531CE21DB30096B1DF /* CryptoBuffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */; };
 		FE29335B1CE2D2420096B1DF /* LBSBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335A1CE2D2420096B1DF /* LBSBuffViewController.m */; };
@@ -33,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13A6A5954022D69E9B1BF953 /* ColorBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorBuff.m; sourceTree = "<group>"; };
+		13A6A6D26375ED727545E612 /* ColorBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorBuff.h; sourceTree = "<group>"; };
 		FE29334F1CE21DB30096B1DF /* CryptoBuffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptoBuffViewController.h; sourceTree = "<group>"; };
 		FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptoBuffViewController.m; sourceTree = "<group>"; };
 		FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CryptoBuffViewController.xib; sourceTree = "<group>"; };
@@ -78,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13A6A88FD2B11B4F3C5F23BC /* ColorBuff */ = {
+			isa = PBXGroup;
+			children = (
+				13A6A6D26375ED727545E612 /* ColorBuff.h */,
+				13A6A5954022D69E9B1BF953 /* ColorBuff.m */,
+			);
+			path = ColorBuff;
+			sourceTree = "<group>";
+		};
 		FE29334E1CE21D8E0096B1DF /* CryptoBuff */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +197,7 @@
 				FE29335C1CE2FA350096B1DF /* CryptoBuff */,
 				FE29335F1CE2FA350096B1DF /* LBSBuff */,
 				FEE05EB81CDB061A0019F2D3 /* BuffKit.h */,
+				13A6A88FD2B11B4F3C5F23BC /* ColorBuff */,
 			);
 			name = BuffKit;
 			path = ../../BuffKit;
@@ -298,6 +311,7 @@
 				FE2933621CE2FA350096B1DF /* CryptoBuff.m in Sources */,
 				FE51CC261CDAE9D600A7E897 /* BuffListViewController.m in Sources */,
 				FE51CBFC1CD8DE2B00A7E897 /* main.m in Sources */,
+				13A6A5AB58F71E3F4E4A9E42 /* ColorBuff.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
