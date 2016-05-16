@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BuffListViewController.h"
-
+#import <objc/runtime.h>
 @interface AppDelegate ()
 
 @end
@@ -23,7 +23,9 @@
     [buffListVC setTitle:@"BuffKit"];
     UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
     [_window setRootViewController:navi];
-    
+    NSDictionary *string;
+    string=@{@"1":@"2"};
+    NSLog(@"%d",string.allKeys.count);
     [_window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;

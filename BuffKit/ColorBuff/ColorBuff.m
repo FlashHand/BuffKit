@@ -147,7 +147,6 @@
 - (UIColor *)mainColor {
     return nil;
 }
-
 @end
 
 @implementation ColorBuff
