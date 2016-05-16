@@ -8,3 +8,4 @@
 3. [FrameBuff](http://r4l.xyz/2016/05/12/FrameBuff/)-UIView,CALayer的Frame和UIImage的Size的快捷获取
 
 4. [ColorBuff]()-UIColor的功能的扩展,指定或随机获取UIImage某个点的颜色信息
+
