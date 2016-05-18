@@ -13,9 +13,8 @@ Pod::Spec.new do |spec|
   spec.platform = :ios
   spec.ios.deployment_target = "7.0"
   spec.source       = { :git => "https://github.com/FlashHand/BuffKit.git", :tag => "0.1" }
-  spec.public_header_files = "BuffKit/*.h"
-  spec.source_files = "BuffKit/**/*.{h,m}"
+  spec.source_files = "BuffKit/CryptoBuff/CryptoBuff.{h,m}"
 
-  spec.frameworks   = "Foundation","UIKit","CommonCrypto","CoreLocation"
+  spec.frameworks   = "Foundation","UIKit","CoreLocation"
   spec.requires_arc = true
 end

@@ -10,12 +10,11 @@
 - (id)forwardingTargetForSelector:(SEL)aSelector {
     //处理NSNumber,NSString,NSArray,NSDictionary
     NSArray *supporttedTypes = @[@"NSNumber" , @"NSString" , @"NSArray" , @"NSDictionary"];
-    for (int i = 0; i < 4; ++i) {
+    for (NSUInteger i = 0; i < 4; ++i) {
         Method m = class_getInstanceMethod(NSClassFromString(supporttedTypes[i]) , aSelector);
         const char *returnType = method_copyReturnType(m);
         if (returnType) {
-            NSString *returnTypeStr = [[NSString alloc] initWithCString:returnType encoding:NSUTF8StringEncoding];
-            free(returnType);
+            free((void *)returnType);
             switch (i) {
                 case 0:
                     return @(0);

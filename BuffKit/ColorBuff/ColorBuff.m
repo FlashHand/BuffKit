@@ -59,7 +59,6 @@
 }
 
 - (NSInteger)red {
-    const CGFloat *components = CGColorGetComponents(self.CGColor);
 
     if (CGColorGetNumberOfComponents(self.CGColor) < 4) {
         return (int)ceil((CGColorGetComponents(self.CGColor)[0]*255.0));
@@ -71,7 +70,6 @@
 }
 
 - (NSInteger)green {
-    const CGFloat *components = CGColorGetComponents(self.CGColor);
 
     if (CGColorGetNumberOfComponents(self.CGColor) < 4) {
         return (int)ceil((CGColorGetComponents(self.CGColor)[0]*255.0));
@@ -83,7 +81,6 @@
 }
 
 - (NSInteger)blue {
-    const CGFloat *components = CGColorGetComponents(self.CGColor);
 
     if (CGColorGetNumberOfComponents(self.CGColor) < 4) {
         return (int)ceil((CGColorGetComponents(self.CGColor)[0]*255.0));
@@ -95,7 +92,6 @@
 }
 
 - (CGFloat)alpha {
-    const CGFloat *components = CGColorGetComponents(self.CGColor);
 
     if (CGColorGetNumberOfComponents(self.CGColor) < 4) {
         return CGColorGetComponents(self.CGColor)[1];

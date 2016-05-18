@@ -10,4 +10,7 @@
 #define BuffKit_h
 #import "CryptoBuff.h"
 #import "LBSBuff.h"
+#import "NullBuff.h"
+#import "FrameBuff.h"
+#import "ColorBuff.h"
 #endif /* BuffKit_h */
