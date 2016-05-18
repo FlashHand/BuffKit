@@ -4,7 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-//NSString,NSArray,NSDictionary
 @interface NSNull (NSNull)
 
 @end

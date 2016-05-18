@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		13A6A5AB58F71E3F4E4A9E42 /* ColorBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6A5954022D69E9B1BF953 /* ColorBuff.m */; };
+		13A6A708C3BAFCB0DC27505F /* BuffKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 13A6A89883CBCDBAD408A97A /* BuffKit.podspec */; };
 		13A6A7BD9347F3A60459A112 /* NullBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6AFAA8289A356450646CC /* NullBuff.m */; };
+		13A6AAC4FEC19B494A82CF21 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 13A6A31231A7A068F1B947FC /* LICENSE */; };
 		FE2933521CE21DB30096B1DF /* CryptoBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */; };
 		FE2933531CE21DB30096B1DF /* CryptoBuffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */; };
 		FE29335B1CE2D2420096B1DF /* LBSBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335A1CE2D2420096B1DF /* LBSBuffViewController.m */; };
@@ -35,9 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13A6A31231A7A068F1B947FC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		13A6A5954022D69E9B1BF953 /* ColorBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorBuff.m; sourceTree = "<group>"; };
 		13A6A6D26375ED727545E612 /* ColorBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorBuff.h; sourceTree = "<group>"; };
 		13A6A86E24FB256EED94DA8E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		13A6A89883CBCDBAD408A97A /* BuffKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; name = BuffKit.podspec; path = ../BuffKit.podspec; sourceTree = "<group>"; };
 		13A6A8DDEF453B15D7A220D7 /* NullBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullBuff.h; sourceTree = "<group>"; };
 		13A6AFAA8289A356450646CC /* NullBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullBuff.m; sourceTree = "<group>"; };
 		FE29334F1CE21DB30096B1DF /* CryptoBuffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptoBuffViewController.h; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				FE51CC131CD8DE2B00A7E897 /* BuffDemoTests */,
 				FE51CBF81CD8DE2B00A7E897 /* Products */,
 				13A6A86E24FB256EED94DA8E /* README.md */,
+				13A6A31231A7A068F1B947FC /* LICENSE */,
+				13A6A89883CBCDBAD408A97A /* BuffKit.podspec */,
 			);
 			sourceTree = "<group>";
 		};
@@ -301,6 +307,8 @@
 				FE51CC0A1CD8DE2B00A7E897 /* LaunchScreen.storyboard in Resources */,
 				FE51CC071CD8DE2B00A7E897 /* Assets.xcassets in Resources */,
 				FE2933531CE21DB30096B1DF /* CryptoBuffViewController.xib in Resources */,
+				13A6AAC4FEC19B494A82CF21 /* LICENSE in Resources */,
+				13A6A708C3BAFCB0DC27505F /* BuffKit.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

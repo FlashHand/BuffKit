@@ -15,24 +15,20 @@
         const char *returnType = method_copyReturnType(m);
         if (returnType) {
             NSString *returnTypeStr = [[NSString alloc] initWithCString:returnType encoding:NSUTF8StringEncoding];
+            free(returnType);
             switch (i) {
                 case 0:
                     return @(0);
-                    break;
                 case 1:
                     return @"";
-                    break;
                 case 2:
                     return @[];
-                    break;
                 case 3:
                     return @{};
-                    break;
                 default:
                     break;
             }
         }
-        free(returnType);
 
     }
     return [super forwardingTargetForSelector:aSelector];

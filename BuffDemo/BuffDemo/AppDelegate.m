@@ -25,6 +25,7 @@
     [_window setRootViewController:navi];
     NSDictionary *string;
     string=@{@"1":@"2"};
+
     NSLog(@"%d",string.allKeys.count);
     [_window makeKeyAndVisible];
     // Override point for customization after application launch.
