@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonCryptor.h>
+#import <CommonCrypto/CommonCrypto.h>
 #pragma mark 支持的CCMode
 typedef NS_ENUM(NSInteger, BuffCryptoMode) {
     BuffCryptoModeECB		= 1,//kCCModeECB
