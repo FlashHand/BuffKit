@@ -6,11 +6,13 @@
 //  Copyright © 2016年 BoWang. All rights reserved.
 //
 
-#ifndef BuffKit_h
-#define BuffKit_h
+#ifndef _BUFFKIT_
+#define _BUFFKIT_
+
 #import "CryptoBuff.h"
 #import "LBSBuff.h"
 #import "NullBuff.h"
 #import "FrameBuff.h"
 #import "ColorBuff.h"
+
 #endif /* BuffKit_h */
