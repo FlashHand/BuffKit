@@ -91,6 +91,5 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
 -(NSString *)bfCryptoSHA512;
 -(void)bfCryptoSHA512Async:(void(^)(NSString *cryptoString))cryptoBlock;
 @end
-@interface CryptoBuff : NSObject
-@end
+
 

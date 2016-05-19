@@ -486,7 +486,3 @@ NSString *_buffSHA512FromString (NSString *source) {
     });
 }
 @end
-
-@implementation CryptoBuff
-@end
-
