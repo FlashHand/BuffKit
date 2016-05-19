@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "BuffKit"
-  s.version      = "0.11.7"
+  s.version      = "0.11.8"
   s.author       = { "R4L" => "ralphwayne1991@gmail.com" }
   s.summary      = "BuffKit provides common features and functions in iOS development."
   s.description  = <<-DESC
@@ -13,9 +13,8 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.platform = :ios
   s.ios.deployment_target = "7.0"
-  s.source = { :git => "https://github.com/FlashHand/BuffKit.git", :tag => "0.11.7" }
-  s.public_header_files = "BuffKit/*.h","BuffKit/**/*.h"
-  s.source_files = "BuffKit/*.{h,m}","BuffKit/**/*.{h,m}"
+  s.source = { :git => "https://github.com/FlashHand/BuffKit.git", :tag => "0.11.8" }
+  s.source_files = "BuffKit/**/*.{h,m}"
 
   s.ios.frameworks   = "Foundation","UIKit","CoreLocation"
   s.requires_arc = true
