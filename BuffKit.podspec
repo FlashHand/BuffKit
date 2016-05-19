@@ -12,8 +12,9 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => "MIT", :file => "LICENSE" }
   spec.platform = :ios
   spec.ios.deployment_target = "7.0"
-  spec.source       = { :git => "https://github.com/FlashHand/BuffKit.git", :tag => "0.1" }
-  spec.source_files = "BuffKit/CryptoBuff/CryptoBuff.{h,m}"
+  spec.source = { :git => "https://github.com/FlashHand/BuffKit.git", :tag => "0.1" }
+  spec.public_header_files = 'BuffKit/BuffKit.h'
+  spec.ios.source_files = 'BuffKit/**/*.{h,m}'
 
   spec.frameworks   = "Foundation","UIKit","CoreLocation"
   spec.requires_arc = true
