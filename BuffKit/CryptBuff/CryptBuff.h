@@ -16,8 +16,8 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
     BuffCryptoModeOFB		= 7,//kCCModeOFB
     BuffCryptoModeCFB8		= 10,//kCCModeCFB8
 };
-#pragma mark - NSData(CryptoBuff)
-@interface NSData(CryptoBuff)
+#pragma mark - NSData(CryptBuff)
+@interface NSData(CryptBuff)
 #pragma mark  MD5,SHA1,SHA2
 -(NSData *)bfCryptoMD5;
 -(void)bfCryptoMD5Async:(void(^)(NSData *cryptoData))cryptoBlock;
@@ -74,9 +74,9 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
 
 @end
 
-#pragma mark - NSString(CryptoBuff)
+#pragma mark - NSString(CryptBuff)
 
-@interface NSString(CryptoBuff)
+@interface NSString(CryptBuff)
 #pragma mark  MD5,SHA1,SHA2
 -(NSString *)bfCryptoMD5;
 -(void)bfCryptoMD5Async:(void(^)(NSString *cryptoString))cryptoBlock;

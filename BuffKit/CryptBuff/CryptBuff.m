@@ -219,7 +219,7 @@ NSData *_buffBlowFishDecodeFromData (NSData *source , BuffCryptoMode mode , BOOL
     return _buffCryptoFromData(kCCDecrypt , mode , kCCAlgorithmBlowfish , isPadding , source , iv , key , keySize);
 }
 
-@implementation NSData (CryptoBuff)
+@implementation NSData (CryptBuff)
 
 #pragma mark MD5,SHA1,SHA2,
 
@@ -422,7 +422,7 @@ NSString *_buffSHA512FromString (NSString *source) {
     return sha512;
 }
 
-@implementation NSString (CryptoBuff)
+@implementation NSString (CryptBuff)
 #pragma mark MD5,SHA1,SHA2,
 
 - (NSString *)bfCryptoMD5 {
