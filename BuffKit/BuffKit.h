@@ -10,4 +10,5 @@
 #import "NullBuff.h"
 #import "FrameBuff.h"
 #import "ColorBuff.h"
+#import "CryptoBuff.h"
 
