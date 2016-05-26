@@ -1,6 +1,5 @@
 //
 //  CryptoBuff.m
-//  ABCryptoDemo
 //
 //  Created by BoWang on 16/5/3.
 //  Copyright © 2016年 BoWang. All rights reserved.
