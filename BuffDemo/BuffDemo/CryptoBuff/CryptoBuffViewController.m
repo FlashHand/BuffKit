@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     [self.view setBackgroundColor:[UIColor whiteColor]];
     NSString *sourceStr=@"12345678901234561";
     NSData *source=[sourceStr dataUsingEncoding:NSUTF8StringEncoding];
