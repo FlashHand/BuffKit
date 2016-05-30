@@ -121,7 +121,6 @@ NSData *_buffCryptoFromData(CCOperation op, BuffCryptoMode mode, CCAlgorithm al,
     CCCryptorRef cryptor;
     //检验传入的key和iv的正确性
     BOOL isKeyRight = _buffCheckKey(al, key, iv);
-    CCPadding isPadding = ccNoPadding;
     if (!isKeyRight) {
         return nil;
     }
@@ -134,7 +133,6 @@ NSData *_buffCryptoFromData(CCOperation op, BuffCryptoMode mode, CCAlgorithm al,
             NSData *padData = [[NSData alloc] initWithBytes:&pad length:1];
             [sourceM appendData:padData];
         }
-        isPadding = 0;
 
     }
     NSData *ivData = [iv dataUsingEncoding:NSUTF8StringEncoding];
@@ -147,7 +145,7 @@ NSData *_buffCryptoFromData(CCOperation op, BuffCryptoMode mode, CCAlgorithm al,
     CCCryptorStatus result = CCCryptorCreateWithMode(op,
             mode,
             al,
-            isPadding,
+            0,
             [ivData bytes] ? [ivData bytes] : NULL,
             [keyData bytes],
             keyData.length,
@@ -166,16 +164,7 @@ NSData *_buffCryptoFromData(CCOperation op, BuffCryptoMode mode, CCAlgorithm al,
                 [outData mutableBytes],
                 outData.length,
                 &outLength);
-        if (result == kCCSuccess) {
-            //没padding则没必要调用CCCryptorFinal
-            if (isPadding) {
-                result = CCCryptorFinal(cryptor,
-                        [outData mutableBytes],
-                        bufferLength,
-                        &outLength);
-            }
-        }
-        else {
+        if (result != kCCSuccess) {
             outData = nil;
         }
     }
