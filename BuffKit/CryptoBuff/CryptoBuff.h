@@ -7,30 +7,45 @@
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonCrypto.h>
+
 #pragma mark 支持的CCMode
 typedef NS_ENUM(NSInteger, BuffCryptoMode) {
-    BuffCryptoModeECB		= 1,//kCCModeECB
-    BuffCryptoModeCBC		= 2,//kCCModeCBC
-    BuffCryptoModeCFB		= 3,//kCCModeCFB
-    BuffCryptoModeCTR		= 4,//kCCModeCTR
-    BuffCryptoModeOFB		= 7,//kCCModeOFB
-    BuffCryptoModeCFB8		= 10,//kCCModeCFB8
+            BuffCryptoModeECB = 1, //kCCModeECB
+            BuffCryptoModeCBC = 2, //kCCModeCBC
+            BuffCryptoModeCFB = 3, //kCCModeCFB
+            BuffCryptoModeCTR = 4, //kCCModeCTR
+            BuffCryptoModeOFB = 7, //kCCModeOFB
+            BuffCryptoModeCFB8 = 10,//kCCModeCFB8
 };
 #pragma mark - NSData(CryptoBuff)
-@interface NSData(CryptoBuff)
+
+@interface NSData (CryptoBuff)
 #pragma mark  MD5,SHA1,SHA2
--(NSData *)bfCryptoMD5;
--(void)bfCryptoMD5Async:(void(^)(NSData *cryptoData))cryptoBlock;
--(NSData *)bfCryptoSHA1;
--(void)bfCryptoSHA1Async:(void(^)(NSData *cryptoData))cryptoBlock;
--(NSData *)bfCryptoSHA224;
--(void)bfCryptoSHA224Async:(void(^)(NSData *cryptoData))cryptoBlock;
--(NSData *)bfCryptoSHA256 ;
--(void)bfCryptoSHA256Async:(void(^)(NSData *cryptoData))cryptoBlock;
--(NSData *)bfCryptoSHA384;
--(void)bfCryptoSHA384Async:(void(^)(NSData *cryptoData))cryptoBlock;
--(NSData *)bfCryptoSHA512;
--(void)bfCryptoSHA512Async:(void(^)(NSData *cryptoData))cryptoBlock;
+
+- (NSData *)bfCryptoMD5;
+
+- (void)bfCryptoMD5Async:(void (^)(NSData *cryptoData))cryptoBlock;
+
+- (NSData *)bfCryptoSHA1;
+
+- (void)bfCryptoSHA1Async:(void (^)(NSData *cryptoData))cryptoBlock;
+
+- (NSData *)bfCryptoSHA224;
+
+- (void)bfCryptoSHA224Async:(void (^)(NSData *cryptoData))cryptoBlock;
+
+- (NSData *)bfCryptoSHA256;
+
+- (void)bfCryptoSHA256Async:(void (^)(NSData *cryptoData))cryptoBlock;
+
+- (NSData *)bfCryptoSHA384;
+
+- (void)bfCryptoSHA384Async:(void (^)(NSData *cryptoData))cryptoBlock;
+
+- (NSData *)bfCryptoSHA512;
+
+- (void)bfCryptoSHA512Async:(void (^)(NSData *cryptoData))cryptoBlock;
+
 #pragma mark AES
 
 /**
@@ -43,7 +58,8 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
  *  @param cryptoBlock  加密完成后回调，出错则返回nil
  */
 
--(void)bfCryptoAESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoAESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+
 /**
  *  对NSData进行AES解密
  *
@@ -53,44 +69,60 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
  *  @param key         密钥，使用UTF8编码进行解密
  *  @param cryptoBlock 解密完成后回调，出错则返回nil
  */
--(void)bfCryptoAESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoAESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 //参数同上
 #pragma mark DES
 
--(void)bfCryptoDESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
--(void)bfCryptoDESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoDESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+
+- (void)bfCryptoDESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 #pragma mark 3DES
 
--(void)bfCrypto3DESEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
--(void)bfCrypto3DESDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCrypto3DESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
-#pragma mark BlowFish
+- (void)bfCrypto3DESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
--(void)bfCryptoBlowFishEncodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
--(void)bfCryptoBlowFishDecodeWithMode:(BuffCryptoMode )mode padding:(BOOL)isPadding iv:(NSString *)iv key:(NSString *)key completion:(void(^)(NSData *cryptoData))cryptoBlock;
+#pragma mark Blowfish
+
+- (void)bfCryptoBlowfishEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+
+- (void)bfCryptoBlowfishDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 
 @end
 
 #pragma mark - NSString(CryptoBuff)
 
-@interface NSString(CryptoBuff)
+@interface NSString (CryptoBuff)
 #pragma mark  MD5,SHA1,SHA2
--(NSString *)bfCryptoMD5;
--(void)bfCryptoMD5Async:(void(^)(NSString *cryptoString))cryptoBlock;
--(NSString *)bfCryptoSHA1;
--(void)bfCryptoSHA1Async:(void(^)(NSString *cryptoString))cryptoBlock;
--(NSString *)bfCryptoSHA224;
--(void)bfCryptoSHA224Async:(void(^)(NSString *cryptoString))cryptoBlock;
--(NSString *)bfCryptoSHA256;
--(void)bfCryptoSHA256Async:(void(^)(NSString *cryptoString))cryptoBlock;
--(NSString *)bfCryptoSHA384;
--(void)bfCryptoSHA384Async:(void(^)(NSString *cryptoString))cryptoBlock;
--(NSString *)bfCryptoSHA512;
--(void)bfCryptoSHA512Async:(void(^)(NSString *cryptoString))cryptoBlock;
+
+- (NSString *)bfCryptoMD5;
+
+- (void)bfCryptoMD5Async:(void (^)(NSString *cryptoString))cryptoBlock;
+
+- (NSString *)bfCryptoSHA1;
+
+- (void)bfCryptoSHA1Async:(void (^)(NSString *cryptoString))cryptoBlock;
+
+- (NSString *)bfCryptoSHA224;
+
+- (void)bfCryptoSHA224Async:(void (^)(NSString *cryptoString))cryptoBlock;
+
+- (NSString *)bfCryptoSHA256;
+
+- (void)bfCryptoSHA256Async:(void (^)(NSString *cryptoString))cryptoBlock;
+
+- (NSString *)bfCryptoSHA384;
+
+- (void)bfCryptoSHA384Async:(void (^)(NSString *cryptoString))cryptoBlock;
+
+- (NSString *)bfCryptoSHA512;
+
+- (void)bfCryptoSHA512Async:(void (^)(NSString *cryptoString))cryptoBlock;
 @end
+
 @interface CryptoBuff : NSObject
 @end
 

@@ -16,23 +16,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self setTitle:@"CryptoBuff"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    NSString *sourceStr=@"12345678901234561";
+    NSString *sourceStr=@"abcd1234567812345678";
+
     NSData *source=[sourceStr dataUsingEncoding:NSUTF8StringEncoding];
 
-    [source bfCryptoBlowFishEncodeWithMode:BuffCryptoModeCFB padding:YES iv:@"1234567890" key:@"1234567890" completion:^(NSData *cryptoData) {
-        [cryptoData bfCryptoBlowFishDecodeWithMode:BuffCryptoModeCFB padding:NO iv:@"1234567890" key:@"1234567890" completion:^(NSData *cryptoData2) {
+    [source bfCryptoAESEncodeWithMode:BuffCryptoModeCFB iv:@"1234567812345678" key:@"1234567812345678" completion:^(NSData *cryptoData) {
+        [cryptoData bfCryptoAESDecodeWithMode:BuffCryptoModeCFB iv:@"1234567812345678" key:@"1234567812345678" completion:^(NSData *cryptoData2) {
             NSString *result = [[NSString alloc] initWithData: cryptoData2 encoding: NSUTF8StringEncoding];
             NSLog(@"%@",result);
         }];
     }];
     [self.navigationItem setHidesBackButton:NO animated:YES];
-
+    UISegmentedControl *seg= [[UISegmentedControl alloc] initWithItems:@[@"ECB",@"CBC",@"CFB",@"CTR",@"OFB",@"CFB8"]];
+    [seg setFrame:CGRectMake(20,10,300,30)];
+    [self.view addSubview:seg];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+
     // Dispose of any resources that can be recreated.
 }
 

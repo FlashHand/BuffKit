@@ -20,7 +20,7 @@
     CGRect screenBounds=[[UIScreen mainScreen]bounds];
     _window=[[UIWindow alloc]initWithFrame:CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height)];
     BuffListViewController  *buffListVC=[[BuffListViewController alloc]init];
-    [buffListVC setTitle:@"BuffKit"];
+    [buffListVC setTitle:@"BuffKit(长按Cell显示注释\"CellBuff\")"];
     UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
     [_window setRootViewController:navi];
     NSDictionary *string;
