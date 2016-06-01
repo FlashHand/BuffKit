@@ -20,12 +20,9 @@
     CGRect screenBounds=[[UIScreen mainScreen]bounds];
     _window=[[UIWindow alloc]initWithFrame:CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height)];
     BuffListViewController  *buffListVC=[[BuffListViewController alloc]init];
-    [buffListVC setTitle:@"BuffKit(长按Cell显示注释\"CellBuff\")"];
+    [buffListVC setTitle:@"BuffKit"];
     UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
     [_window setRootViewController:navi];
-    NSDictionary *string;
-    string=@{@"1":@"2"};
-    NSLog(@"%d",string.allKeys.count);
     [_window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;

@@ -8,8 +8,11 @@
 
 #import "CryptoBuffViewController.h"
 
-@interface CryptoBuffViewController ()
-
+@interface CryptoBuffViewController ()<UITextViewDelegate,UIScrollViewDelegate>
+{
+    UILabel *hexLabel;
+    UILabel *origTextLabel;
+}
 @end
 
 @implementation CryptoBuffViewController
@@ -18,6 +21,14 @@
     [super viewDidLoad];
     [self setTitle:@"CryptoBuff"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    UIScrollView *scrollView= [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:scrollView];
+    [scrollView setContentSize:CGSizeMake(self.view.width,self.view.height)];
+    UITextView  *textView= [[UITextView alloc] initWithFrame:CGRectMake(0,0,self.view.width,200)];
+    [scrollView addSubview:textView];
+    [textView setDelegate:self];
+
+
     NSString *sourceStr=@"abcd1234567812345678";
 
     NSData *source=[sourceStr dataUsingEncoding:NSUTF8StringEncoding];
@@ -28,6 +39,7 @@
             NSLog(@"%@",result);
         }];
     }];
+
     [self.navigationItem setHidesBackButton:NO animated:YES];
     UISegmentedControl *seg= [[UISegmentedControl alloc] initWithItems:@[@"ECB",@"CBC",@"CFB",@"CTR",@"OFB",@"CFB8"]];
     [seg setFrame:CGRectMake(20,10,300,30)];
