@@ -5,6 +5,10 @@
 
 #import "NavigationBuff.h"
 
+@implementation UIViewController (NavigationBuff)
+
+
+@end
 
 @implementation NavigationBuff {
 

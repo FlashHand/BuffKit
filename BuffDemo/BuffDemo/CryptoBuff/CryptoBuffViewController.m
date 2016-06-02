@@ -53,13 +53,14 @@
     [textView setBackgroundColor:[UIColor blueColor]];
     [textView setTextColor:[UIColor yellowColor]];
     [textView setDelegate:self];
-    [self.view addSubview:textView];
-    [textView becomeFirstResponder];
     [[UITextView appearance] setTintColor:[UIColor yellowColor]];
+    [self.view addSubview:textView];
 
     // Do any additional setup after loading the view from its nib.
 }
-
+- (void)viewDidAppear:(BOOL)animated {
+    [textView becomeFirstResponder];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
@@ -84,7 +85,7 @@
     NSString *plaintText = textView.text;
     __weak typeof(self) wSelf=self;
     NSData *source = [plaintText dataUsingEncoding:NSUTF8StringEncoding];
-    [source bfCryptoAESEncodeWithMode:currentMode iv:@"abcdefgh12345678" key:@"12345678abcdefgh" completion:^(NSData *cryptoData) {
+    [source bfCryptoAESEncodeWithMode:currentMode iv:@"abcdefgh12345679" key:@"12345678abcdefg1" completion:^(NSData *cryptoData) {
         Byte *bytes = (Byte *) [cryptoData bytes];
         NSMutableString *cypherText = [[NSMutableString alloc] init];
         [cryptoData enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
@@ -103,7 +104,10 @@
             [wSelf.textView endEditing:YES];
         });
         NSLog(@"PlainText:\n%@\nCypherText:\n%@", plaintText, cypherText);
-        [cryptoData bfCryptoAESDecodeWithMode:currentMode iv:@"abcdefgh12345678" key:@"12345678abcdefgh" completion:^(NSData *cryptoData2) {
+        [cryptoData bfCryptoAESDecodeWithMode:currentMode iv:@"abcdefgh12345679" key:@"12345678abcdefg1" completion:^(NSData *cryptoData2) {
+            NSString *result= [[NSString alloc] initWithData:cryptoData2 encoding:NSUTF8StringEncoding];
+            NSLog(@"%@",result);
+
         }];
     }];
 }

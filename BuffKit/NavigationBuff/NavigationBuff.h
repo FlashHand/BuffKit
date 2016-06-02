@@ -5,6 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
+@interface UIViewController(NavigationBuff)
+
+@end
 
 @interface NavigationBuff : NSObject
 @end
