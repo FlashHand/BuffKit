@@ -17,6 +17,12 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
             BuffCryptoModeOFB = 7, //kCCModeOFB
             BuffCryptoModeCFB8 = 10,//kCCModeCFB8
 };
+typedef NS_ENUM(NSInteger, BuffCryptoAlgorithm) {
+    BuffCryptoAlgorithmAES = 1,
+    BuffCryptoAlgorithmDES = 2,
+    BuffCryptoAlgorithm3DES = 3,
+    BuffCryptoAlgorithmBLOWFISH = 4,
+};
 #pragma mark - NSData(CryptoBuff)
 
 @interface NSData (CryptoBuff)
@@ -52,7 +58,6 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
  *  对NSData进行AES加密
  *
  *  @param mode         加密模式：ECB,CBC,CFB,CTR,OFB,CFB8
- *  @param isPadding    是否padding(PKCS7Padding)
  *  @param iv           Initialization vector，使用UTF8编码进行加密，ECB下无效
  *  @param key          密钥，使用UTF8编码进行加密
  *  @param cryptoBlock  加密完成后回调，出错则返回nil
@@ -64,7 +69,6 @@ typedef NS_ENUM(NSInteger, BuffCryptoMode) {
  *  对NSData进行AES解密
  *
  *  @param mode        加密模式：ECB,CBC,CFB,CTR,OFB,CFB8
- *  @param isPadding   是否padding(PKCS7Padding)
  *  @param iv          Initialization vector，使用UTF8编码进行解密，ECB下无效
  *  @param key         密钥，使用UTF8编码进行解密
  *  @param cryptoBlock 解密完成后回调，出错则返回nil

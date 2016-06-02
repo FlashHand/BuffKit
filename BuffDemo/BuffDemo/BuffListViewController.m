@@ -19,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    //sidebar
+
     buffListTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) style:UITableViewStylePlain];
     [buffListTableView setDelegate:self];
     [buffListTableView setDataSource:self];
@@ -47,7 +49,7 @@
             break;
         case 1:
             [cell.textLabel setText:@"坐标纠偏(LBSBuff.h)"];
-            [cell.detailTextLabel setText:@"来源:http://emq.googlecode.com/svn/emq/src/Algorithm/Coords/Converter.java"];
+            [cell.detailTextLabel setText:@"算法来源:http://emq.googlecode.com/svn/emq/src/Algorithm/Coords/Converter.java"];
             break;
         default:
             break;
@@ -74,5 +76,16 @@
         default:
             break;
     }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UILabel *label= [[UILabel alloc] initWithFrame:CGRectMake(0,0,self.view.width,40)];
+    [label setBackgroundColor:[UIColor whiteColor]];
+    [label setText:@"长按Cell显示注释(CellBuff)"];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightLight]];
+    return label;
 }
 @end

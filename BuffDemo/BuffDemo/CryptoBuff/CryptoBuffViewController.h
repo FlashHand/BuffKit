@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CryptoBuffViewController : UIViewController
+@interface CryptoBuffViewController : UIViewController {
+    BuffCryptoMode *currentMode;
+    NSInteger alg;//1=AES,2=DES,3=3DES,4=BLOWFISH
+}
+@property(nonatomic, strong) UITextView *textView;
 
 @end

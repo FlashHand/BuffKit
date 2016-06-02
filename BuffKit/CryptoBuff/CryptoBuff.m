@@ -272,8 +272,8 @@ NSData *_buffBlowfishDecodeFromData(NSData *source, BuffCryptoMode mode, NSStrin
     });
 }
 
-#pragma mark AES
 
+#pragma mark AES
 
 - (void)bfCryptoAESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
 
@@ -289,7 +289,6 @@ NSData *_buffBlowfishDecodeFromData(NSData *source, BuffCryptoMode mode, NSStrin
 }
 
 #pragma mark DES
-
 
 - (void)bfCryptoDESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
 

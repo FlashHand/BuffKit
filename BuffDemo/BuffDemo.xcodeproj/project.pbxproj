@@ -15,8 +15,8 @@
 		13A6A8EA5C90ACC7F4D8AA75 /* CellBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6AAFC7E12A2575CFEE3A5 /* CellBuff.m */; };
 		13A6A9E70906333FDD7A1118 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 13A6A0FF3BBE72E10CD40266 /* README.md */; };
 		13A6AB5AA3015655A103C2DF /* ImageBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6AC8452C7BBFDF1FD1ADF /* ImageBuff.m */; };
+		13A6AEA64E1E4D08846B216C /* NavigationBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */; };
 		FE2933521CE21DB30096B1DF /* CryptoBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */; };
-		FE2933531CE21DB30096B1DF /* CryptoBuffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */; };
 		FE29335B1CE2D2420096B1DF /* LBSBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335A1CE2D2420096B1DF /* LBSBuffViewController.m */; };
 		FE2933621CE2FA350096B1DF /* CryptoBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335E1CE2FA350096B1DF /* CryptoBuff.m */; };
 		FE2933631CE2FA350096B1DF /* LBSBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933611CE2FA350096B1DF /* LBSBuff.m */; };
@@ -42,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		13A6A0FF3BBE72E10CD40266 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		13A6A1753FEBCCD8BF6898D2 /* NavigationBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBuff.h; sourceTree = "<group>"; };
 		13A6A5954022D69E9B1BF953 /* ColorBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorBuff.m; sourceTree = "<group>"; };
 		13A6A6D26375ED727545E612 /* ColorBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorBuff.h; sourceTree = "<group>"; };
 		13A6A7A7A2B5DC4C0515E80F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -51,11 +52,11 @@
 		13A6AAFC7E12A2575CFEE3A5 /* CellBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellBuff.m; sourceTree = "<group>"; };
 		13A6ABAB4D4DCD403A186681 /* BuffKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; name = BuffKit.podspec; path = ../BuffKit.podspec; sourceTree = "<group>"; };
 		13A6AC8452C7BBFDF1FD1ADF /* ImageBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBuff.m; sourceTree = "<group>"; };
+		13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBuff.m; sourceTree = "<group>"; };
 		13A6AF40F80251F84DA0032A /* CellBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellBuff.h; sourceTree = "<group>"; };
 		13A6AFAA8289A356450646CC /* NullBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullBuff.m; sourceTree = "<group>"; };
 		FE29334F1CE21DB30096B1DF /* CryptoBuffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptoBuffViewController.h; sourceTree = "<group>"; };
 		FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptoBuffViewController.m; sourceTree = "<group>"; };
-		FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CryptoBuffViewController.xib; sourceTree = "<group>"; };
 		FE2933541CE21DFC0096B1DF /* Buff.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buff.pch; sourceTree = "<group>"; };
 		FE2933591CE2D2420096B1DF /* LBSBuffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBSBuffViewController.h; sourceTree = "<group>"; };
 		FE29335A1CE2D2420096B1DF /* LBSBuffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBSBuffViewController.m; sourceTree = "<group>"; };
@@ -112,8 +113,16 @@
 			children = (
 				13A6AAFC7E12A2575CFEE3A5 /* CellBuff.m */,
 				13A6AF40F80251F84DA0032A /* CellBuff.h */,
+				13A6A307E74747659C5D5E4F /* NavigationBuff */,
 			);
 			path = CellBuff;
+			sourceTree = "<group>";
+		};
+		13A6A307E74747659C5D5E4F /* NavigationBuff */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NavigationBuff;
 			sourceTree = "<group>";
 		};
 		13A6A76A1EE1FE45B8E460FC /* ImageBuff */ = {
@@ -134,12 +143,20 @@
 			path = ColorBuff;
 			sourceTree = "<group>";
 		};
+		13A6A9439C03DC186ECCAA0E /* NavigationBuff */ = {
+			isa = PBXGroup;
+			children = (
+				13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */,
+				13A6A1753FEBCCD8BF6898D2 /* NavigationBuff.h */,
+			);
+			path = NavigationBuff;
+			sourceTree = "<group>";
+		};
 		FE29334E1CE21D8E0096B1DF /* CryptoBuff */ = {
 			isa = PBXGroup;
 			children = (
 				FE29334F1CE21DB30096B1DF /* CryptoBuffViewController.h */,
 				FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */,
-				FE2933511CE21DB30096B1DF /* CryptoBuffViewController.xib */,
 			);
 			path = CryptoBuff;
 			sourceTree = "<group>";
@@ -249,6 +266,7 @@
 				13A6A1F7AA6C1CD58617D170 /* NullBuff */,
 				13A6A76A1EE1FE45B8E460FC /* ImageBuff */,
 				13A6A2B507685B0CE8378C06 /* CellBuff */,
+				13A6A9439C03DC186ECCAA0E /* NavigationBuff */,
 			);
 			name = BuffKit;
 			path = ../../BuffKit;
@@ -336,7 +354,6 @@
 			files = (
 				FE51CC0A1CD8DE2B00A7E897 /* LaunchScreen.storyboard in Resources */,
 				FE51CC071CD8DE2B00A7E897 /* Assets.xcassets in Resources */,
-				FE2933531CE21DB30096B1DF /* CryptoBuffViewController.xib in Resources */,
 				13A6A27E32ECCB3F0B1A4B04 /* BuffKit.podspec in Resources */,
 				13A6A6A424AD496A9DFE30E7 /* LICENSE in Resources */,
 				13A6A2596D0E1608CF478FE4 /* lbsbuff.jpg in Resources */,
@@ -370,6 +387,7 @@
 				13A6A9E70906333FDD7A1118 /* README.md in Sources */,
 				13A6AB5AA3015655A103C2DF /* ImageBuff.m in Sources */,
 				13A6A8EA5C90ACC7F4D8AA75 /* CellBuff.m in Sources */,
+				13A6AEA64E1E4D08846B216C /* NavigationBuff.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
