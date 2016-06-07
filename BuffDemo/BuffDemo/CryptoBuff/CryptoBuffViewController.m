@@ -86,7 +86,6 @@
     __weak typeof(self) wSelf=self;
     NSData *source = [plaintText dataUsingEncoding:NSUTF8StringEncoding];
     [source bfCryptoAESEncodeWithMode:currentMode iv:@"abcdefgh12345679" key:@"12345678abcdefg1" completion:^(NSData *cryptoData) {
-        Byte *bytes = (Byte *) [cryptoData bytes];
         NSMutableString *cypherText = [[NSMutableString alloc] init];
         [cryptoData enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
             unsigned char *dataBytes = (unsigned char *) bytes;

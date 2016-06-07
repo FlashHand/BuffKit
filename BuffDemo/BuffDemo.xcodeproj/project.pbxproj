@@ -146,8 +146,8 @@
 		13A6A9439C03DC186ECCAA0E /* NavigationBuff */ = {
 			isa = PBXGroup;
 			children = (
-				13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */,
 				13A6A1753FEBCCD8BF6898D2 /* NavigationBuff.h */,
+				13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */,
 			);
 			path = NavigationBuff;
 			sourceTree = "<group>";

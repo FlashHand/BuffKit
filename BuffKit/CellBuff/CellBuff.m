@@ -79,7 +79,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (void)showAnnotation:(UILongPressGestureRecognizer *)gesture {
-    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     CGPoint touchPoint1 = [gesture locationInView:([[UIApplication sharedApplication] delegate]).window];
     CGPoint touchPoint2 = [gesture locationInView:self];
     CGPoint diffPoint = CGPointMake(touchPoint1.x - touchPoint2.x, touchPoint1.y - touchPoint2.y);
@@ -93,7 +92,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (void)showannotationBtnWithTouch:(CGPoint)diffPoint {
-    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     //添加全屏按钮
     self.bfAnnotationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,
             [[UIScreen mainScreen] bounds].size.width,
@@ -117,8 +115,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         annotationBounds.size.height=30;
     }
     //w是背景layer的宽度,不超过screenWidth-10
-    CGFloat w = annotationBounds.size.width + 10;
-    CGFloat h = annotationBounds.size.height;
     UILabel *annotationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,
             annotationBounds.size.width,
             annotationBounds.size.height)];
@@ -131,7 +127,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [annotationLabel setAttributedText:attributedString];
     //TODO:适应不同列表宽度
 
-    CGFloat annotationDiff;
     //注释layer的位置
     CGPoint p1 = CGPointMake(0, 0);
     //箭头layer的位置
