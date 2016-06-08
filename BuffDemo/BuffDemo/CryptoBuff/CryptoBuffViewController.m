@@ -49,11 +49,11 @@
     [self.view addSubview:clearBtn];
     [clearBtn addTarget:self action:@selector(clearAction:) forControlEvents:UIControlEventTouchUpInside];
 
+    [[UITextView appearance] setTintColor:[UIColor yellowColor]];
     textView = [[UITextView alloc] initWithFrame:CGRectMake(0, encodeBtn.bottom + 20, self.view.width, self.view.height - encodeBtn.bottom - 20)];
     [textView setBackgroundColor:[UIColor blueColor]];
     [textView setTextColor:[UIColor yellowColor]];
     [textView setDelegate:self];
-    [[UITextView appearance] setTintColor:[UIColor yellowColor]];
     [self.view addSubview:textView];
 
     // Do any additional setup after loading the view from its nib.

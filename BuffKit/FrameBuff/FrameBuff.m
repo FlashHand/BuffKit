@@ -243,5 +243,16 @@
 
 @end
 @implementation FrameBuff
++ (CGFloat)screenWidth {
+    return [[UIScreen mainScreen] bounds].size.width;
+}
+
++ (CGFloat)screenHeight {
+    return [[UIScreen mainScreen] bounds].size.height;
+}
+
++ (CGFloat)screenScale {
+    return [[UIScreen mainScreen] scale];
+}
 
 @end

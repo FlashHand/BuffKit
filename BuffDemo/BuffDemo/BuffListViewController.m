@@ -25,6 +25,13 @@
     [buffListTableView setDelegate:self];
     [buffListTableView setDataSource:self];
     [self.view addSubview:buffListTableView];
+    CATransform3D t=CATransform3DIdentity;
+    t.m34=-1.0/1000;
+    t=CATransform3DRotate(t,1.0,0,1,0);
+    [self.navigationController.view.layer setTransform:t];
+    [self.navigationController.view.layer setShouldRasterize:YES];
+    [self.navigationController.view.layer setRasterizationScale:2.0];
+
     // Do any additional setup after loading the view.
 }
 

@@ -62,5 +62,7 @@
 @property (readonly)CGFloat height;
 @end
 @interface FrameBuff : NSObject
-
++(CGFloat)screenWidth;
++(CGFloat)screenHeight;
++(CGFloat)screenScale;
 @end
