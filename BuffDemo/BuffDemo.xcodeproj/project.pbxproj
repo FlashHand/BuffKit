@@ -17,6 +17,7 @@
 		13A6AA1222AEC2A81F826008 /* RootSplitBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6A0DE6EF5BE73C9184418 /* RootSplitBuff.m */; };
 		13A6AB5AA3015655A103C2DF /* ImageBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6AC8452C7BBFDF1FD1ADF /* ImageBuff.m */; };
 		13A6AEA64E1E4D08846B216C /* NavigationBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */; };
+		2D4908761D0D36F500C4066F /* WallPaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2D4908751D0D36F500C4066F /* WallPaper.jpg */; };
 		FE2933521CE21DB30096B1DF /* CryptoBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */; };
 		FE29335B1CE2D2420096B1DF /* LBSBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335A1CE2D2420096B1DF /* LBSBuffViewController.m */; };
 		FE2933621CE2FA350096B1DF /* CryptoBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335E1CE2FA350096B1DF /* CryptoBuff.m */; };
@@ -58,6 +59,7 @@
 		13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBuff.m; sourceTree = "<group>"; };
 		13A6AF40F80251F84DA0032A /* CellBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellBuff.h; sourceTree = "<group>"; };
 		13A6AFAA8289A356450646CC /* NullBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullBuff.m; sourceTree = "<group>"; };
+		2D4908751D0D36F500C4066F /* WallPaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WallPaper.jpg; sourceTree = "<group>"; };
 		FE29334F1CE21DB30096B1DF /* CryptoBuffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptoBuffViewController.h; sourceTree = "<group>"; };
 		FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptoBuffViewController.m; sourceTree = "<group>"; };
 		FE2933541CE21DFC0096B1DF /* Buff.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buff.pch; sourceTree = "<group>"; };
@@ -157,6 +159,14 @@
 			path = NavigationBuff;
 			sourceTree = "<group>";
 		};
+		2D4908741D0D36EF00C4066F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2D4908751D0D36F500C4066F /* WallPaper.jpg */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FE29334E1CE21D8E0096B1DF /* CryptoBuff */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +237,7 @@
 		FE51CBF91CD8DE2B00A7E897 /* BuffDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2D4908741D0D36EF00C4066F /* Resources */,
 				FE51CBFD1CD8DE2B00A7E897 /* AppDelegate.h */,
 				FE51CBFE1CD8DE2B00A7E897 /* AppDelegate.m */,
 				FE2933541CE21DFC0096B1DF /* Buff.pch */,
@@ -362,6 +373,7 @@
 				13A6A27E32ECCB3F0B1A4B04 /* BuffKit.podspec in Resources */,
 				13A6A6A424AD496A9DFE30E7 /* LICENSE in Resources */,
 				13A6A2596D0E1608CF478FE4 /* lbsbuff.jpg in Resources */,
+				2D4908761D0D36F500C4066F /* WallPaper.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,30 +28,61 @@ static BFRootViewController *rootViewController=nil;
     return self;
 }
 - (void)viewDidLoad {
-    UIImageView *rootBackgroudImageView=[[UIImageView alloc]init];
-    NSLayoutConstraint *mainViewConstraint1=[NSLayoutConstraint constraintWithItem:rootBackgroudImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
-    NSLayoutConstraint *mainViewConstraint2=[NSLayoutConstraint constraintWithItem:rootBackgroudImageView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
-    NSLayoutConstraint *mainViewConstraint3=[NSLayoutConstraint constraintWithItem:rootBackgroudImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
-    NSLayoutConstraint *mainViewConstraint4=[NSLayoutConstraint constraintWithItem:rootBackgroudImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
-    [self.view addSubview:rootBackgroudImageView];
-    [rootBackgroudImageView setImage:[UIImage imageNamed:@"bg.jpg"]];
+    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.rootBackgroundImageView=[[UIImageView alloc]init];
+    [self.rootBackgroundImageView setBackgroundColor:[UIColor whiteColor]];
+    [self.rootBackgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:self.rootBackgroundImageView];
+    UIView *containerView=self.view;
+    NSDictionary *bindings=NSDictionaryOfVariableBindings(_rootBackgroundImageView,containerView);
+    NSDictionary *metrics = @{@"margin":@0};
+    NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
+    NSMutableArray*constraints=[NSMutableArray array];
+    NSArray *c1=[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_rootBackgroundImageView(==containerView)]" options:ops metrics:metrics views:bindings];
+    NSArray *c2=[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-margin-[_rootBackgroundImageView(==containerView)]" options:ops metrics:metrics views:bindings];
+    [constraints addObjectsFromArray:c1];
+    [constraints addObjectsFromArray:c2];
+    [self.rootBackgroundImageView setImage:[UIImage imageNamed:@"WallPaper.jpg"]];
+    [self.view addConstraints:constraints];
 }
+#pragma mark 设置主控制器
 -(void)setBfMainViewController:(UIViewController *)bfMainViewController {
     _bfMainViewController=bfMainViewController;
+    [self.bfMainViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:self.bfMainViewController.view];
+    UIView *mainView=self.bfMainViewController.view;
+    UIView *containerView=self.view;
+    NSDictionary *bindings=NSDictionaryOfVariableBindings(mainView,containerView);
+    NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
+    NSDictionary *metrics = @{@"margin":@0};
+    NSMutableArray*fullScreenConstraints=[NSMutableArray array];
+    NSArray *c1=[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[mainView(==containerView)]" options:ops metrics:metrics views:bindings];
+    NSArray *c2=[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-margin-[mainView(==containerView)]" options:ops metrics:metrics views:bindings];
+    [fullScreenConstraints addObjectsFromArray:c1];
+    [fullScreenConstraints addObjectsFromArray:c2];
+    [self.view addConstraints:fullScreenConstraints];
+}
+#pragma mark 设置左控制器
+#pragma mark 设置右控制器
 
+#pragma mark 设置背景
+-(void)setRootBackgroundImage:(UIImage *)rootBackgroundImage
+{
+    _rootBackgroundImage=rootBackgroundImage;
+    [self.rootBackgroundImageView setImage:rootBackgroundImage];
 }
 
 #pragma mark Private method
 -(void)setMainViewConstraints{
     [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    NSLayoutConstraint *mainViewConstraints=[NSLayoutConstraint constraintWithItem:self.bfMainViewController.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+//    NSLayoutConstraint *mainViewConstraints=[NSLayoutConstraint constraintWithItem:self.bfMainViewController.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
 }
 @end
 @implementation UIViewController (RootVCSplitBuff)
 
 @end
 @implementation RootSplitBuff
-+(UIViewController *)rootViewController{
++(BFRootViewController *)rootViewController{
     return [BFRootViewController sharedController];
 }
 @end

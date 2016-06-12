@@ -10,7 +10,6 @@
 
 @interface BFRootViewController : UIViewController
 {
-
 }
 + (BFRootViewController *)sharedController;
 
@@ -33,7 +32,9 @@
 //右侧栏是否覆盖mainView
 @property(nonatomic, assign) BOOL shouldRightCovered;
 
-@property (nonatomic, strong)UIImage *rootBackGroudImage;
+//背景
+@property (nonnull,strong)UIImageView *rootBackgroundImageView;
+@property (nonatomic, strong)UIImage *rootBackgroundImage;
 @end
 
 @interface UIViewController (RootSplitBuff)
@@ -41,5 +42,5 @@
 @end
 
 @interface RootSplitBuff : NSObject
-+ (UIViewController *)rootViewController;
++ (BFRootViewController *)rootViewController;
 @end

@@ -28,10 +28,19 @@
     CATransform3D t=CATransform3DIdentity;
     t.m34=-1.0/1000;
     t=CATransform3DRotate(t,1.0,0,1,0);
-    [self.navigationController.view.layer setTransform:t];
+//    [self.navigationController.view.layer setTransform:t];
     [self.navigationController.view.layer setShouldRasterize:YES];
     [self.navigationController.view.layer setRasterizationScale:2.0];
-
+    UIButton *leftBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+    [leftBtn setTitle:@"左侧" forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    UIBarButtonItem *leftItem=[[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    [self.navigationItem setLeftBarButtonItem:leftItem];
+    UIButton *rightBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+    [rightBtn setTitle:@"右侧" forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    UIBarButtonItem *rightItem=[[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    [self.navigationItem setRightBarButtonItem:rightItem];
     // Do any additional setup after loading the view.
 }
 
@@ -39,6 +48,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark Actions
+-(void)leftAction:(UIButton *)sender
+{
+    
+}-(void)rightAction:(UIButton *)sender
+{
+    
+}
+#pragma mark table delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 2;
