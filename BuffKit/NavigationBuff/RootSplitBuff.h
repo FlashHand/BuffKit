@@ -37,7 +37,7 @@
 
 //背景
 @property (nonatomic, strong)UIImage *rootBackgroundImage;
-@property (nonnull,strong)UIImageView *rootBackgroundImageView;
+@property (nonatomic,strong)UIImageView *rootBackgroundImageView;
 
 -(void)showLeftViewController;
 @end

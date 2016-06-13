@@ -100,17 +100,12 @@ static BFRootViewController *rootViewController=nil;
 {
     [_bfLeftViewController.view removeFromSuperview];
     _bfLeftViewController=bfLeftViewController;
-    [self.view addSubview:_bfLeftViewController.view];
-    [self updateLeftConstraints];
 }
 -(UIViewController *)bfLeftViewController
 {
     if (!_bfLeftViewController) {
         _bfLeftViewController=[[UIViewController alloc]init];
         [_bfLeftViewController.view setBackgroundColor:[UIColor whiteColor]];
-        [self.view addSubview:_bfLeftViewController.view];
-        [self updateLeftConstraints];
-    
     }
     return _bfLeftViewController;
 }
@@ -120,7 +115,6 @@ static BFRootViewController *rootViewController=nil;
     if (!_bfRightViewController) {
         _bfRightViewController=[[UIViewController alloc]init];
         [_bfRightViewController.view setBackgroundColor:[UIColor whiteColor]];
-        
     }
     return _bfRightViewController;
 }
