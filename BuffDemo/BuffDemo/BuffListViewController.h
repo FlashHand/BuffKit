@@ -10,6 +10,7 @@
 
 @interface BuffListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
-    UITableView *buffListTableView;
 }
+@property (nonatomic,strong)    UITableView *buffListTableView;
+
 @end

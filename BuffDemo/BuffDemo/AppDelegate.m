@@ -17,20 +17,22 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     CGRect screenBounds=[[UIScreen mainScreen]bounds];
+//    [[NSBundle mainBundle].infoDictionary.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        NSLog(@"%@",obj);
+//    }];
+//    UIViewControllerBasedStatusBarAppearance
     _window=[[UIWindow alloc]initWithFrame:CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height)];
     BuffListViewController  *buffListVC=[[BuffListViewController alloc]init];
     [buffListVC setTitle:@"BuffKit"];
     UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
+    [[RootSplitBuff rootViewController]setRootBackgroundImage:[UIImage imageNamed:@"WallPaper.jpg"]];
     [[RootSplitBuff rootViewController]setBfMainViewController:navi];
     [_window setRootViewController:[RootSplitBuff rootViewController]];
-    [[RootSplitBuff rootViewController] setRootBackgroundImage:[UIImage imageNamed:@"WallPaper.jpg"]];
     [_window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }
-
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

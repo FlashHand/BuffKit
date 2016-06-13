@@ -10,6 +10,9 @@
 
 @interface BFRootViewController : UIViewController
 {
+    NSMutableArray*fullScreenConstraints;
+    NSMutableArray *leftConstraints;
+    NSMutableArray *rightConstraints;
 }
 + (BFRootViewController *)sharedController;
 
@@ -33,8 +36,10 @@
 @property(nonatomic, assign) BOOL shouldRightCovered;
 
 //背景
-@property (nonnull,strong)UIImageView *rootBackgroundImageView;
 @property (nonatomic, strong)UIImage *rootBackgroundImage;
+@property (nonnull,strong)UIImageView *rootBackgroundImageView;
+
+-(void)showLeftViewController;
 @end
 
 @interface UIViewController (RootSplitBuff)

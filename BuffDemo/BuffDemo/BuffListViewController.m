@@ -15,16 +15,30 @@
 @end
 
 @implementation BuffListViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view addSubview:[UIView new]];
+    
     [self.view setBackgroundColor:[UIColor whiteColor]];
     //sidebar
-
-    buffListTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) style:UITableViewStylePlain];
-    [buffListTableView setDelegate:self];
-    [buffListTableView setDataSource:self];
-    [self.view addSubview:buffListTableView];
+    _buffListTableView=[[UITableView alloc]init];
+    [_buffListTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:_buffListTableView];
+    NSMutableArray *constraints=[NSMutableArray array];
+    UIView *containerView=self.view;
+    NSDictionary *bindings=NSDictionaryOfVariableBindings(_buffListTableView,containerView);
+    NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
+    NSDictionary *metrics = @{@"margin":@0};
+    NSArray *c1=[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_buffListTableView(==containerView)]" options:ops metrics:metrics views:bindings];
+    NSArray *c2=[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-margin-[_buffListTableView(==containerView)]" options:ops metrics:metrics views:bindings];
+    [constraints addObjectsFromArray:c1];
+    [constraints addObjectsFromArray:c2];
+    [NSLayoutConstraint activateConstraints:constraints];
+    
+    [_buffListTableView setDelegate:self];
+    [_buffListTableView setDataSource:self];
+    
     CATransform3D t=CATransform3DIdentity;
     t.m34=-1.0/1000;
     t=CATransform3DRotate(t,1.0,0,1,0);
@@ -34,16 +48,17 @@
     UIButton *leftBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
     [leftBtn setTitle:@"左侧" forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(leftAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem=[[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     [self.navigationItem setLeftBarButtonItem:leftItem];
     UIButton *rightBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
     [rightBtn setTitle:@"右侧" forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(rightAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem=[[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     [self.navigationItem setRightBarButtonItem:rightItem];
-    // Do any additional setup after loading the view.
+    [_buffListTableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -51,15 +66,15 @@
 #pragma mark Actions
 -(void)leftAction:(UIButton *)sender
 {
-    
-}-(void)rightAction:(UIButton *)sender
+}
+-(void)rightAction:(UIButton *)sender
 {
     
 }
 #pragma mark table delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 15;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -67,6 +82,8 @@
     if (!cell) {
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
+    [cell.textLabel setText:@"ph"];
+    [cell.detailTextLabel setText:@"ph"];
     switch (indexPath.row) {
         case 0:
             [cell.textLabel setText:@"加解密(CryptoBuff.h)"];
