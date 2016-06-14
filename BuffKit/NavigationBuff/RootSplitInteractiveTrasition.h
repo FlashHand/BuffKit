@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface RootSplitInteractiveTrasition : NSObject
+@end
 
+//左侧滑动手势交互(或边缘滑动)
+@interface PanInteractiveTransitionLeft :UIPercentDrivenInteractiveTransition
 @end
-//左侧边缘滑动手势交互
-@interface SwipeInteractiveTransitionLeft :UIPercentDrivenInteractiveTransition
-@end
-//右侧边缘滑动手势交互
-@interface SwipeInteractiveTransitionRight :UIPercentDrivenInteractiveTransition
+//右侧滑动手势交互(或边缘滑动)
+@interface PanInteractiveTransitionRight :UIPercentDrivenInteractiveTransition
 @end

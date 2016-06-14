@@ -7,17 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#pragma mark - Default values
 
+#pragma mark - Animator manager
 @interface RootSplitAnimator : NSObject
-
 @end
 
-//左侧栏动画生成器
+#pragma mark - Left viewController animator
 @interface RootSplitAnimatorLeftShow : NSObject<UIViewControllerAnimatedTransitioning>
 @end
 @interface RootSplitAnimatorLeftHide : NSObject<UIViewControllerAnimatedTransitioning>
 @end
-//右侧栏动画生成器
+#pragma mark - Right viewController animator
 @interface RootSplitAnimatorRightShow : NSObject<UIViewControllerAnimatedTransitioning>
 @end
 @interface RootSplitAnimatorRightHide : NSObject<UIViewControllerAnimatedTransitioning>

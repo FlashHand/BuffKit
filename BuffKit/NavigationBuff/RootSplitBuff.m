@@ -7,11 +7,22 @@
 //
 
 #import "RootSplitBuff.h"
+@interface BFRootViewController ()
+{
+    UIPercentDrivenInteractiveTransition *leftTransitionControl;
+    UIPercentDrivenInteractiveTransition *rightTransitionControl;
+    UIScreenEdgePanGestureRecognizer *leftEdgePanGesture;
+    UIPanGestureRecognizer *leftPanGesture;
+    UIScreenEdgePanGestureRecognizer *rightEdgePanGesture;
+    UIPanGestureRecognizer *rightPanGesture;
+}
+@end
 static BFRootViewController *rootViewController=nil;
 @implementation BFRootViewController
 @synthesize bfMainViewController=_bfMainViewController;
 @synthesize bfLeftViewController=_bfLeftViewController;
 @synthesize bfRightViewController=_bfRightViewController;
+
 +(BFRootViewController *)sharedController{
     @synchronized (self) {
         if (!rootViewController) {
@@ -35,9 +46,10 @@ static BFRootViewController *rootViewController=nil;
 - (void)viewDidLoad {
     
 }
+#pragma mark - Initial configuration
 -(void)applyDefault
 {
-    self.mainViewPerspective=NO;
+    self.splitStyle=BuffSplitStyleCovered;
     self.mainViewDimColor=[UIColor clearColor];
     self.mainViewDimOpacity=0.5;
     self.mainViewScale=0.8;
@@ -45,6 +57,9 @@ static BFRootViewController *rootViewController=nil;
     self.rightWidth=200;
     self.shouldLeftCovered=NO;
     self.shouldRightCovered=NO;
+    self.leftAnimatorDuration=0.3;
+    self.rightAnimatorDuration=0.3;
+    
 }
 -(void)applyLayout
 {
@@ -68,7 +83,7 @@ static BFRootViewController *rootViewController=nil;
     [self.rootBackgroundImageView setImage:self.rootBackgroundImage];
     [self.view addConstraints:constraints];
 }
-#pragma mark 主控制器Access
+#pragma mark - properties' access
 -(void)setBfMainViewController:(UIViewController *)bfMainViewController {
     [_bfMainViewController.view removeFromSuperview];
     [NSLayoutConstraint deactivateConstraints:fullScreenConstraints];
@@ -95,7 +110,6 @@ static BFRootViewController *rootViewController=nil;
 //    UIBezierPath *shadowPath=[UIBezierPath bezierPathWithRect:self.view.bounds];
 //    [self.bfMainViewController.view.layer setShadowPath:shadowPath.CGPath];
 }
-#pragma mark 左控制器Access
 -(void)setBfLeftViewController:(UIViewController *)bfLeftViewController
 {
     [_bfLeftViewController.view removeFromSuperview];
@@ -105,20 +119,18 @@ static BFRootViewController *rootViewController=nil;
 {
     if (!_bfLeftViewController) {
         _bfLeftViewController=[[UIViewController alloc]init];
-        [_bfLeftViewController.view setBackgroundColor:[UIColor whiteColor]];
+        [_bfLeftViewController.view setBackgroundColor:[UIColor clearColor]];
     }
     return _bfLeftViewController;
 }
-#pragma mark 右控制器Access
 -(UIViewController *)bfRightViewController
 {
     if (!_bfRightViewController) {
         _bfRightViewController=[[UIViewController alloc]init];
-        [_bfRightViewController.view setBackgroundColor:[UIColor whiteColor]];
+        [_bfRightViewController.view setBackgroundColor:[UIColor clearColor]];
     }
     return _bfRightViewController;
 }
-#pragma mark 设置背景
 -(void)setRootBackgroundImage:(UIImage *)rootBackgroundImage
 {
     _rootBackgroundImage=rootBackgroundImage;
@@ -152,28 +164,78 @@ static BFRootViewController *rootViewController=nil;
     }
 }
 -(void)showLeftViewController{
-    if (self.shouldLeftCovered) {
-        [_bfLeftViewController.view setWidth:self.leftWidth];
-    }
+    [self presentViewController:self.bfLeftViewController animated:YES completion:nil];
+}
+-(void)hideLeftViewController{
+    [self.bfLeftViewController dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)showRightViewController{
+    [self presentViewController:self.bfRightViewController animated:YES completion:nil];
+}
+-(void)hideRightViewController{
+    [self.bfRightViewController dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)activeLeftPanGestureOnEdge:(BOOL)onEdge{
+    
+}
+-(void)deactiveLeftPanGesture{
+    
+}
+-(void)activeRightPanGestureOnEdge:(BOOL)onEdge{
+    
+}
+-(void)deactiveRightPanGesture{
+    
+}
+#pragma mark - UIViewControllerTransitioningDelegate
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    return nil;
+}
+
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return nil;
+}
+
+- (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator
+{
+    return nil;
+}
+
+- (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator{
+    return nil;
 }
 @end
-@implementation UIViewController (RootVCSplitBuff)
 
-@end
 @implementation RootSplitBuff
 +(BFRootViewController *)rootViewController{
     return [BFRootViewController sharedController];
 }
+#pragma mark - show or hide side viewController;
 +(void)showLeftViewController{
-    
+    [[BFRootViewController sharedController]showLeftViewController];
 }
-+(void)hideLeftViweController{
-    
++(void)hideLeftViewController{
+    [[BFRootViewController sharedController]hideLeftViewController];
 }
 +(void)showRightViewController{
-    
+    [[BFRootViewController sharedController]showRightViewController];
 }
 +(void)hideRightViewController{
-    
+    [[BFRootViewController sharedController]hideRightViewController];
+}
+#pragma mark - active or deactive gestures
+-(void)activeLeftPanGestureOnEdge:(BOOL)onEdge{
+    [[BFRootViewController sharedController]activeLeftPanGestureOnEdge:onEdge];
+}
+-(void)deactiveLeftPanGesture{
+    [[BFRootViewController sharedController]deactiveLeftPanGesture];
+}
+-(void)activeRightPanGestureOnEdge:(BOOL)onEdge{
+    [[BFRootViewController sharedController]activeRightPanGestureOnEdge:onEdge];
+}
+-(void)deactiveRightPanGesture{
+    [[BFRootViewController sharedController]deactiveRightPanGesture];
 }
 @end

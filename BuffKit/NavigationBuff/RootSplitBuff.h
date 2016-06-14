@@ -7,8 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface BFRootViewController : UIViewController
+typedef NS_ENUM(NSInteger, BuffSplitStyle) {
+    BuffSplitStyleCovered = 1,
+    BuffSplitStylePushed = 2,
+    BuffSplitStyleScaled = 3,
+    BuffSplitStylePerspective =4,
+};
+@interface BFRootViewController : UIViewController<UIViewControllerTransitioningDelegate>
 {
     NSMutableArray*fullScreenConstraints;
     NSMutableArray *leftConstraints;
@@ -16,36 +21,58 @@
 }
 + (BFRootViewController *)sharedController;
 
+//controllers
 @property(nonatomic, strong) UIViewController *bfLeftViewController;
 @property(nonatomic, strong) UIViewController *bfRightViewController;
 @property(nonatomic, strong) UIViewController *bfMainViewController;
-//mainView样式
+//restore button
+@property(nonatomic, strong) UIButton *restoreButton;
+
+//dim view 's style for the mainViewController's view
 @property(nonatomic, assign) CGFloat mainViewDimOpacity;
 @property(nonatomic, strong) UIColor *mainViewDimColor;
 //侧边栏显示时mainView缩放情况,透视效果存在时mainViewScale为1
 @property(nonatomic, assign) CGFloat mainViewScale;
-//侧边栏显示时是否应该有透视效果,covered情况下mainViewPerspective为无限大
-@property(nonatomic, assign) BOOL mainViewPerspective;
+//侧边栏显示风格
+@property(nonatomic, assign) BuffSplitStyle splitStyle;
 
 
 @property(nonatomic, assign) CGFloat leftWidth;
 @property(nonatomic, assign) CGFloat rightWidth;
+
+//when covered mainViewController's will not move,otherwise will move for a distance that equals to leftWidth or rightWidth.
 //左侧栏是否覆盖mainView
 @property(nonatomic, assign) BOOL shouldLeftCovered;
 //右侧栏是否覆盖mainView
 @property(nonatomic, assign) BOOL shouldRightCovered;
 
-//背景
-@property (nonatomic, strong)UIImage *rootBackgroundImage;
-@property (nonatomic,strong)UIImageView *rootBackgroundImageView;
+//Duration
+@property(nonatomic, assign) CGFloat leftAnimatorDuration;
+@property(nonatomic, assign) CGFloat rightAnimatorDuration;
 
--(void)showLeftViewController;
-@end
+//rootViewController backgroudImage
+@property (nonatomic, strong) UIImage *rootBackgroundImage;
+@property (nonatomic, strong) UIImageView *rootBackgroundImageView;
 
-@interface UIViewController (RootSplitBuff)
+//#pragma mark - show & hide
+//-(void)showLeftViewController;
+//-(void)hideLeftViewController;
+//-(void)showRightViewController;
+//-(void)hideRightViewController;
 
 @end
 
 @interface RootSplitBuff : NSObject
 + (BFRootViewController *)rootViewController;
+
++ (void)showLeftViewController;
++ (void)hideLeftViewController;
++ (void)showRightViewController;
++ (void)hideRightViewController;
+
+-(void)activeLeftPanGestureOnEdge:(BOOL)onEdge;
+-(void)deactiveLeftPanGesture;
+-(void)activeRightPanGestureOnEdge:(BOOL)onEdge;
+-(void)deactiveRightPanGesture;
+
 @end
