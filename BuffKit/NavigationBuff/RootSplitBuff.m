@@ -7,6 +7,7 @@
 //
 
 #import "RootSplitBuff.h"
+#import "RootSplitAnimator.h"
 @interface BFRootViewController ()
 {
     UIPercentDrivenInteractiveTransition *leftTransitionControl;
@@ -68,20 +69,7 @@ static BFRootViewController *rootViewController=nil;
     [[UIApplication sharedApplication]setStatusBarHidden:isStatusBarHidden];
     [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     self.rootBackgroundImageView=[[UIImageView alloc]init];
-    [self.rootBackgroundImageView setBackgroundColor:[UIColor whiteColor]];
-    [self.rootBackgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.view addSubview:self.rootBackgroundImageView];
-    UIView *containerView=self.view;
-    NSDictionary *bindings=NSDictionaryOfVariableBindings(_rootBackgroundImageView,containerView);
-    NSDictionary *metrics = @{@"margin":@0};
-    NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
-    NSMutableArray*constraints=[NSMutableArray array];
-    NSArray *c1=[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_rootBackgroundImageView(==containerView)]" options:ops metrics:metrics views:bindings];
-    NSArray *c2=[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-margin-[_rootBackgroundImageView(==containerView)]" options:ops metrics:metrics views:bindings];
-    [constraints addObjectsFromArray:c1];
-    [constraints addObjectsFromArray:c2];
-    [self.rootBackgroundImageView setImage:self.rootBackgroundImage];
-    [self.view addConstraints:constraints];
+    
 }
 #pragma mark - properties' access
 -(void)setBfMainViewController:(UIViewController *)bfMainViewController {
@@ -107,7 +95,7 @@ static BFRootViewController *rootViewController=nil;
 //    [self.bfMainViewController.view.layer setShadowOffset:CGSizeZero];
 //    [self.bfMainViewController.view.layer setShadowRadius:4.0];
 //    [self.bfMainViewController.view.layer setShadowOpacity:0.8];
-//    UIBezierPath *shadowPath=[UIBezierPath bezierPathWithRect:self.view.bounds];
+//    UIBezierPath *shadowPath=[UIBezierPath bezierPathWithRect:self.view.bounds]; 
 //    [self.bfMainViewController.view.layer setShadowPath:shadowPath.CGPath];
 }
 -(void)setBfLeftViewController:(UIViewController *)bfLeftViewController
@@ -134,7 +122,6 @@ static BFRootViewController *rootViewController=nil;
 -(void)setRootBackgroundImage:(UIImage *)rootBackgroundImage
 {
     _rootBackgroundImage=rootBackgroundImage;
-    [self.rootBackgroundImageView setImage:_rootBackgroundImage];
 }
 #pragma mark AutoLayout
 -(void)updateLeftConstraints{
@@ -164,6 +151,7 @@ static BFRootViewController *rootViewController=nil;
     }
 }
 -(void)showLeftViewController{
+    self.bfLeftViewController.transitioningDelegate=self;
     [self presentViewController:self.bfLeftViewController animated:YES completion:nil];
 }
 -(void)hideLeftViewController{
@@ -190,7 +178,10 @@ static BFRootViewController *rootViewController=nil;
 #pragma mark - UIViewControllerTransitioningDelegate
 - (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {
-    return nil;
+    if ([presented isEqual:self.bfLeftViewController]) {
+        return [RootSplitAnimator  leftShowAnimator];
+    }
+    return nil ;
 }
 
 - (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed

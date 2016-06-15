@@ -66,6 +66,7 @@
 #pragma mark Actions
 -(void)leftAction:(UIButton *)sender
 {
+    [RootSplitBuff showLeftViewController];
 }
 -(void)rightAction:(UIButton *)sender
 {

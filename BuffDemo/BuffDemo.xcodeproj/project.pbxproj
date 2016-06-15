@@ -122,18 +122,10 @@
 		13A6A2B507685B0CE8378C06 /* CellBuff */ = {
 			isa = PBXGroup;
 			children = (
-				13A6AAFC7E12A2575CFEE3A5 /* CellBuff.m */,
 				13A6AF40F80251F84DA0032A /* CellBuff.h */,
-				13A6A307E74747659C5D5E4F /* NavigationBuff */,
+				13A6AAFC7E12A2575CFEE3A5 /* CellBuff.m */,
 			);
 			path = CellBuff;
-			sourceTree = "<group>";
-		};
-		13A6A307E74747659C5D5E4F /* NavigationBuff */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NavigationBuff;
 			sourceTree = "<group>";
 		};
 		13A6A76A1EE1FE45B8E460FC /* ImageBuff */ = {
@@ -284,10 +276,10 @@
 		FE51CC1F1CDAE7C400A7E897 /* BuffKit */ = {
 			isa = PBXGroup;
 			children = (
+				FEE05EB81CDB061A0019F2D3 /* BuffKit.h */,
 				FE2933641CE310EC0096B1DF /* FrameBuff */,
 				FE29335C1CE2FA350096B1DF /* CryptoBuff */,
 				FE29335F1CE2FA350096B1DF /* LBSBuff */,
-				FEE05EB81CDB061A0019F2D3 /* BuffKit.h */,
 				13A6A88FD2B11B4F3C5F23BC /* ColorBuff */,
 				13A6A1F7AA6C1CD58617D170 /* NullBuff */,
 				13A6A76A1EE1FE45B8E460FC /* ImageBuff */,
