@@ -13,11 +13,19 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleScaled = 3,
     BuffSplitStylePerspective =4,
 };
-@interface BFRootViewController : UIViewController<UIViewControllerTransitioningDelegate>
+@interface BFRootViewController : UIViewController<UIGestureRecognizerDelegate>
 {
     NSMutableArray*fullScreenConstraints;
     NSMutableArray *leftConstraints;
     NSMutableArray *rightConstraints;
+    
+    NSMutableArray *leftStartConstraints;
+    NSMutableArray *leftEndConstraints;
+    NSMutableArray *mainViewStartConstraints;
+    NSMutableArray *mainViewEndConstraints;
+    NSMutableArray *dimConstraints;
+    
+    CGPoint beginPoint;
 }
 + (BFRootViewController *)sharedController;
 
@@ -25,34 +33,32 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 @property(nonatomic, strong) UIViewController *bfLeftViewController;
 @property(nonatomic, strong) UIViewController *bfRightViewController;
 @property(nonatomic, strong) UIViewController *bfMainViewController;
-//restore button
-@property(nonatomic, strong) UIButton *restoreButton;
-
+//gestures
+@property(nonatomic, strong) UIPanGestureRecognizer *bfLeftPan;
+@property(nonatomic, strong) UIPanGestureRecognizer *bfRightPan;
+//dim button
+@property(nonatomic, strong) UIView *dimView;
 //dim view 's style for the mainViewController's view
-@property(nonatomic, assign) CGFloat mainViewDimOpacity;
-@property(nonatomic, strong) UIColor *mainViewDimColor;
+@property(nonatomic, assign) CGFloat dimOpacity;
+@property(nonatomic, strong) UIColor *dimColor;
 //侧边栏显示时mainView缩放情况,透视效果存在时mainViewScale为1
 @property(nonatomic, assign) CGFloat mainViewScale;
+
 //侧边栏显示风格
 @property(nonatomic, assign) BuffSplitStyle splitStyle;
-
-
 @property(nonatomic, assign) CGFloat leftWidth;
 @property(nonatomic, assign) CGFloat rightWidth;
 
-//when covered mainViewController's will not move,otherwise will move for a distance that equals to leftWidth or rightWidth.
-//左侧栏是否覆盖mainView
-@property(nonatomic, assign) BOOL shouldLeftCovered;
-//右侧栏是否覆盖mainView
-@property(nonatomic, assign) BOOL shouldRightCovered;
-
 //Duration
-@property(nonatomic, assign) CGFloat leftAnimatorDuration;
-@property(nonatomic, assign) CGFloat rightAnimatorDuration;
+@property(nonatomic, assign) CGFloat leftAnimationDuration;
+@property(nonatomic, assign) CGFloat rightAnimationDuration;
 
 //rootViewController backgroudImage
 @property (nonatomic, strong) UIImage *rootBackgroundImage;
 @property (nonatomic, strong) UIImageView *rootBackgroundImageView;
+
+@property (nonatomic,assign,readonly) BOOL isLeftShowing;
+@property (nonatomic,assign,readonly) BOOL isRightShowing;
 
 //#pragma mark - show & hide
 //-(void)showLeftViewController;
@@ -70,9 +76,9 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 + (void)showRightViewController;
 + (void)hideRightViewController;
 
--(void)activeLeftPanGestureOnEdge:(BOOL)onEdge;
--(void)deactiveLeftPanGesture;
--(void)activeRightPanGestureOnEdge:(BOOL)onEdge;
--(void)deactiveRightPanGesture;
++(void)activeLeftPanGestureOnEdge:(BOOL)onEdge;
++(void)deactiveLeftPanGesture;
++(void)activeRightPanGestureOnEdge:(BOOL)onEdge;
++(void)deactiveRightPanGesture;
 
 @end

@@ -18,8 +18,6 @@
 		13A6AB5AA3015655A103C2DF /* ImageBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6AC8452C7BBFDF1FD1ADF /* ImageBuff.m */; };
 		13A6AEA64E1E4D08846B216C /* NavigationBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */; };
 		2D4908761D0D36F500C4066F /* WallPaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2D4908751D0D36F500C4066F /* WallPaper.jpg */; };
-		2D66B7FC1D0ED628005F96AE /* RootSplitAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D66B7FB1D0ED628005F96AE /* RootSplitAnimator.m */; };
-		2D66B7FF1D0EDC5D005F96AE /* RootSplitInteractiveTrasition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D66B7FE1D0EDC5D005F96AE /* RootSplitInteractiveTrasition.m */; };
 		FE2933521CE21DB30096B1DF /* CryptoBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */; };
 		FE29335B1CE2D2420096B1DF /* LBSBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335A1CE2D2420096B1DF /* LBSBuffViewController.m */; };
 		FE2933621CE2FA350096B1DF /* CryptoBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335E1CE2FA350096B1DF /* CryptoBuff.m */; };
@@ -32,6 +30,8 @@
 		FE51CC151CD8DE2B00A7E897 /* BuffDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC141CD8DE2B00A7E897 /* BuffDemoTests.m */; };
 		FE51CC261CDAE9D600A7E897 /* BuffListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC251CDAE9D600A7E897 /* BuffListViewController.m */; };
 		FE51CC271CDAE9D600A7E897 /* BuffListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CC251CDAE9D600A7E897 /* BuffListViewController.m */; };
+		FEE958D51D128BF7000BF979 /* BuffLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE958D41D128BF7000BF979 /* BuffLeftViewController.m */; };
+		FEE958D81D128C05000BF979 /* BuffRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE958D71D128C05000BF979 /* BuffRightViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,10 +62,6 @@
 		13A6AF40F80251F84DA0032A /* CellBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellBuff.h; sourceTree = "<group>"; };
 		13A6AFAA8289A356450646CC /* NullBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullBuff.m; sourceTree = "<group>"; };
 		2D4908751D0D36F500C4066F /* WallPaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WallPaper.jpg; sourceTree = "<group>"; };
-		2D66B7FA1D0ED628005F96AE /* RootSplitAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootSplitAnimator.h; sourceTree = "<group>"; };
-		2D66B7FB1D0ED628005F96AE /* RootSplitAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootSplitAnimator.m; sourceTree = "<group>"; };
-		2D66B7FD1D0EDC5D005F96AE /* RootSplitInteractiveTrasition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootSplitInteractiveTrasition.h; sourceTree = "<group>"; };
-		2D66B7FE1D0EDC5D005F96AE /* RootSplitInteractiveTrasition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootSplitInteractiveTrasition.m; sourceTree = "<group>"; };
 		FE29334F1CE21DB30096B1DF /* CryptoBuffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptoBuffViewController.h; sourceTree = "<group>"; };
 		FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptoBuffViewController.m; sourceTree = "<group>"; };
 		FE2933541CE21DFC0096B1DF /* Buff.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buff.pch; sourceTree = "<group>"; };
@@ -90,6 +86,10 @@
 		FE51CC241CDAE9D600A7E897 /* BuffListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffListViewController.h; sourceTree = "<group>"; };
 		FE51CC251CDAE9D600A7E897 /* BuffListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffListViewController.m; sourceTree = "<group>"; };
 		FEE05EB81CDB061A0019F2D3 /* BuffKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuffKit.h; sourceTree = "<group>"; };
+		FEE958D31D128BF7000BF979 /* BuffLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffLeftViewController.h; sourceTree = "<group>"; };
+		FEE958D41D128BF7000BF979 /* BuffLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffLeftViewController.m; sourceTree = "<group>"; };
+		FEE958D61D128C05000BF979 /* BuffRightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffRightViewController.h; sourceTree = "<group>"; };
+		FEE958D71D128C05000BF979 /* BuffRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffRightViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +113,8 @@
 		13A6A1F7AA6C1CD58617D170 /* NullBuff */ = {
 			isa = PBXGroup;
 			children = (
-				13A6AFAA8289A356450646CC /* NullBuff.m */,
 				13A6A8DDEF453B15D7A220D7 /* NullBuff.h */,
+				13A6AFAA8289A356450646CC /* NullBuff.m */,
 			);
 			path = NullBuff;
 			sourceTree = "<group>";
@@ -153,10 +153,6 @@
 				13A6ADD139BCEFEBADBB4702 /* NavigationBuff.m */,
 				13A6A4EE76F99FD0A62A0A41 /* RootSplitBuff.h */,
 				13A6A0DE6EF5BE73C9184418 /* RootSplitBuff.m */,
-				2D66B7FA1D0ED628005F96AE /* RootSplitAnimator.h */,
-				2D66B7FB1D0ED628005F96AE /* RootSplitAnimator.m */,
-				2D66B7FD1D0EDC5D005F96AE /* RootSplitInteractiveTrasition.h */,
-				2D66B7FE1D0EDC5D005F96AE /* RootSplitInteractiveTrasition.m */,
 			);
 			path = NavigationBuff;
 			sourceTree = "<group>";
@@ -245,6 +241,10 @@
 				FE2933541CE21DFC0096B1DF /* Buff.pch */,
 				FE51CC241CDAE9D600A7E897 /* BuffListViewController.h */,
 				FE51CC251CDAE9D600A7E897 /* BuffListViewController.m */,
+				FEE958D31D128BF7000BF979 /* BuffLeftViewController.h */,
+				FEE958D41D128BF7000BF979 /* BuffLeftViewController.m */,
+				FEE958D61D128C05000BF979 /* BuffRightViewController.h */,
+				FEE958D71D128C05000BF979 /* BuffRightViewController.m */,
 				FE2933581CE2D2330096B1DF /* LBSBuff */,
 				FE29334E1CE21D8E0096B1DF /* CryptoBuff */,
 				FE51CC061CD8DE2B00A7E897 /* Assets.xcassets */,
@@ -393,9 +393,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEE958D51D128BF7000BF979 /* BuffLeftViewController.m in Sources */,
 				FE29335B1CE2D2420096B1DF /* LBSBuffViewController.m in Sources */,
 				FE2933631CE2FA350096B1DF /* LBSBuff.m in Sources */,
-				2D66B7FF1D0EDC5D005F96AE /* RootSplitInteractiveTrasition.m in Sources */,
 				FE2933521CE21DB30096B1DF /* CryptoBuffViewController.m in Sources */,
 				FE51CBFF1CD8DE2B00A7E897 /* AppDelegate.m in Sources */,
 				FE2933671CE3110A0096B1DF /* FrameBuff.m in Sources */,
@@ -403,7 +403,7 @@
 				FE51CC261CDAE9D600A7E897 /* BuffListViewController.m in Sources */,
 				FE51CBFC1CD8DE2B00A7E897 /* main.m in Sources */,
 				13A6A5AB58F71E3F4E4A9E42 /* ColorBuff.m in Sources */,
-				2D66B7FC1D0ED628005F96AE /* RootSplitAnimator.m in Sources */,
+				FEE958D81D128C05000BF979 /* BuffRightViewController.m in Sources */,
 				13A6A7BD9347F3A60459A112 /* NullBuff.m in Sources */,
 				13A6A9E70906333FDD7A1118 /* README.md in Sources */,
 				13A6AB5AA3015655A103C2DF /* ImageBuff.m in Sources */,
