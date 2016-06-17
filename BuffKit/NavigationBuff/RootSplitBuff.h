@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#define BF_PERCENTAGE_SHOW_LEFT  0.5
+#define BF_PERCENTAGE_SHOW_RIGHT  0.5
+#define BF_SCALE_PAN 1.2
+
 typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleCovered = 1,
     BuffSplitStylePushed = 2,
@@ -21,8 +25,10 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     
     NSMutableArray *leftStartConstraints;
     NSMutableArray *leftEndConstraints;
-    NSMutableArray *mainViewStartConstraints;
-    NSMutableArray *mainViewEndConstraints;
+    NSMutableArray *mainStartConstraints;
+    NSMutableArray *mainEndConstraints;
+    NSMutableArray *rightStartConstraints;
+    NSMutableArray *rightEndConstraints;
     NSMutableArray *dimConstraints;
     
     CGPoint beginPoint;

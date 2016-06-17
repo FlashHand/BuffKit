@@ -9,8 +9,6 @@
 #import "BuffListViewController.h"
 #import "CryptoBuffViewController.h"
 #import "LBSBuffViewController.h"
-#import "BuffLeftViewController.h"
-#import "BuffRightViewController.h"
 @interface BuffListViewController ()
 
 @end
@@ -18,9 +16,6 @@
 @implementation BuffListViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.view addSubview:[UIView new]];
-    
     [self.view setBackgroundColor:[UIColor whiteColor]];
     //sidebar
     _buffListTableView=[[UITableView alloc]init];
@@ -58,12 +53,6 @@
     [rightBtn addTarget:self action:@selector(rightAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem=[[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     [self.navigationItem setRightBarButtonItem:rightItem];
-    [_buffListTableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
-    
-    
-    BuffLeftViewController *lvc=[[BuffLeftViewController alloc]init];
-    [[RootSplitBuff rootViewController]setBfLeftViewController:lvc];
-    [RootSplitBuff activeLeftPanGestureOnEdge:NO];
 
 }
 - (void)didReceiveMemoryWarning {

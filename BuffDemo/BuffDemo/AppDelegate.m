@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "BuffListViewController.h"
 #import <objc/runtime.h>
+#import "BuffLeftViewController.h"
+#import "BuffRightViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -28,6 +31,9 @@
     UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
     [[RootSplitBuff rootViewController]setRootBackgroundImage:[UIImage imageNamed:@"WallPaper.jpg"]];
     [[RootSplitBuff rootViewController]setBfMainViewController:navi];
+    BuffLeftViewController *lvc=[[BuffLeftViewController alloc]init];
+    [[RootSplitBuff rootViewController]setBfLeftViewController:lvc];
+    [RootSplitBuff activeLeftPanGestureOnEdge:NO];
     [_window setRootViewController:[RootSplitBuff rootViewController]];
     [_window makeKeyAndVisible];
     // Override point for customization after application launch.

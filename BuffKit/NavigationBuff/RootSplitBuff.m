@@ -98,13 +98,6 @@ static BFRootViewController *rootViewController=nil;
     [fullScreenConstraints addObjectsFromArray:c1];
     [fullScreenConstraints addObjectsFromArray:c2];
     [NSLayoutConstraint activateConstraints:fullScreenConstraints];
-    //添加阴影
-    [self.bfMainViewController.view.layer setShadowColor:[UIColor whiteColor].CGColor];
-    [self.bfMainViewController.view.layer setShadowOffset:CGSizeZero];
-    [self.bfMainViewController.view.layer setShadowRadius:4.0];
-    [self.bfMainViewController.view.layer setShadowOpacity:0.8];
-    UIBezierPath *shadowPath=[UIBezierPath bezierPathWithRect:self.view.bounds]; 
-    [self.bfMainViewController.view.layer setShadowPath:shadowPath.CGPath];
 }
 -(void)setBfLeftViewController:(UIViewController *)bfLeftViewController
 {
@@ -134,24 +127,13 @@ static BFRootViewController *rootViewController=nil;
 -(void)setIsLeftShowing:(BOOL)isLeftShowing
 {
     _isLeftShowing=isLeftShowing;
-    leftPanGesture.enabled=!(_isLeftShowing||_isRightShowing);
+    self.bfLeftPan.enabled=!(_isLeftShowing||_isRightShowing);
 }
 -(void)setIsRightShowing:(BOOL)isRightShowing
 {
     _isRightShowing=isRightShowing;
-    rightPanGesture.enabled=!(_isLeftShowing||_isRightShowing);
+    self.bfRightPan.enabled=!(_isLeftShowing||_isRightShowing);
 
-}
-#pragma mark AutoLayout
--(void)completeLeftConstraints{
-    [self.bfLeftViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    UIView *leftView=self.bfLeftViewController.view;
-    UIView *containerView=self.view;
-    NSDictionary *bindings = NSDictionaryOfVariableBindings(leftView, containerView);
-    NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
-    [containerView removeConstraints:leftStartConstraints];
-    [containerView removeConstraints:leftEndConstraints];
-    [containerView addConstraints:leftEndConstraints];
 }
 
 #pragma mark Private method
@@ -188,8 +170,189 @@ static BFRootViewController *rootViewController=nil;
 -(void)removeDim{
     [self.dimView removeFromSuperview];
 }
+-(NSMutableArray *)_updateMainStartConstraintsForLeft{
+    if (mainStartConstraints) {
+        [mainStartConstraints removeAllObjects];
+    }
+    else{
+        mainStartConstraints = [NSMutableArray array];
+    }
+    CGFloat leftWidth = [[RootSplitBuff rootViewController] leftWidth];
+    UIView *leftView = self.bfLeftViewController.view;
+    UIView *mainView = self.bfMainViewController.view;
+    UIView *containerView=self.view;
+    NSDictionary *bindings = NSDictionaryOfVariableBindings(leftView, mainView, containerView);
+    NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered:
+        {
+            NSDictionary *metrics = @{@"margin" : @0};
+            NSArray *c1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[mainView(==containerView)]" options:ops metrics:metrics views:bindings];
+            NSArray *c2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-margin-[mainView(==containerView)]" options:ops metrics:metrics views:bindings];
+            [mainStartConstraints addObjectsFromArray:c1];
+            [mainStartConstraints addObjectsFromArray:c2];
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+    return mainStartConstraints;
+}
+-(NSMutableArray *)_updateMainEndConstraintsForLeft{
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered:
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+    return mainEndConstraints;
+}
+-(NSMutableArray *)_updateLeftStartConstraints{
+    [leftStartConstraints removeAllObjects];
+    CGFloat leftWidth = [[RootSplitBuff rootViewController] leftWidth];
+    UIView *leftView = self.bfLeftViewController.view;
+    UIView *mainView = self.bfMainViewController.view;
+    UIView *containerView=self.view;
+    NSDictionary *bindings = NSDictionaryOfVariableBindings(leftView, mainView, containerView);
+    NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered:
+        {
+            NSDictionary *metrics1 = @{@"margin" : @(-leftWidth), @"leftWidth" : @(leftWidth)};
+            NSArray *c1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[leftView(leftWidth)]" options:ops metrics:metrics1 views:bindings];
+            NSArray *c2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[leftView(==containerView)]" options:ops metrics:metrics1 views:bindings];
+            [leftStartConstraints addObjectsFromArray:c1];
+            [leftStartConstraints addObjectsFromArray:c2];
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+    return leftStartConstraints;
+}
+-(NSMutableArray *)_updateLeftEndConstraints{
+    if (leftEndConstraints) {
+        [leftEndConstraints removeAllObjects];
+    }
+    else{
+        leftEndConstraints = [NSMutableArray array];
+    }
+    CGFloat leftWidth = [[RootSplitBuff rootViewController] leftWidth];
+    UIView *leftView = self.bfLeftViewController.view;
+    UIView *mainView = self.bfMainViewController.view;
+    UIView *containerView=self.view;
+    NSDictionary *bindings = NSDictionaryOfVariableBindings(leftView, mainView, containerView);
+    NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
+
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered:
+        {
+            NSDictionary *metrics = @{@"margin" : @0, @"leftWidth" : @(leftWidth)};
+            NSArray *c1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[leftView(leftWidth)]" options:ops metrics:metrics views:bindings];
+            NSArray *c2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-margin-[leftView(==containerView)]" options:ops metrics:metrics views:bindings];
+            [leftEndConstraints addObjectsFromArray:c1];
+            [leftEndConstraints addObjectsFromArray:c2];
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+    return leftEndConstraints;
+}
+-(NSMutableArray *)_updateRightStartConstraints{
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered:
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+    return rightStartConstraints;
+}
+-(NSMutableArray *)_updateRightEndConstraints{
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered:
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+    return rightEndConstraints;
+}
+-(void)_clearLeftConstraints{
+    [self.view removeConstraints:leftStartConstraints];
+    [self.view removeConstraints:leftEndConstraints];
+    [self.view removeConstraints:mainStartConstraints];
+    [self.view removeConstraints:mainEndConstraints];
+}
+-(void)_clearRightCOnstraints{
+    
+}
+-(void)_completeLeftConstraints{
+    [self.bfLeftViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addConstraints:[self _updateLeftEndConstraints]];
+    [self.view layoutIfNeeded];
+}
 #pragma mark Public method
 -(void)showLeftViewController{
+    if (!leftStartConstraints) {
+        leftStartConstraints=[NSMutableArray array];
+    }
+    if (!leftEndConstraints) {
+        leftEndConstraints=[NSMutableArray array];
+    }
     NSTimeInterval duration = [RootSplitBuff rootViewController].leftAnimationDuration;
     CGFloat leftWidth = [[RootSplitBuff rootViewController] leftWidth];
     UIView *leftView = self.bfLeftViewController.view;
@@ -202,31 +365,11 @@ static BFRootViewController *rootViewController=nil;
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             [containerView addSubview:leftView];
-            //mainView约束
-            mainViewStartConstraints = [NSMutableArray array];
-            NSDictionary *fmetrics1 = @{@"margin" : @0};
-            NSArray *fc1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[mainView(==containerView)]" options:ops metrics:fmetrics1 views:bindings];
-            NSArray *fc2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-margin-[mainView(==containerView)]" options:ops metrics:fmetrics1 views:bindings];
-            [mainViewStartConstraints addObjectsFromArray:fc1];
-            [mainViewStartConstraints addObjectsFromArray:fc2];
-            //leftView起始约束
-            leftStartConstraints = [NSMutableArray array];
-            NSDictionary *metrics1 = @{@"margin" : @(-leftWidth), @"leftWidth" : @(leftWidth)};
-            NSArray *c1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[leftView(leftWidth)]" options:ops metrics:metrics1 views:bindings];
-            NSArray *c2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[leftView(==containerView)]" options:ops metrics:metrics1 views:bindings];
-            [leftStartConstraints addObjectsFromArray:c1];
-            [leftStartConstraints addObjectsFromArray:c2];
-            [containerView addConstraints:leftStartConstraints];
+            [self _clearLeftConstraints];
+            [containerView addConstraints:[self _updateLeftStartConstraints]];
             [containerView layoutIfNeeded];
             [containerView removeConstraints:leftStartConstraints];
-            //leftView结束约束
-            leftEndConstraints = [NSMutableArray array];
-            NSDictionary *metrics2 = @{@"margin" : @0, @"leftWidth" : @(leftWidth)};
-            NSArray *ec1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[leftView(leftWidth)]" options:ops metrics:metrics2 views:bindings];
-            NSArray *ec2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-margin-[leftView(==containerView)]" options:ops metrics:metrics2 views:bindings];
-            [leftEndConstraints addObjectsFromArray:ec1];
-            [leftEndConstraints addObjectsFromArray:ec2];
-            [containerView addConstraints:leftEndConstraints];
+            [containerView addConstraints:[self _updateLeftEndConstraints]];
             //执行动画
             [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [containerView layoutIfNeeded];
@@ -251,6 +394,12 @@ static BFRootViewController *rootViewController=nil;
     }
 }
 -(void)hideLeftViewController{
+    if (!leftStartConstraints) {
+        leftStartConstraints=[NSMutableArray array];
+    }
+    if (!leftEndConstraints) {
+        leftEndConstraints=[NSMutableArray array];
+    }
     NSTimeInterval duration = [RootSplitBuff rootViewController].leftAnimationDuration;
     UIView *leftView = self.bfLeftViewController.view;
     UIView *containerView=self.view;
@@ -258,7 +407,7 @@ static BFRootViewController *rootViewController=nil;
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             [containerView removeConstraints:leftEndConstraints];
-            [containerView addConstraints:leftStartConstraints];
+            [containerView addConstraints:[self _updateLeftStartConstraints]];
             //执行动画
             [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [containerView layoutIfNeeded];
@@ -375,10 +524,10 @@ static BFRootViewController *rootViewController=nil;
 -(void)leftPanGestureChanged:(UIPanGestureRecognizer *)gesture{
     CGPoint p=[gesture locationInView:self.view];
     CGFloat diffX=p.x-beginPoint.x;
-    if (diffX<0) diffX=0;
+    diffX = diffX<0?0:diffX;
     NSLog(@"%f",p.x);
-    CGFloat percent=fabs(diffX*1.2/self.leftWidth);
-    if (percent>1) percent=1;
+    CGFloat percent=fabs(diffX*BF_SCALE_PAN/self.leftWidth);
+    percent=percent>1?1:percent;
     CGFloat scaledDiffX=percent*self.leftWidth;
     [_dimView setAlpha:self.dimOpacity*percent];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
@@ -402,21 +551,35 @@ static BFRootViewController *rootViewController=nil;
 -(void)leftPanGestureEnd:(UIPanGestureRecognizer *)gesture{
     CGPoint p=[gesture locationInView:self.view];
     CGFloat diffX=p.x-beginPoint.x;
-    if (diffX<0) diffX=0;
+    diffX = diffX<0?0:diffX;
     NSLog(@"%f",p.x);
-    CGFloat percent=fabs(diffX*1.2/self.leftWidth);
-    if (percent>0.5) {
-        if (percent>1) percent=1;
-        [UIView animateWithDuration:(1-percent)*self.leftAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [self.bfLeftViewController.view setFrame:CGRectMake(0, 0, self.leftWidth, self.view.height)];
-            [_dimView setAlpha:self.dimOpacity];
-        } completion:^(BOOL finished) {
-            
-        }];
-    }
+    CGFloat percent=fabs(diffX*BF_SCALE_PAN/self.leftWidth);
+    percent=percent>1?1:percent;
+
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
-        
+            if (percent>BF_PERCENTAGE_SHOW_LEFT) {
+                [UIView animateWithDuration:(1-percent)*self.leftAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    [self.bfLeftViewController.view setFrame:CGRectMake(0, 0, self.leftWidth, self.view.height)];
+                    [_dimView setAlpha:self.dimOpacity];
+                } completion:^(BOOL finished) {
+                    [self setIsLeftShowing:YES];
+                    [self _clearLeftConstraints];
+                    [self _completeLeftConstraints];
+                    
+                }];
+            }
+            else {
+                [UIView animateWithDuration:(percent)*self.leftAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    [self.bfLeftViewController.view setFrame:CGRectMake(-_leftWidth, 0, self.leftWidth, self.view.height)];
+                    [_dimView setAlpha:0];
+                } completion:^(BOOL finished) {
+                    [self setIsLeftShowing:NO];
+                    [self removeDim];
+                    [self.bfLeftViewController.view removeFromSuperview];
+                }];
+                
+            }
         }
             break;
         case BuffSplitStylePushed:
@@ -513,7 +676,182 @@ static BFRootViewController *rootViewController=nil;
     }
 }
 -(void)dimPanAction:(UIPanGestureRecognizer *)gesture{
+    if (self.isLeftShowing) {
+        switch (gesture.state) {
+            case UIGestureRecognizerStateBegan:
+                [self dimPanForLeftBegin:gesture];
+                break;
+            case UIGestureRecognizerStateChanged:
+                [self dimPanForLeftChanged:gesture];
+                break;
+            case UIGestureRecognizerStateEnded:
+                [self dimPanForLeftEnd:gesture];
+                break;
+            default:
+                break;
+        }
+    }
+    else if (self.isRightShowing){
+        switch (gesture.state) {
+            case UIGestureRecognizerStateBegan:
+                [self dimPanForRightBegin:gesture];
+                break;
+            case UIGestureRecognizerStateChanged:
+                [self dimPanForRightEnd:gesture];
+                break;
+            case UIGestureRecognizerStateEnded:
+                [self dimPanForRightEnd:gesture];
+                break;
+            default:
+                break;
+        }
+    }
+}
+-(void)dimPanForLeftBegin:(UIPanGestureRecognizer *)gesture{
     beginPoint=[gesture locationInView:self.view];
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered: {
+            [self.bfLeftViewController.view setTranslatesAutoresizingMaskIntoConstraints:YES];
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+}
+-(void)dimPanForLeftChanged:(UIPanGestureRecognizer *)gesture{
+    CGPoint p=[gesture locationInView:self.view];
+    CGFloat diffX=p.x-beginPoint.x;
+    diffX = diffX>0?0:diffX;
+    CGFloat percent=fabs(diffX*BF_SCALE_PAN/self.leftWidth);
+    percent=percent>1?1:percent;
+    CGFloat scaledDiffX=percent*self.leftWidth;
+    [_dimView setAlpha:self.dimOpacity*(1-percent)];
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered: {
+            NSLog(@"%f",p.x);
+            [self.bfLeftViewController.view setFrame:CGRectMake(-scaledDiffX, 0, _leftWidth, self.bfLeftViewController.view.height)];
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+}
+-(void)dimPanForLeftEnd:(UIPanGestureRecognizer *)gesture{
+    CGPoint p=[gesture locationInView:self.view];
+    CGFloat diffX=p.x-beginPoint.x;
+    diffX = diffX>0?0:diffX;
+    NSLog(@"%f",diffX);
+    CGFloat percent=fabs(diffX*BF_SCALE_PAN/self.leftWidth);
+    percent=percent>1?1:percent;
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered: {
+            if (percent<BF_PERCENTAGE_SHOW_LEFT) {
+                [UIView animateWithDuration:percent*self.leftAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    [self.bfLeftViewController.view setFrame:CGRectMake(0, 0, self.leftWidth, self.view.height)];
+                    [_dimView setAlpha:self.dimOpacity];
+                } completion:^(BOOL finished) {
+                    [self setIsLeftShowing:YES];
+                    [self _clearLeftConstraints];
+                    [self _completeLeftConstraints];
+                    
+                }];
+            }
+            else {
+                [UIView animateWithDuration:(1-percent)*self.leftAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    [self.bfLeftViewController.view setFrame:CGRectMake(-_leftWidth, 0, self.leftWidth, self.view.height)];
+                    [_dimView setAlpha:0];
+                } completion:^(BOOL finished) {
+                    [self setIsLeftShowing:NO];
+                    [self removeDim];
+                    [self.bfLeftViewController.view removeFromSuperview];
+                }];
+            }
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+}
+-(void)dimPanForRightBegin:(UIPanGestureRecognizer *)gesture{
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered: {
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+}
+-(void)dimPanForRightChanged:(UIPanGestureRecognizer *)gesture{
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered: {
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
+}
+-(void)dimPanForRightEnd:(UIPanGestureRecognizer *)gesture{
+    switch ([[RootSplitBuff rootViewController] splitStyle]) {
+        case BuffSplitStyleCovered: {
+        }
+            break;
+        case BuffSplitStylePushed:
+            
+            break;
+        case BuffSplitStyleScaled:
+            
+            break;
+        case BuffSplitStylePerspective:
+            
+            break;
+        default:
+            break;
+    }
 }
 -(void)dimTapAction:(UITapGestureRecognizer *)gesture{
     if (_isLeftShowing) {
