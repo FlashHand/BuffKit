@@ -12,7 +12,7 @@
 + (UIColor *)colorWithHex:(NSInteger)hex alpha:(CGFloat)alpha {
     UIColor *hexColor;
     if (hex <= 0xFFFFFF && hex >= 0x000000) {
-        hexColor = [UIColor colorWithRed:(hex & 0xFF0000) >> 16 green:(hex & 0xFF00) >> 8 blue:(hex & 0xFF) alpha:alpha];
+        hexColor = [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0 green:((hex & 0xFF00) >> 8)/255.0 blue:(hex & 0xFF)/255.0 alpha:alpha];
     }
     else {
         hexColor = [UIColor whiteColor];

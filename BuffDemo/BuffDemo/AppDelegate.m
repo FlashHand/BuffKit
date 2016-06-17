@@ -33,7 +33,10 @@
     [[RootSplitBuff rootViewController]setBfMainViewController:navi];
     BuffLeftViewController *lvc=[[BuffLeftViewController alloc]init];
     [[RootSplitBuff rootViewController]setBfLeftViewController:lvc];
-    [RootSplitBuff activeLeftPanGestureOnEdge:NO];
+    [RootSplitBuff activeLeftPanGestureOnEdge:YES];
+    BuffRightViewController *rvc=[[BuffRightViewController alloc]init];
+    [[RootSplitBuff rootViewController]setBfRightViewController:rvc];
+    [RootSplitBuff activeRightPanGestureOnEdge:YES];
     [_window setRootViewController:[RootSplitBuff rootViewController]];
     [_window makeKeyAndVisible];
     // Override point for customization after application launch.

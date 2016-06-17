@@ -17,6 +17,11 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleScaled = 3,
     BuffSplitStylePerspective =4,
 };
+typedef NS_ENUM(NSInteger, BuffPanDirection) {
+    BuffPanDirectionNone = 1,
+    BuffPanDirectionLeft = 2,
+    BuffPanDirectionRight = 3,
+};
 @interface BFRootViewController : UIViewController<UIGestureRecognizerDelegate>
 {
     NSMutableArray*fullScreenConstraints;
@@ -32,6 +37,7 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     NSMutableArray *dimConstraints;
     
     CGPoint beginPoint;
+    BuffPanDirection mainPanDirection;
 }
 + (BFRootViewController *)sharedController;
 
@@ -40,8 +46,9 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 @property(nonatomic, strong) UIViewController *bfRightViewController;
 @property(nonatomic, strong) UIViewController *bfMainViewController;
 //gestures
-@property(nonatomic, strong) UIPanGestureRecognizer *bfLeftPan;
-@property(nonatomic, strong) UIPanGestureRecognizer *bfRightPan;
+@property(nonatomic, strong) UIScreenEdgePanGestureRecognizer *bfLeftPan;
+@property(nonatomic, strong) UIScreenEdgePanGestureRecognizer *bfRightPan;
+@property(nonatomic, strong) UIPanGestureRecognizer *bfMainPan;
 //dim button
 @property(nonatomic, strong) UIView *dimView;
 //dim view 's style for the mainViewController's view

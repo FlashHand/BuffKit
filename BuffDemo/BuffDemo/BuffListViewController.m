@@ -66,7 +66,8 @@
 }
 -(void)rightAction:(UIButton *)sender
 {
-    
+    [RootSplitBuff showRightViewController];
+
 }
 #pragma mark table delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
