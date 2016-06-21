@@ -162,14 +162,6 @@ static BFRootViewController *rootViewController=nil;
     [self.bfRightPan setEnabled:NO];
     [self.view addGestureRecognizer:_bfRightPan];
     }
-    if (!_bfMainPan) {
-        _bfMainPan=[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(rightPanAction:)];
-        [self.bfMainPan setDelegate:self];
-        [self.bfMainPan setEnabled:NO];
-        [self.view addGestureRecognizer:self.bfMainPan];
-        mainPanDirection=BuffPanDirectionNone;
-    }
-    
 }
 -(void)setBfLeftViewController:(UIViewController *)bfLeftViewController
 {
@@ -210,7 +202,6 @@ static BFRootViewController *rootViewController=nil;
 -(void)setIsLeftShowing:(BOOL)isLeftShowing
 {
     _isLeftShowing=isLeftShowing;
-    self.bfMainPan.enabled=!(_isLeftShowing||_isRightShowing);
     self.bfLeftPan.enabled=!(_isLeftShowing||_isRightShowing);
     self.bfRightPan.enabled=!(_isLeftShowing||_isRightShowing);
     if (!isLeftShowing) {
@@ -221,7 +212,6 @@ static BFRootViewController *rootViewController=nil;
 -(void)setIsRightShowing:(BOOL)isRightShowing
 {
     _isRightShowing=isRightShowing;
-    self.bfMainPan.enabled=!(_isLeftShowing||_isRightShowing);
     self.bfLeftPan.enabled=!(_isLeftShowing||_isRightShowing);
     self.bfRightPan.enabled=!(_isLeftShowing||_isRightShowing);
     if (!isRightShowing) {
@@ -796,34 +786,17 @@ static BFRootViewController *rootViewController=nil;
             break;
     }
 }
--(void)activeLeftPanGestureOnEdge:(BOOL)onEdge{
-    if (onEdge) {
+-(void)activeLeftPanGesture{
         self.bfLeftPan.enabled=YES;
-        self.bfMainPan.enabled=NO;
-    }
-    else{
-        self.bfLeftPan.enabled=NO;
-        self.bfMainPan.enabled=YES;
-    }
 }
 -(void)deactiveLeftPanGesture{
     self.bfLeftPan.enabled=NO;
-    self.bfMainPan.enabled=NO;
-
 }
--(void)activeRightPanGestureOnEdge:(BOOL)onEdge{
-    if (onEdge) {
+-(void)activeRightPanGesture{
         self.bfRightPan.enabled=YES;
-        self.bfMainPan.enabled=NO;
-    }
-    else{
-        self.bfRightPan.enabled=NO;
-        self.bfMainPan.enabled=YES;
-    }
 }
 -(void)deactiveRightPanGesture{
     self.bfRightPan.enabled=NO;
-    self.bfMainPan.enabled=NO;
 }
 #pragma mark - Gesture delegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
@@ -840,36 +813,16 @@ static BFRootViewController *rootViewController=nil;
     if ([gestureRecognizer.view isEqual:self.dimView]&&[gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         return NO;
     }
+    if ([otherGestureRecognizer.delegate isKindOfClass:[UIScrollView class]]) {
+            [otherGestureRecognizer requireGestureRecognizerToFail:gestureRecognizer];
+            return NO;
+    }
     return YES;
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     return NO;
 }
 #pragma mark - Gesture Action
--(void)mainPanAction:(UIPanGestureRecognizer *)gesture{
-
-    switch (gesture.state) {
-        case UIGestureRecognizerStateBegan:
-            [self addDimButton];
-            beginPoint=[gesture locationInView:self.view];
-            [self leftPanGestureBegin:gesture];
-            break;
-        case UIGestureRecognizerStateChanged:
-            [self leftPanGestureChanged:gesture];
-            break;
-        case UIGestureRecognizerStateEnded:
-            [self leftPanGestureEnd:gesture];
-            break;
-        case UIGestureRecognizerStateCancelled:
-            [self hideLeftViewController];
-            break;
-        case UIGestureRecognizerStateFailed:
-            [self hideLeftViewController];
-            break;
-        default:
-            break;
-    }
-}
 -(void)leftPanAction:(UIPanGestureRecognizer *)gesture{
     switch (gesture.state) {
         case UIGestureRecognizerStateBegan:
@@ -1610,14 +1563,14 @@ static BFRootViewController *rootViewController=nil;
     [[BFRootViewController sharedController]hideRightViewController];
 }
 #pragma mark - active or deactive gestures
-+(void)activeLeftPanGestureOnEdge:(BOOL)onEdge{
-    [[BFRootViewController sharedController]activeLeftPanGestureOnEdge:onEdge];
++(void)activeLeftPanGesture{
+    [[BFRootViewController sharedController]activeLeftPanGesture];
 }
 +(void)deactiveLeftPanGesture{
     [[BFRootViewController sharedController]deactiveLeftPanGesture];
 }
-+(void)activeRightPanGestureOnEdge:(BOOL)onEdge{
-    [[BFRootViewController sharedController]activeRightPanGestureOnEdge:onEdge];
++(void)activeRightPanGesture{
+    [[BFRootViewController sharedController]activeRightPanGesture];
 }
 +(void)deactiveRightPanGesture{
     [[BFRootViewController sharedController]deactiveRightPanGesture];

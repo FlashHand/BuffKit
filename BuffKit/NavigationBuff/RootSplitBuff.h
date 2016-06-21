@@ -105,7 +105,7 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
 @property(nonatomic, assign) CGFloat mainEndOffsetForRight;
 //mainViewScale only works for BuffSplitStyleScaled
 @property(nonatomic, assign) CGFloat mainScale;
-
+@property(nonatomic,assign,readonly)BOOL onEdge;
 
 
 //Duration
@@ -137,9 +137,9 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
 + (void)showRightViewController;
 + (void)hideRightViewController;
 
-+(void)activeLeftPanGestureOnEdge:(BOOL)onEdge;
++(void)activeLeftPanGesture;
 +(void)deactiveLeftPanGesture;
-+(void)activeRightPanGestureOnEdge:(BOOL)onEdge;
++(void)activeRightPanGesture;
 +(void)deactiveRightPanGesture;
 @end
 
