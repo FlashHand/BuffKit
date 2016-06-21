@@ -56,6 +56,7 @@ static BFRootViewController *rootViewController=nil;
 }
 - (void)viewDidLoad {
     self.rootBackgroundImageView=[[UIImageView alloc]init];
+    [self.rootBackgroundImageView setUserInteractionEnabled:YES];
     [self.rootBackgroundImageView setBackgroundColor:[UIColor whiteColor]];
     [self.rootBackgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:self.rootBackgroundImageView];
@@ -70,7 +71,6 @@ static BFRootViewController *rootViewController=nil;
     [constraints addObjectsFromArray:c2];
     [self.rootBackgroundImageView setImage:self.rootBackgroundPortraitImage];
     [self.view addConstraints:constraints];
-    [self.rootBackgroundImageView removeFromSuperview];
 }
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -312,7 +312,7 @@ static BFRootViewController *rootViewController=nil;
     [self.view removeConstraints:mainEndConstraints];
     [mainEndConstraints removeAllObjects];
     UIView *mainView = self.bfMainViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     NSDictionary *bindings = NSDictionaryOfVariableBindings(mainView, containerView);
     NSLayoutFormatOptions ops = NSLayoutFormatAlignAllRight | NSLayoutFormatAlignAllTop;
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
@@ -352,7 +352,7 @@ static BFRootViewController *rootViewController=nil;
     [leftStartConstraints removeAllObjects];
     CGFloat leftWidth = [[RootSplitBuff rootViewController] leftWidth];
     UIView *leftView = self.bfLeftViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     NSDictionary *bindings = NSDictionaryOfVariableBindings(leftView, containerView);
     NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
@@ -393,7 +393,7 @@ static BFRootViewController *rootViewController=nil;
     [leftEndConstraints removeAllObjects];
     CGFloat leftWidth = [[RootSplitBuff rootViewController] leftWidth];
     UIView *leftView = self.bfLeftViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     NSDictionary *bindings = NSDictionaryOfVariableBindings(leftView, containerView);
     NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
@@ -433,7 +433,7 @@ static BFRootViewController *rootViewController=nil;
     [self.view removeConstraints:rightEndConstraints];
     CGFloat rightWidth = [[RootSplitBuff rootViewController] rightWidth];
     UIView *rightView = self.bfRightViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     NSDictionary *bindings = NSDictionaryOfVariableBindings(rightView, containerView);
     NSLayoutFormatOptions ops = NSLayoutFormatAlignAllRight | NSLayoutFormatAlignAllTop;
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
@@ -474,7 +474,7 @@ static BFRootViewController *rootViewController=nil;
     [rightEndConstraints removeAllObjects];
     CGFloat rightWidth = [[RootSplitBuff rootViewController] rightWidth];
     UIView *rightView = self.bfRightViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     NSDictionary *bindings = NSDictionaryOfVariableBindings(rightView, containerView);
     NSLayoutFormatOptions ops = NSLayoutFormatAlignAllRight | NSLayoutFormatAlignAllTop;
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
@@ -549,15 +549,15 @@ static BFRootViewController *rootViewController=nil;
 
 #pragma mark Public method
 -(void)showLeftViewController{
-        NSTimeInterval duration = [RootSplitBuff rootViewController].leftAnimationDuration;
+    NSTimeInterval duration = [RootSplitBuff rootViewController].leftAnimationDuration;
     UIView *leftView = self.bfLeftViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     [leftView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.bfMainViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addDimButton];
-//    [containerView addSubview:leftView];
-//    [self _updateLeftStartConstraints];
-//    [containerView layoutIfNeeded];
+    [containerView addSubview:leftView];
+    [self _updateLeftStartConstraints];
+    [containerView layoutIfNeeded];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             NSInteger li=[self.view.subviews indexOfObject:self.bfLeftViewController.view];
@@ -609,8 +609,8 @@ static BFRootViewController *rootViewController=nil;
             break;
         case BuffSplitStylePerspective:{
             CATransform3D transform=CATransform3DIdentity;
-            transform.m34=-1/2000;
-            transform=CATransform3DRotate(transform, -0.3, 0, 1, 0);
+            transform.m34=-1.0/2000.0;
+            transform=CATransform3DRotate(transform, -1, 0, 1, 0);
             [self.bfMainViewController.view.layer setAnchorPoint:CGPointMake(1, 0.5)];
             [self.bfMainViewController.view.layer setPosition:CGPointMake(self.view.width, self.view.height/2)];
             self.bfMainViewController.view.layer.transform=transform;
@@ -650,7 +650,7 @@ static BFRootViewController *rootViewController=nil;
 -(void)hideLeftViewController{
     NSTimeInterval duration = [RootSplitBuff rootViewController].leftAnimationDuration;
     UIView *leftView = self.bfLeftViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     [self.bfMainViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
@@ -690,7 +690,7 @@ static BFRootViewController *rootViewController=nil;
 -(void)showRightViewController{
     NSTimeInterval duration = [RootSplitBuff rootViewController].rightAnimationDuration;
     UIView *rightView = self.bfRightViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     [self addDimButton];
     [containerView addSubview:rightView];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
@@ -752,7 +752,7 @@ static BFRootViewController *rootViewController=nil;
 -(void)hideRightViewController{
     NSTimeInterval duration = [RootSplitBuff rootViewController].rightAnimationDuration;
     UIView *rightView = self.bfRightViewController.view;
-    UIView *containerView=self.view;
+    UIView *containerView=self.rootBackgroundImageView;
     [rightView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.bfMainViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
