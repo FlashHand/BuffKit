@@ -11,6 +11,7 @@
 #define BF_PERCENTAGE_SHOW_RIGHT  0.5
 #define BF_SCALED_PAN 1.2
 #define BF_HORIZON_PAN_ANGLE M_PI_4
+#define BF_EYE_DISTANCE_PERSPECTIVE 2000.0
 
 typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleCovered = 1,
@@ -74,7 +75,8 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
     CGFloat currentWidth;
 }
 + (BFRootViewController *)sharedController;
-@property(nonatomic, weak) id <RootSplitBuffDelegate> delegate;
+@property(nonatomic, weak) id <RootSplitBuffDelegate> leftDelegate;
+@property(nonatomic, weak) id <RootSplitBuffDelegate> rigtDelegate;
 
 //controllers
 @property(nonatomic, strong) UIViewController *bfLeftViewController;
