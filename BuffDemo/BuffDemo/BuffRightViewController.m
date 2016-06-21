@@ -12,11 +12,11 @@
 
 @end
 
-@implementation BuffRightViewController
+@implementation BuffRightViewController 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:1]];    UIView *containerView=self.view;
+    [self.view setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:0.5]];    UIView *containerView=self.view;
     UIButton *dismissBtn=[[UIButton alloc]init];
     [dismissBtn setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:dismissBtn];

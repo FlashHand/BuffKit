@@ -23,6 +23,7 @@
 		FE2933621CE2FA350096B1DF /* CryptoBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335E1CE2FA350096B1DF /* CryptoBuff.m */; };
 		FE2933631CE2FA350096B1DF /* LBSBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933611CE2FA350096B1DF /* LBSBuff.m */; };
 		FE2933671CE3110A0096B1DF /* FrameBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933661CE3110A0096B1DF /* FrameBuff.m */; };
+		FE4616D11D17B3F600BEE9B6 /* WallPaper2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE4616D01D17B3F600BEE9B6 /* WallPaper2.jpg */; };
 		FE51CBFC1CD8DE2B00A7E897 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CBFB1CD8DE2B00A7E897 /* main.m */; };
 		FE51CBFF1CD8DE2B00A7E897 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE51CBFE1CD8DE2B00A7E897 /* AppDelegate.m */; };
 		FE51CC071CD8DE2B00A7E897 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE51CC061CD8DE2B00A7E897 /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 		FE2933611CE2FA350096B1DF /* LBSBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBSBuff.m; sourceTree = "<group>"; };
 		FE2933651CE3110A0096B1DF /* FrameBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBuff.h; sourceTree = "<group>"; };
 		FE2933661CE3110A0096B1DF /* FrameBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameBuff.m; sourceTree = "<group>"; };
+		FE4616D01D17B3F600BEE9B6 /* WallPaper2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WallPaper2.jpg; sourceTree = "<group>"; };
 		FE51CBF71CD8DE2B00A7E897 /* BuffDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuffDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE51CBFB1CD8DE2B00A7E897 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FE51CBFD1CD8DE2B00A7E897 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				2D4908751D0D36F500C4066F /* WallPaper.jpg */,
+				FE4616D01D17B3F600BEE9B6 /* WallPaper2.jpg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				13A6A6A424AD496A9DFE30E7 /* LICENSE in Resources */,
 				13A6A2596D0E1608CF478FE4 /* lbsbuff.jpg in Resources */,
 				2D4908761D0D36F500C4066F /* WallPaper.jpg in Resources */,
+				FE4616D11D17B3F600BEE9B6 /* WallPaper2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

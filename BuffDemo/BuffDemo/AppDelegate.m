@@ -29,7 +29,8 @@
     BuffListViewController  *buffListVC=[[BuffListViewController alloc]init];
     [buffListVC setTitle:@"BuffKit"];
     UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
-    [[RootSplitBuff rootViewController]setRootBackgroundImage:[UIImage imageNamed:@"WallPaper.jpg"]];
+    [[RootSplitBuff rootViewController]setRootBackgroundPortraitImage:[UIImage imageNamed:@"WallPaper.jpg"]];
+    [[RootSplitBuff rootViewController]setRootBackgroundLandscapeImage:[UIImage imageNamed:@"WallPaper2.jpg"]];
     [[RootSplitBuff rootViewController]setBfMainViewController:navi];
     BuffLeftViewController *lvc=[[BuffLeftViewController alloc]init];
     [[RootSplitBuff rootViewController]setBfLeftViewController:lvc];
