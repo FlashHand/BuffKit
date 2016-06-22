@@ -670,7 +670,6 @@ static BFRootViewController *rootViewController=nil;
 -(void)hideLeftViewController{
     [self.bfMainViewController.view.layer setShouldRasterize:NO];
     NSTimeInterval duration = [RootSplitBuff rootViewController].leftAnimationDuration;
-    UIView *leftView = self.bfLeftViewController.view;
     UIView *containerView=self.rootBackgroundImageView;
     [self.bfMainViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
@@ -1563,7 +1562,6 @@ static BFRootViewController *rootViewController=nil;
     diffX = diffX>0?0:diffX;
     CGFloat percent=fabs(diffX*BF_SCALED_PAN/_leftWidth);
     percent=percent>1?1:percent;
-    CGFloat scaledDiffX=percent*_leftWidth;
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             if (percent<BF_PERCENTAGE_SHOW_LEFT) {
