@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "7.0"
   s.source = { :git => "https://github.com/FlashHand/BuffKit.git", :tag => "0.11" }
   s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/CommonCrypto" }
-  s.prefix_header_contents = '#import "FrameBuff.h"'
   s.public_header_files = "BuffKit/*.h","BuffKit/**/*.h"
   s.source_files = "BuffKit/BuffKit.h","BuffKit/**/*.{h,m}"
   s.ios.frameworks   = "Foundation","UIKit","CoreLocation"
