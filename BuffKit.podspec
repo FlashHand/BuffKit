@@ -20,4 +20,8 @@ Pod::Spec.new do |s|
   s.source_files = "BuffKit/BuffKit.h","BuffKit/**/*.{h,m}"
   s.ios.frameworks   = "Foundation","UIKit","CoreLocation"
   s.requires_arc = true
+
+    s.subspec 'FrameBuff' do |ss|
+    ss.ios.source_files = "BuffKit/FrameBuff/*.{h,m}"
+    end
 end
