@@ -1,5 +1,5 @@
 //
-//  RootVCSplitBuff.h
+//  RootSplitBuff.h
 //  BuffDemo
 //
 //  Created by 王博 on 16/6/7.
