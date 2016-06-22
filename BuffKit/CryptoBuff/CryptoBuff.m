@@ -18,7 +18,6 @@ NSData *_buffMD5FromData(NSData *source) {
     NSData *data;
     [data bytes];
     return md5;
-
 }
 
 //SHA1
