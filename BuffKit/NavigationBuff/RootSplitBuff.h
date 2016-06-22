@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FrameBuff.h"
 #define BF_PERCENTAGE_SHOW_LEFT  0.5
 #define BF_PERCENTAGE_SHOW_RIGHT  0.5
 #define BF_SCALED_PAN 1.2
