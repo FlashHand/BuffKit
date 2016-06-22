@@ -17,6 +17,6 @@ Pod::Spec.new do |s|
   s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/CommonCrypto" }
   s.public_header_files = "BuffKit/*.h","BuffKit/**/*.h"
   s.source_files = "BuffKit/BuffKit.h","BuffKit/**/*.{h,m}"
-  s.ios.frameworks   = "Foundation","UIKit","CoreLocation","objc/runtime"
+  s.ios.frameworks   = "Foundation","UIKit","CoreLocation"
   s.requires_arc = true
 end
