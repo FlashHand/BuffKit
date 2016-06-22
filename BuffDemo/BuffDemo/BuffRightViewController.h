@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BuffRightViewController : UIViewController
+@interface BuffRightViewController : UIViewController <RootSplitBuffDelegate>
 
 @end

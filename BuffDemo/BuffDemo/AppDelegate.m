@@ -29,14 +29,15 @@
     BuffListViewController  *buffListVC=[[BuffListViewController alloc]init];
     [buffListVC setTitle:@"BuffKit"];
     UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
-    [[RootSplitBuff rootViewController]setRootBackgroundImage:[UIImage imageNamed:@"WallPaper.jpg"]];
+    [[RootSplitBuff rootViewController]setRootBackgroundPortraitImage:[UIImage imageNamed:@"WallPaper.jpg"]];
+    [[RootSplitBuff rootViewController]setRootBackgroundLandscapeImage:[UIImage imageNamed:@"WallPaper2.jpg"]];
     [[RootSplitBuff rootViewController]setBfMainViewController:navi];
     BuffLeftViewController *lvc=[[BuffLeftViewController alloc]init];
     [[RootSplitBuff rootViewController]setBfLeftViewController:lvc];
-    [RootSplitBuff activeLeftPanGestureOnEdge:YES];
+    [RootSplitBuff activeLeftPanGesture];
     BuffRightViewController *rvc=[[BuffRightViewController alloc]init];
     [[RootSplitBuff rootViewController]setBfRightViewController:rvc];
-    [RootSplitBuff activeRightPanGestureOnEdge:YES];
+    [RootSplitBuff activeRightPanGesture];
     [_window setRootViewController:[RootSplitBuff rootViewController]];
     [_window makeKeyAndVisible];
     // Override point for customization after application launch.

@@ -43,13 +43,13 @@
     [self.navigationController.view.layer setRasterizationScale:2.0];
     UIButton *leftBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
     [leftBtn setTitle:@"左侧" forState:UIControlStateNormal];
-    [leftBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor colorWithHex:0x1bd1a5 alpha:1] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(leftAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem=[[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     [self.navigationItem setLeftBarButtonItem:leftItem];
     UIButton *rightBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
     [rightBtn setTitle:@"右侧" forState:UIControlStateNormal];
-    [rightBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor colorWithHex:0xf36838 alpha:1] forState:UIControlStateNormal];
     [rightBtn addTarget:self action:@selector(rightAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem=[[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     [self.navigationItem setRightBarButtonItem:rightItem];
@@ -124,6 +124,7 @@
     UILabel *label= [[UILabel alloc] initWithFrame:CGRectMake(0,0,self.view.width,40)];
     [label setBackgroundColor:[UIColor whiteColor]];
     [label setText:@"长按Cell显示注释(CellBuff)"];
+    [label setTextColor:[UIColor colorWithHex:0xb35c44 alpha:1]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightLight]];
     return label;

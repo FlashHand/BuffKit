@@ -9,66 +9,118 @@
 #import <Foundation/Foundation.h>
 #define BF_PERCENTAGE_SHOW_LEFT  0.5
 #define BF_PERCENTAGE_SHOW_RIGHT  0.5
-#define BF_SCALE_PAN 1.2
+#define BF_SCALED_PAN 1.2
+#define BF_HORIZON_PAN_ANGLE M_PI_4
+#define BF_EYE_DISTANCE_PERSPECTIVE 2000.0
+#define BF_SPLITVIEW_ZPOSITION -1000
 
 typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleCovered = 1,
-    BuffSplitStylePushed = 2,
-    BuffSplitStyleScaled = 3,
-    BuffSplitStylePerspective =4,
+    BuffSplitStyleScaled = 2,
+    BuffSplitStylePerspective =3,//When BuffSplitStylePerspective,leftWidth & rightWidth will not be used
+    BuffSplitStyleCustom =4,
+    //TODO: USING BLOCK TO SET START/END LAYOUT
 };
-typedef NS_ENUM(NSInteger, BuffPanDirection) {
-    BuffPanDirectionNone = 1,
-    BuffPanDirectionLeft = 2,
-    BuffPanDirectionRight = 3,
-};
+//typedef NS_ENUM(NSInteger, BuffPanDirection) {
+//    BuffPanDirectionNone = 1,
+//    BuffPanDirectionLeft = 2,
+//    BuffPanDirectionRight = 3,
+//};
+//TODO: 考虑下Observing 滑动状态
+//typedef NS_ENUM(NSInteger, BuffSplitState) {
+//    BuffSplitStateQueit = 1,
+//    BuffSplitStateShowingLeft = 2,
+//    BuffSplitStateShowingRight = 3,
+//    BuffSplitStateHidingLeft = 4,
+//    BuffSplitStateHidingRight = 5,
+//};
+
+@protocol RootSplitBuffDelegate<NSObject>
+//显示左、右侧栏执行的协议方法
+//percent为当前所处的滑动进度
+
+//Protocol methods are called when showing or hiding split view
+//percent indicates how many have you pan
+@optional
+-(void)rootSplitBuffDoPushInLeftSplitView;
+-(void)rootSplitBuffWillPushInLeftSplitView;
+-(void)rootSplitBuffPushingInLeftSplitView:(CGFloat)percent;
+-(void)rootSplitBuffEndPushingInLeftSplitViewAt:(CGFloat)percent;
+
+-(void)rootSplitBuffDoPushOutLeftSplitView;
+-(void)rootSplitBuffWillPushOutLeftSplitView;
+-(void)rootSplitBuffPushingOutLeftSplitView:(CGFloat)percent;
+-(void)rootSplitBuffEndPushingOutLeftSplitViewAt:(CGFloat)percent;
+
+-(void)rootSplitBuffDoPushInRightSplitView;
+-(void)rootSplitBuffWillPushInRightSplitView;
+-(void)rootSplitBuffPushingInRightSplitView:(CGFloat)percent;
+-(void)rootSplitBuffEndPushingInRightSplitViewAt:(CGFloat)percent;
+
+-(void)rootSplitBuffDoPushOutRightSplitView;
+-(void)rootSplitBuffWillPushOutRightSplitView;
+-(void)rootSplitBuffPushingOutRightSplitView:(CGFloat)percent;
+-(void)rootSplitBuffEndPushingOutRightSplitViewAt:(CGFloat)percent;
+
+@end
+
 @interface BFRootViewController : UIViewController<UIGestureRecognizerDelegate>
 {
     NSMutableArray*fullScreenConstraints;
-    NSMutableArray *leftConstraints;
-    NSMutableArray *rightConstraints;
     
-    NSMutableArray *leftStartConstraints;
-    NSMutableArray *leftEndConstraints;
     NSMutableArray *mainStartConstraints;
     NSMutableArray *mainEndConstraints;
+
+    NSMutableArray *leftStartConstraints;
+    NSMutableArray *leftEndConstraints;
     NSMutableArray *rightStartConstraints;
     NSMutableArray *rightEndConstraints;
     NSMutableArray *dimConstraints;
     
     CGPoint beginPoint;
-    BuffPanDirection mainPanDirection;
+    CGFloat currentWidth;
 }
 + (BFRootViewController *)sharedController;
+@property(nonatomic, weak) id <RootSplitBuffDelegate> leftDelegate;
+@property(nonatomic, weak) id <RootSplitBuffDelegate> rightDelegate;
 
 //controllers
 @property(nonatomic, strong) UIViewController *bfLeftViewController;
 @property(nonatomic, strong) UIViewController *bfRightViewController;
 @property(nonatomic, strong) UIViewController *bfMainViewController;
+
 //gestures
-@property(nonatomic, strong) UIScreenEdgePanGestureRecognizer *bfLeftPan;
-@property(nonatomic, strong) UIScreenEdgePanGestureRecognizer *bfRightPan;
-@property(nonatomic, strong) UIPanGestureRecognizer *bfMainPan;
+@property(nonatomic, strong,readonly) UIScreenEdgePanGestureRecognizer *bfLeftPan;
+@property(nonatomic, strong,readonly) UIScreenEdgePanGestureRecognizer *bfRightPan;
+
 //dim button
-@property(nonatomic, strong) UIView *dimView;
-//dim view 's style for the mainViewController's view
+@property(nonatomic, strong,readonly) UIView *dimView;
 @property(nonatomic, assign) CGFloat dimOpacity;
 @property(nonatomic, strong) UIColor *dimColor;
-//侧边栏显示时mainView缩放情况,透视效果存在时mainViewScale为1
-@property(nonatomic, assign) CGFloat mainViewScale;
 
-//侧边栏显示风格
+
+//Split view style
 @property(nonatomic, assign) BuffSplitStyle splitStyle;
 @property(nonatomic, assign) CGFloat leftWidth;
 @property(nonatomic, assign) CGFloat rightWidth;
+@property(nonatomic, assign) CGFloat leftStartOffset;
+@property(nonatomic, assign) CGFloat rightStartOffset;
+//mainViewEndOffset only works for BuffSplitStyleCovered
+@property(nonatomic, assign) CGFloat mainEndOffsetForLeft;
+@property(nonatomic, assign) CGFloat mainEndOffsetForRight;
+//mainViewScale only works for BuffSplitStyleScaled
+@property(nonatomic, assign) CGFloat mainScale;
+@property(nonatomic, assign)CGFloat mainRotateAngle;
 
 //Duration
 @property(nonatomic, assign) CGFloat leftAnimationDuration;
 @property(nonatomic, assign) CGFloat rightAnimationDuration;
 
 //rootViewController backgroudImage
-@property (nonatomic, strong) UIImage *rootBackgroundImage;
+@property (nonatomic, strong) UIImage *rootBackgroundPortraitImage;
+@property (nonatomic, strong) UIImage *rootBackgroundLandscapeImage;
 @property (nonatomic, strong) UIImageView *rootBackgroundImageView;
+
 
 @property (nonatomic,assign,readonly) BOOL isLeftShowing;
 @property (nonatomic,assign,readonly) BOOL isRightShowing;
@@ -89,9 +141,9 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
 + (void)showRightViewController;
 + (void)hideRightViewController;
 
-+(void)activeLeftPanGestureOnEdge:(BOOL)onEdge;
++(void)activeLeftPanGesture;
 +(void)deactiveLeftPanGesture;
-+(void)activeRightPanGestureOnEdge:(BOOL)onEdge;
++(void)activeRightPanGesture;
 +(void)deactiveRightPanGesture;
-
 @end
+

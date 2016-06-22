@@ -30,7 +30,6 @@
     else if ([hexStr hasPrefix:@"#"]) {
         hexColor = [UIColor colorWithHexString:[@"0x" stringByAppendingString:[hexStr substringFromIndex:1]] alpha:alpha];
     }
-
     return hexColor;
 }
 
@@ -115,34 +114,34 @@
 
 @end
 
-@implementation UIImage (ColorBuff)
-- (UIColor *)colorAtX:(NSInteger)x y:(NSInteger)y {
-    if (x>=self.width||x<0||y>=self.height||y<0){
-        return nil;
-    }
-    uint32_t bitmapInfo = kCGBitmapByteOrderDefault;
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(NULL,
-            (size_t)self.width,
-            (size_t)self.height,
-            8,
-            (size_t)self.width*4,
-            colorSpace,
-            bitmapInfo);
-    const int *data = CGBitmapContextGetData (context);
-    long offset;
-    offset = 4*(y*(size_t)(self.width)+x);
-    int red = data[offset];
-    int green = data[offset+1];
-    int blue = data[offset+2];
-    int alpha =  data[offset+3];
-
-    return [UIColor colorWithRed:(CGFloat) (red / 255.0) green:(CGFloat) (green / 255.0) blue:(CGFloat) (blue / 255.0) alpha:alpha];
-}
-- (UIColor *)mainColor {
-    return nil;
-}
-@end
+//@implementation UIImage (ColorBuff)
+//- (UIColor *)colorAtX:(NSInteger)x y:(NSInteger)y {
+//    if (x>=self.width||x<0||y>=self.height||y<0){
+//        return nil;
+//    }
+//    uint32_t bitmapInfo = kCGBitmapByteOrderDefault;
+//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//    CGContextRef context = CGBitmapContextCreate(NULL,
+//            (size_t)self.width,
+//            (size_t)self.height,
+//            8,
+//            (size_t)self.width*4,
+//            colorSpace,
+//            bitmapInfo);
+//    const int *data = CGBitmapContextGetData (context);
+//    long offset;
+//    offset = 4*(y*(size_t)(self.width)+x);
+//    int red = data[offset];
+//    int green = data[offset+1];
+//    int blue = data[offset+2];
+//    int alpha =  data[offset+3];
+//
+//    return [UIColor colorWithRed:(CGFloat) (red / 255.0) green:(CGFloat) (green / 255.0) blue:(CGFloat) (blue / 255.0) alpha:alpha];
+//}
+//- (UIColor *)mainColor {
+//    return nil;
+//}
+//@end
 
 @implementation ColorBuff
 @end
