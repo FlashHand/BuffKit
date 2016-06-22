@@ -7,7 +7,6 @@
 //
 
 #import "RootSplitBuff.h"
-#import "FrameBuff.h"
 @interface BFRootViewController ()
 @end
 CGSize _bfGetSizeForSplitView(UIView *rootView,CGFloat angle){

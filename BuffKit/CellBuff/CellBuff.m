@@ -4,7 +4,6 @@
 //
 
 #import "CellBuff.h"
-#import "FrameBuff.h"
 #import <objc/runtime.h>
 CGFloat _BF_GET_WIDTH(){
     CGFloat w =[FrameBuff screenWidth];
