@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.name         = "BuffKit"
   s.version      = "0.11"
   s.author       = { "R4L" => "ralphwayne1991@gmail.com" }
-  s.summary      = "BuffKit provides common features and functions in iOS development."
+  s.summary      = "An iOS kit for basic features:split view,cypher,frame access,null handling and more extensions"
   s.description  = <<-DESC
 			       BuffKit has provided data encryption/decryption,UIView"s frame access
 			       ,CALayer"s frame accesss,geographic coordinate system transform(wgs84 to gcj02),
