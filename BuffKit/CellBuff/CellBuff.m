@@ -7,8 +7,8 @@
 #import <objc/runtime.h>
 #import "FrameBuff.h"
 CGFloat _BF_GET_WIDTH(){
-    CGFloat w =[FrameBuff screenWidth];
-    CGFloat h =[FrameBuff screenHeight];
+    CGFloat w =[[UIScreen mainScreen] bounds].size.width;
+    CGFloat h =[[UIScreen mainScreen] bounds].size.height;
     w=w>h?h:w;
     return w;
 }
@@ -135,7 +135,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [btn addSubview:self.bfAnnotationView];
     [self.bfAnnotationView setBackgroundColor:[UIColor clearColor]];
     [self.bfAnnotationView setFrame:CGRectMake(0, 0, _BF_GET_WIDTH(), labelBounds.size.height+10)];
-    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth]/2.0, (diffPoint.y-self.bfAnnotationView.height/2))];
+    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth]/2.0, (diffPoint.y-self.bfAnnotationView.bounds.size.height/2))];
     UILabel *annotationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,labelBounds.size.width,labelBounds.size.height)];
     [annotationLabel setFont:self.buff.annotationFont];
     [annotationLabel setNumberOfLines:2];
@@ -149,9 +149,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     CGPoint p1 = CGPointMake(0, 0);
     //箭头layer的位置
     CGPoint p2 = CGPointMake(0, 0);
-    p2.x = self.bfAnnotationView.width/2;
+    p2.x = self.bfAnnotationView.bounds.size.width/2;
     p2.y = labelBounds.size.height+5;
-    p1.x=self.bfAnnotationView.width/2;
+    p1.x=self.bfAnnotationView.bounds.size.width/2;
     p1.y= labelBounds.size.height/2;
     CAShapeLayer *annotationLayer = [CAShapeLayer layer];
     [annotationLayer setBounds:CGRectMake(0, 0, labelBounds.size.width+10, labelBounds.size.height)];
@@ -201,7 +201,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 -(void)bf_swizzled_layoutSubviews{
     [self bf_swizzled_layoutSubviews];
-    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth]/2.0, (topY-self.bfAnnotationView.height/2))];
+    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth]/2.0, (topY-self.bfAnnotationView.bounds.size.height/2))];
 }
 @end
 
