@@ -6,6 +6,7 @@
 //
 
 #import "CryptoBuff.h"
+#import <CommonCrypto/CommonCrypto.h>
 
 #pragma mark - NSData extension
 
