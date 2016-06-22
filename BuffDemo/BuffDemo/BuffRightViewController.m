@@ -16,7 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:0.3]];    UIView *containerView=self.view;
+    [self.view setBackgroundColor:[UIColor clearColor]];
+    UIView *containerView=self.view;
     UIButton *dismissBtn=[[UIButton alloc]init];
     [dismissBtn setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:dismissBtn];
@@ -32,14 +33,22 @@
     [self.view addConstraints:constraints];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dismissBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dismissBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    // Do any additional setup after loading the view.
+    [dismissBtn.layer setCornerRadius:4.0];
+    [dismissBtn setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:0.8]];
+    [dismissBtn addTarget:self action:@selector(dismissAction:) forControlEvents:UIControlEventTouchUpInside];
+    [RootSplitBuff rootViewController].rightDelegate=self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)dismissAction:(UIButton *)sender{
+    [RootSplitBuff hideRightViewController];
+}
+-(void)rootSplitBuffDoPushInLeftSplitView{
+    NSLog(@"right");
+}
 /*
 #pragma mark - Navigation
 

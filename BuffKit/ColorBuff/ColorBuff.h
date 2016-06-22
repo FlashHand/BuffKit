@@ -23,11 +23,5 @@
 -(UIColor *)reversedColor;
 
 @end
-
-@interface UIImage (ColorBuff)
--(UIColor *)colorAtX:(NSInteger)x y:(NSInteger)y;
--(UIColor *)mainColor;
-@end
-
 @interface ColorBuff : NSObject
 @end

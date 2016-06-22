@@ -12,20 +12,20 @@
 #define BF_SCALED_PAN 1.2
 #define BF_HORIZON_PAN_ANGLE M_PI_4
 #define BF_EYE_DISTANCE_PERSPECTIVE 2000.0
+#define BF_SPLITVIEW_ZPOSITION -1000
 
 typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleCovered = 1,
     BuffSplitStyleScaled = 2,
-    BuffSplitStylePerspective =3,
+    BuffSplitStylePerspective =3,//When BuffSplitStylePerspective,leftWidth & rightWidth will not be used
     BuffSplitStyleCustom =4,
     //TODO: USING BLOCK TO SET START/END LAYOUT
-    //BUT PROTOCOL IS A SAFER CHOICE
 };
-typedef NS_ENUM(NSInteger, BuffPanDirection) {
-    BuffPanDirectionNone = 1,
-    BuffPanDirectionLeft = 2,
-    BuffPanDirectionRight = 3,
-};
+//typedef NS_ENUM(NSInteger, BuffPanDirection) {
+//    BuffPanDirectionNone = 1,
+//    BuffPanDirectionLeft = 2,
+//    BuffPanDirectionRight = 3,
+//};
 //TODO: 考虑下Observing 滑动状态
 //typedef NS_ENUM(NSInteger, BuffSplitState) {
 //    BuffSplitStateQueit = 1,
@@ -36,21 +36,28 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
 //};
 
 @protocol RootSplitBuffDelegate<NSObject>
-@optional
 //显示左、右侧栏执行的协议方法
 //percent为当前所处的滑动进度
+
+//Protocol methods are called when showing or hiding split view
+//percent indicates how many have you pan
+@optional
+-(void)rootSplitBuffDoPushInLeftSplitView;
 -(void)rootSplitBuffWillPushInLeftSplitView;
 -(void)rootSplitBuffPushingInLeftSplitView:(CGFloat)percent;
 -(void)rootSplitBuffEndPushingInLeftSplitViewAt:(CGFloat)percent;
 
+-(void)rootSplitBuffDoPushOutLeftSplitView;
 -(void)rootSplitBuffWillPushOutLeftSplitView;
 -(void)rootSplitBuffPushingOutLeftSplitView:(CGFloat)percent;
 -(void)rootSplitBuffEndPushingOutLeftSplitViewAt:(CGFloat)percent;
 
+-(void)rootSplitBuffDoPushInRightSplitView;
 -(void)rootSplitBuffWillPushInRightSplitView;
 -(void)rootSplitBuffPushingInRightSplitView:(CGFloat)percent;
 -(void)rootSplitBuffEndPushingInRightSplitViewAt:(CGFloat)percent;
 
+-(void)rootSplitBuffDoPushOutRightSplitView;
 -(void)rootSplitBuffWillPushOutRightSplitView;
 -(void)rootSplitBuffPushingOutRightSplitView:(CGFloat)percent;
 -(void)rootSplitBuffEndPushingOutRightSplitViewAt:(CGFloat)percent;
@@ -71,12 +78,11 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
     NSMutableArray *dimConstraints;
     
     CGPoint beginPoint;
-    BuffPanDirection mainPanDirection;
     CGFloat currentWidth;
 }
 + (BFRootViewController *)sharedController;
 @property(nonatomic, weak) id <RootSplitBuffDelegate> leftDelegate;
-@property(nonatomic, weak) id <RootSplitBuffDelegate> rigtDelegate;
+@property(nonatomic, weak) id <RootSplitBuffDelegate> rightDelegate;
 
 //controllers
 @property(nonatomic, strong) UIViewController *bfLeftViewController;
@@ -86,7 +92,6 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
 //gestures
 @property(nonatomic, strong,readonly) UIScreenEdgePanGestureRecognizer *bfLeftPan;
 @property(nonatomic, strong,readonly) UIScreenEdgePanGestureRecognizer *bfRightPan;
-@property(nonatomic, strong,readonly) UIPanGestureRecognizer *bfMainPan;
 
 //dim button
 @property(nonatomic, strong,readonly) UIView *dimView;
@@ -94,7 +99,7 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
 @property(nonatomic, strong) UIColor *dimColor;
 
 
-//侧边栏及主视图样式
+//Split view style
 @property(nonatomic, assign) BuffSplitStyle splitStyle;
 @property(nonatomic, assign) CGFloat leftWidth;
 @property(nonatomic, assign) CGFloat rightWidth;
@@ -105,8 +110,7 @@ typedef NS_ENUM(NSInteger, BuffPanDirection) {
 @property(nonatomic, assign) CGFloat mainEndOffsetForRight;
 //mainViewScale only works for BuffSplitStyleScaled
 @property(nonatomic, assign) CGFloat mainScale;
-@property(nonatomic,assign,readonly)BOOL onEdge;
-
+@property(nonatomic, assign)CGFloat mainRotateAngle;
 
 //Duration
 @property(nonatomic, assign) CGFloat leftAnimationDuration;
