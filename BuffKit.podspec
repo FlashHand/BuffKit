@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "BuffKit"
-  s.version      = "0.11"
+  s.version      = "0.12"
   s.author       = { "R4L" => "ralphwayne1991@gmail.com" }
   s.summary      = "An iOS kit for basic features:split view,cypher,frame access,null handling and more extensions"
   s.description  = <<-DESC
