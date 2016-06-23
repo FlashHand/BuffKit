@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:0.8]];
+    [self.view setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:1]];
     UIView *containerView=self.view;
     UIButton *dismissBtn=[[UIButton alloc]init];
     [dismissBtn setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -34,7 +34,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dismissBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dismissBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [dismissBtn.layer setCornerRadius:4.0];
-    [dismissBtn setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:0.8]];
+    [dismissBtn setTitleColor:[UIColor colorWithHex:0xffffff alpha:0.8] forState:UIControlStateNormal];
     [dismissBtn addTarget:self action:@selector(dismissAction:) forControlEvents:UIControlEventTouchUpInside];
     [RootSplitBuff rootViewController].rightDelegate=self;
 }

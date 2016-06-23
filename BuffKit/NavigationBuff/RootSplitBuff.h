@@ -103,8 +103,6 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 @property(nonatomic, assign) BuffSplitStyle splitStyle;
 @property(nonatomic, assign) CGFloat leftWidth;
 @property(nonatomic, assign) CGFloat rightWidth;
-@property(nonatomic, assign) CGFloat leftStartOffset;
-@property(nonatomic, assign) CGFloat rightStartOffset;
 //mainViewEndOffset only works for BuffSplitStyleCovered
 @property(nonatomic, assign) CGFloat mainEndOffsetForLeft;
 @property(nonatomic, assign) CGFloat mainEndOffsetForRight;

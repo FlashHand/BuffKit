@@ -135,19 +135,17 @@ static BFRootViewController *rootViewController=nil;
 #pragma mark - Initial configuration
 -(void)applyDefault
 {
-    self.splitStyle=BuffSplitStyleScaled;
-    self.dimColor=[UIColor lightGrayColor];
-    self.dimOpacity=0.5;
+    _splitStyle=BuffSplitStyleCovered;
+    _dimColor=[UIColor lightGrayColor];
+    _dimOpacity=0.5;
     _leftWidth=200;
     _rightWidth=200;
-    self.leftAnimationDuration=0.3;
-    self.rightAnimationDuration=0.3;
-    self.leftStartOffset=0;
-    self.rightStartOffset=0;
-    self.mainEndOffsetForLeft=150;
-    self.mainEndOffsetForRight=150;
-    self.mainScale=0.8;
-    self.mainRotateAngle=1;
+    _leftAnimationDuration=0.3;
+    _rightAnimationDuration=0.3;
+    _mainEndOffsetForLeft=0;
+    _mainEndOffsetForRight=0;
+    _mainScale=0.8;
+    _mainRotateAngle=1;
     mainStartConstraints=[NSMutableArray array];
     mainEndConstraints=[NSMutableArray array];
     leftStartConstraints=[NSMutableArray array];
@@ -646,10 +644,10 @@ static BFRootViewController *rootViewController=nil;
             [self.bfMainViewController.view.layer setAnchorPoint:CGPointMake(1, 0.5)];
             [self.bfLeftViewController.view.layer setZPosition:BF_SPLITVIEW_ZPOSITION];
             [self.bfMainViewController.view.layer setPosition:CGPointMake(self.view.width, self.view.height/2)];
+            [self.bfLeftViewController.view.layer setZPosition:BF_SPLITVIEW_ZPOSITION];
             [UIView animateWithDuration:self.leftAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [_dimView setAlpha:[RootSplitBuff rootViewController].dimOpacity];
                 [containerView layoutIfNeeded];
-                [self.bfLeftViewController.view.layer setZPosition:BF_SPLITVIEW_ZPOSITION];
                 [self.bfMainViewController.view.layer setAnchorPoint:CGPointMake(1, 0.5)];
                 [self.bfMainViewController.view.layer setPosition:CGPointMake(self.view.width, self.view.height/2)];
                 self.bfMainViewController.view.layer.transform=transform;
@@ -797,6 +795,7 @@ static BFRootViewController *rootViewController=nil;
                 self.bfMainViewController.view.layer.transform=transform;
             }];
         }
+            break;
         case BuffSplitStylePerspective:{
             [self.bfMainViewController.view.layer setShouldRasterize:YES];
             [self.bfMainViewController.view.layer setRasterizationScale:[FrameBuff screenScale]];
@@ -815,12 +814,10 @@ static BFRootViewController *rootViewController=nil;
             [self _updateRightEndConstraints];
             [self.bfMainViewController.view.layer setAnchorPoint:CGPointMake(0, 0.5)];
             [self.bfMainViewController.view.layer setPosition:CGPointMake(0, self.view.height/2)];
-
             [self.bfRightViewController.view.layer setZPosition:BF_SPLITVIEW_ZPOSITION];
             [UIView animateWithDuration:self.rightAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [_dimView setAlpha:[RootSplitBuff rootViewController].dimOpacity];
                 [containerView layoutIfNeeded];
-                [self.bfRightViewController.view.layer setZPosition:BF_SPLITVIEW_ZPOSITION];
                 [self.bfMainViewController.view.layer setAnchorPoint:CGPointMake(0, 0.5)];
                 [self.bfMainViewController.view.layer setPosition:CGPointMake(0, self.view.height/2)];
                 self.bfMainViewController.view.layer.transform=transform;
@@ -1041,6 +1038,7 @@ static BFRootViewController *rootViewController=nil;
     percent=percent>1?1:percent;
     CGFloat scaledDiffX=percent*_leftWidth;
     [_dimView setAlpha:self.dimOpacity*percent];
+    [self.bfMainViewController.view.layer setShouldRasterize:NO];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             [self.bfLeftViewController.view setFrame:CGRectMake(scaledDiffX-_leftWidth, 0, _leftWidth, self.view.height)];
@@ -1085,6 +1083,7 @@ static BFRootViewController *rootViewController=nil;
     diffX = diffX<0?0:diffX;
     CGFloat percent=fabs(diffX*BF_SCALED_PAN/_leftWidth);
     percent=percent>1?1:percent;
+    [self.bfMainViewController.view.layer setShouldRasterize:NO];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             if (percent>BF_PERCENTAGE_SHOW_LEFT) {
@@ -1173,6 +1172,8 @@ static BFRootViewController *rootViewController=nil;
                     [self.bfMainViewController.view.layer setAnchorPoint:CGPointMake(1, 0.5)];
                     [self.bfMainViewController.view.layer setPosition:CGPointMake(self.view.width, self.view.height/2)];
                     self.bfMainViewController.view.layer.transform=transform;
+                    [self.bfMainViewController.view.layer setShouldRasterize:YES];
+                    [self.bfMainViewController.view.layer setRasterizationScale:[FrameBuff screenScale]];
                 }];
             }
             else {
@@ -1334,7 +1335,7 @@ static BFRootViewController *rootViewController=nil;
     diffX = diffX>0?0:diffX;
     CGFloat percent=fabs(diffX*BF_SCALED_PAN/_rightWidth);
     percent=percent>1?1:percent;
-    
+    [self.bfMainViewController.view.layer setShouldRasterize:NO];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             if (percent>BF_PERCENTAGE_SHOW_RIGHT) {
@@ -1425,6 +1426,9 @@ static BFRootViewController *rootViewController=nil;
                     [self.bfMainViewController.view.layer setAnchorPoint:CGPointMake(0, 0.5)];
                     [self.bfMainViewController.view.layer setPosition:CGPointMake(0, self.view.height/2)];
                     self.bfMainViewController.view.layer.transform=transform;
+                    [self.bfMainViewController.view.layer setShouldRasterize:YES];
+                    [self.bfMainViewController.view.layer setRasterizationScale:[FrameBuff screenScale]];
+
                 }];
             }
             else {
@@ -1918,9 +1922,7 @@ static BFRootViewController *rootViewController=nil;
 }
 #pragma mark - Foreground/Background Switch
 -(void)willResignActive{
-    if (self.splitStyle == BuffSplitStylePerspective) {
-        [self.bfMainViewController.view.layer setShouldRasterize:NO];
-    }
+    [self.bfMainViewController.view.layer setShouldRasterize:NO];
 }
 -(void)willBecomeActive{
     if (self.splitStyle == BuffSplitStylePerspective&&(self.isLeftShowing||self.isRightShowing)) {

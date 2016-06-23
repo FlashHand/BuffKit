@@ -21,10 +21,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     CGRect screenBounds=[[UIScreen mainScreen]bounds];
-//    [[NSBundle mainBundle].infoDictionary.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        NSLog(@"%@",obj);
-//    }];
-//    UIViewControllerBasedStatusBarAppearance
     _window=[[UIWindow alloc]initWithFrame:CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height)];
     BuffListViewController  *buffListVC=[[BuffListViewController alloc]init];
     [buffListVC setTitle:@"BuffKit"];
@@ -39,8 +35,9 @@
     [[RootSplitBuff rootViewController]setBfRightViewController:rvc];
     [RootSplitBuff activeRightPanGesture];
     [_window setRootViewController:[RootSplitBuff rootViewController]];
+    [[RootSplitBuff rootViewController]setSplitStyle:BuffSplitStyleCovered];
+    [[RootSplitBuff rootViewController]setMainRotateAngle:1.2];
     [_window makeKeyAndVisible];
-    // Override point for customization after application launch.
     return YES;
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
