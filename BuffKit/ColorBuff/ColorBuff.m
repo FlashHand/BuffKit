@@ -90,7 +90,6 @@
 }
 
 - (CGFloat)alpha {
-
     if (CGColorGetNumberOfComponents(self.CGColor) < 4) {
         return CGColorGetComponents(self.CGColor)[1];
     }

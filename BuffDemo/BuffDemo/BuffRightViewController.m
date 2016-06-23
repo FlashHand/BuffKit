@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor clearColor]];
+    [self.view setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:0.8]];
     UIView *containerView=self.view;
     UIButton *dismissBtn=[[UIButton alloc]init];
     [dismissBtn setTranslatesAutoresizingMaskIntoConstraints:NO];

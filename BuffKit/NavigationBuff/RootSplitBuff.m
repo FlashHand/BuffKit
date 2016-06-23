@@ -79,6 +79,9 @@ static BFRootViewController *rootViewController=nil;
         [self.rootBackgroundImageView setImage:self.rootBackgroundPortraitImage];
     }
     if ((self.splitStyle==BuffSplitStyleScaled)&&self.isLeftShowing) {
+        
+        [self.bfLeftViewController.view.layer setZPosition:BF_SPLITVIEW_ZPOSITION];
+        [self.view layoutIfNeeded];
         self.bfMainViewController.view.layer.transform=CATransform3DIdentity;
         CATransform3D transform=CATransform3DIdentity;
         CGFloat s=self.mainScale;
@@ -86,9 +89,10 @@ static BFRootViewController *rootViewController=nil;
         CGFloat tX=(_leftWidth-(1-s)*self.bfMainViewController.view.width/2)*1/s;
         transform=CATransform3DTranslate(transform,tX , 0, 0);
         self.bfMainViewController.view.layer.transform=transform;
-
     }
     else  if ((self.splitStyle==BuffSplitStyleScaled)&&self.isRightShowing) {
+        [self.bfRightViewController.view.layer setZPosition:BF_SPLITVIEW_ZPOSITION];
+        [self.view layoutIfNeeded];
         self.bfMainViewController.view.layer.transform=CATransform3DIdentity;
         CATransform3D transform=CATransform3DIdentity;
         CGFloat s=self.mainScale;
@@ -1912,7 +1916,7 @@ static BFRootViewController *rootViewController=nil;
         [RootSplitBuff hideRightViewController];
     }
 }
-#pragma mark - 前后台切换
+#pragma mark - Foreground/Background Switch
 -(void)willResignActive{
     if (self.splitStyle == BuffSplitStylePerspective) {
         [self.bfMainViewController.view.layer setShouldRasterize:NO];
