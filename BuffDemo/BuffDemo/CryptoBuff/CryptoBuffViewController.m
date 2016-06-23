@@ -85,7 +85,7 @@
     NSString *plaintText = textView.text;
     __weak typeof(self) wSelf=self;
     NSData *source = [plaintText dataUsingEncoding:NSUTF8StringEncoding];
-    [source bfCryptoAESEncodeWithMode:currentMode iv:@"abcdefgh12345679" key:@"12345678abcdefg1" completion:^(NSData *cryptoData) {
+    [source bfCryptoAESEncodeWithMode:currentMode iv:@"wb128364wb128364" key:@"wb128364wb128364" completion:^(NSData *cryptoData) {
         NSMutableString *cypherText = [[NSMutableString alloc] init];
         [cryptoData enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
             unsigned char *dataBytes = (unsigned char *) bytes;

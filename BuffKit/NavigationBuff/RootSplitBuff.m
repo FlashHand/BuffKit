@@ -66,6 +66,9 @@ static BFRootViewController *rootViewController=nil;
     [constraints addObjectsFromArray:c2];
     [self.rootBackgroundImageView setImage:self.rootBackgroundPortraitImage];
     [self.view addConstraints:constraints];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(willResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(willBecomeActive) name:UIApplicationWillEnterForegroundNotification object:nil];
+
 }
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -128,7 +131,7 @@ static BFRootViewController *rootViewController=nil;
 #pragma mark - Initial configuration
 -(void)applyDefault
 {
-    self.splitStyle=BuffSplitStylePerspective;
+    self.splitStyle=BuffSplitStyleScaled;
     self.dimColor=[UIColor lightGrayColor];
     self.dimOpacity=0.5;
     _leftWidth=200;
@@ -975,6 +978,7 @@ static BFRootViewController *rootViewController=nil;
 -(void)leftPanGestureBegin:(UIPanGestureRecognizer *)gesture{
     beginPoint=[gesture locationInView:self.view];
     [self.bfLeftViewController.view.layer setZPosition:0];
+    [self.bfMainViewController.view.layer setShouldRasterize:NO];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             [self.bfLeftViewController.view setTranslatesAutoresizingMaskIntoConstraints:YES];
@@ -1225,6 +1229,7 @@ static BFRootViewController *rootViewController=nil;
     currentWidth=[[UIScreen mainScreen]bounds].size.width;
     beginPoint=[gesture locationInView:self.view];
     [self.bfRightViewController.view.layer setZPosition:0];
+    [self.bfMainViewController.view.layer setShouldRasterize:NO];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
             [self.bfRightViewController.view setTranslatesAutoresizingMaskIntoConstraints:YES];
@@ -1482,6 +1487,7 @@ static BFRootViewController *rootViewController=nil;
     }
 }
 -(void)dimPanForLeftBegin:(UIPanGestureRecognizer *)gesture{
+    [self.bfMainViewController.view.layer setShouldRasterize:NO];
     beginPoint=[gesture locationInView:self.view];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
@@ -1690,6 +1696,7 @@ static BFRootViewController *rootViewController=nil;
     [self.leftDelegate rootSplitBuffEndPushingOutLeftSplitViewAt:percent];
 }
 -(void)dimPanForRightBegin:(UIPanGestureRecognizer *)gesture{
+    [self.bfMainViewController.view.layer setShouldRasterize:NO];
     beginPoint=[gesture locationInView:self.view];
     switch ([[RootSplitBuff rootViewController] splitStyle]) {
         case BuffSplitStyleCovered: {
@@ -1905,7 +1912,21 @@ static BFRootViewController *rootViewController=nil;
         [RootSplitBuff hideRightViewController];
     }
 }
-
+#pragma mark - 前后台切换
+-(void)willResignActive{
+    if (self.splitStyle == BuffSplitStylePerspective) {
+        [self.bfMainViewController.view.layer setShouldRasterize:NO];
+    }
+}
+-(void)willBecomeActive{
+    if (self.splitStyle == BuffSplitStylePerspective&&(self.isLeftShowing||self.isRightShowing)) {
+        [self.bfMainViewController.view.layer setShouldRasterize:YES];
+        [self.bfMainViewController.view.layer setRasterizationScale:[FrameBuff screenScale]];
+    }
+    else{
+        [self.bfMainViewController.view.layer setShouldRasterize:NO];
+    }
+}
 @end
 #pragma mark - RootSplitBuff
 @implementation RootSplitBuff
