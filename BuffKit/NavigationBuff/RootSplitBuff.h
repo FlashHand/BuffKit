@@ -108,7 +108,10 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 @property(nonatomic, assign) CGFloat mainEndOffsetForRight;
 //mainViewScale only works for BuffSplitStyleScaled
 @property(nonatomic, assign) CGFloat mainScale;
-@property(nonatomic, assign)CGFloat mainRotateAngle;
+@property(nonatomic, assign) CGFloat mainRotateAngle;
+
+@property(nonatomic, assign) BOOL shouldLeftStill;//when YES bfLeftViewController.view's origin will always be （0,0）
+@property(nonatomic, assign) BOOL shouldRightStill;//when YES bfRightViewController.view's origin will always be （self.view.width-_rightWidth,0）
 
 //Duration
 @property(nonatomic, assign) CGFloat leftAnimationDuration;

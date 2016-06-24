@@ -35,8 +35,11 @@
     [[RootSplitBuff rootViewController]setBfRightViewController:rvc];
     [RootSplitBuff activeRightPanGesture];
     [_window setRootViewController:[RootSplitBuff rootViewController]];
-    [[RootSplitBuff rootViewController]setSplitStyle:BuffSplitStyleCovered];
+    [[RootSplitBuff rootViewController]setSplitStyle:BuffSplitStyleScaled];
     [[RootSplitBuff rootViewController]setMainRotateAngle:1.2];
+    [RootSplitBuff rootViewController].shouldLeftStill=YES;
+    [RootSplitBuff rootViewController].shouldRightStill=YES;
+
     [_window makeKeyAndVisible];
     return YES;
 }

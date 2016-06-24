@@ -46,9 +46,33 @@
 -(void)dismissAction:(UIButton *)sender{
     [RootSplitBuff hideRightViewController];
 }
--(void)rootSplitBuffDoPushInLeftSplitView{
-    NSLog(@"right");
+
+-(void)rootSplitBuffDoPushInRightSplitView{
+    NSLog(@"rootSplitBuffDoPushInRightSplitView");
 }
+-(void)rootSplitBuffWillPushInRightSplitView{
+    NSLog(@"rootSplitBuffWillPushInRightSplitView");
+}
+-(void)rootSplitBuffPushingInRightSplitView:(CGFloat)percent{
+    NSLog(@"rootSplitBuffWillPushInRightSplitView:%f",percent);
+}
+-(void)rootSplitBuffEndPushingInRightSplitViewAt:(CGFloat)percent{
+    NSLog(@"rootSplitBuffEndPushingInRightSplitViewAt:%f",percent);
+}
+
+-(void)rootSplitBuffDoPushOutRightSplitView{
+    NSLog(@"rootSplitBuffDoPushOutRightSplitView");
+}
+-(void)rootSplitBuffWillPushOutRightSplitView{
+    NSLog(@"rootSplitBuffWillPushOutRightSplitView");
+}
+-(void)rootSplitBuffPushingOutRightSplitView:(CGFloat)percent{
+    NSLog(@"rootSplitBuffPushingOutRightSplitView:%f",percent);
+}
+-(void)rootSplitBuffEndPushingOutRightSplitViewAt:(CGFloat)percent{
+    NSLog(@"rootSplitBuffEndPushingOutRightSplitViewAt:%f",percent);
+}
+
 /*
 #pragma mark - Navigation
 
