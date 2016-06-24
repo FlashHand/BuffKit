@@ -5,7 +5,7 @@
 BuffKit includes extension for foudation class or instance and provides basic features of iOS application.
 
 #Supported features
-1. [Cypher]():MD5,SHA1,SHA2,AES,DES,3DES,BLOWFISH2. 
+1. [Cypher]():MD5,SHA1,SHA2,AES,DES,3DES,BLOWFISH. 
 2. [Null-handler]():preventing crash when NSDictionary,NSString,NSNumber or NSArray is null.
 3. [Frame-access]():access frame of UIView,CALayer and screen.
 4. [Geo-coordinates-transformation](): wgs84(gps) to gcj02(china)
