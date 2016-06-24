@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@interface NSNull (NSNull)
+@interface NSNull (NullBuff)
 
 @end
 
