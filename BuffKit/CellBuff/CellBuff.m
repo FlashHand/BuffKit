@@ -6,29 +6,32 @@
 #import "CellBuff.h"
 #import <objc/runtime.h>
 #import "FrameBuff.h"
-CGFloat _BF_GET_WIDTH(){
-    CGFloat w =[FrameBuff screenWidth];
-    CGFloat h =[FrameBuff screenHeight];
-    w=w>h?h:w;
+
+CGFloat _BF_GET_WIDTH() {
+    CGFloat w = [FrameBuff screenWidth];
+    CGFloat h = [FrameBuff screenHeight];
+    w = w > h ? h : w;
     return w;
 }
+
 static void *annotation = (void *) @"annotation";
 static void *annotationBG = (void *) @"annotationBG";
 static void *cellBuff = (void *) @"cellBuff";
 static void *annotationView = (void *) @"annotationView";
-static CGFloat topY=0;
-@implementation UITableViewCell(CellBuff)
+static CGFloat topY = 0;
+
+@implementation UITableViewCell (CellBuff)
 #pragma mark gesture delegate
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return [gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [gestureRecognizer locationInView:self].x >= 50;
 }
 
-- (BOOL)                         gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return NO;
 }
 
-#pragma mark - 列表标注
+#pragma mark - property access
 - (UIButton *)bfAnnotationBtn {
     return objc_getAssociatedObject(self, annotationBG);
 }
@@ -36,6 +39,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (void)setBfAnnotationBtn:(UIButton *)bfcellAnnotation {
     objc_setAssociatedObject(self, annotationBG, bfcellAnnotation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
 - (NSString *)bfAnnotation {
     return objc_getAssociatedObject(self, annotation);
 }
@@ -52,18 +56,18 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             }
             if (!isLongPressExited) {
                 UILongPressGestureRecognizer *annotationPress = [[UILongPressGestureRecognizer alloc]
-                                                                 initWithTarget:self action:@selector(showAnnotation:)];
+                        initWithTarget:self action:@selector(showAnnotation:)];
                 [self addGestureRecognizer:annotationPress];
                 [annotationPress setDelegate:self];
             }
-            
+
             dispatch_async(dispatch_get_main_queue(),
-                           ^{
-                               [self setUserInteractionEnabled:YES];
-                           }
-                           );
+                    ^{
+                        [self setUserInteractionEnabled:YES];
+                    }
+            );
         });
-        
+
     }
 }
 
@@ -74,6 +78,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (void)setBfAnnotationView:(UIView *)bfAnnotationView {
     objc_setAssociatedObject(self, annotationView, bfAnnotationView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
 - (CellBuff *)buff {
     return objc_getAssociatedObject(self, cellBuff);
 }
@@ -82,7 +87,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     objc_setAssociatedObject(self, cellBuff, aBuff, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)bf_setAnnotation:(NSString *)annotation {
+- (void)bf_setAnnotation:(NSString *)annotation{
     [self setBfAnnotation:annotation];
     CellBuff *aBuff = [[CellBuff alloc] init];
     self.buff = aBuff;
@@ -102,9 +107,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (void)showannotationBtnWithTouch:(CGPoint)diffPoint {
-    topY=diffPoint.y;
+    topY = diffPoint.y;
     //添加全屏按钮
-    NSMutableArray *btnConstraints=[NSMutableArray array];
+    NSMutableArray *btnConstraints = [NSMutableArray array];
     self.bfAnnotationBtn = [[UIButton alloc] init];
     [self.bfAnnotationBtn setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.bfAnnotationBtn setBackgroundColor:[UIColor clearColor]];
@@ -113,7 +118,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                    forControlEvents:UIControlEventTouchUpInside];
     [([[UIApplication sharedApplication] delegate]).window addSubview:self.bfAnnotationBtn];
     UIButton *btn = self.bfAnnotationBtn;
-    UIView *containerView=([[UIApplication sharedApplication] delegate]).window;
+    UIView *containerView = ([[UIApplication sharedApplication] delegate]).window;
     NSDictionary *bindings = NSDictionaryOfVariableBindings(btn, containerView);
     NSLayoutFormatOptions ops = NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllTop;
     NSArray *c1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[btn(==containerView)]" options:ops metrics:nil views:bindings];
@@ -125,18 +130,20 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5.0];
     CGRect labelBounds = [attributedString boundingRectWithSize:CGSizeMake(_BF_GET_WIDTH() - 30, 45) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    if (labelBounds.size.height<30){
-        labelBounds.size.height=30;
+    labelBounds = CGRectMake(0, 0, labelBounds.size.width, labelBounds.size.height + 10);
+    if (labelBounds.size.height < 30) {
+        labelBounds.size.height = 30;
     }
-    if (labelBounds.size.width<30){
-        labelBounds.size.width=30;
+    if (labelBounds.size.width < 30) {
+        labelBounds.size.width = 30;
     }
-    self.bfAnnotationView=[UIView new];
+    self.bfAnnotationView = [UIView new];
+    [self.bfAnnotationView setAlpha:0];
     [btn addSubview:self.bfAnnotationView];
     [self.bfAnnotationView setBackgroundColor:[UIColor clearColor]];
-    [self.bfAnnotationView setFrame:CGRectMake(0, 0, _BF_GET_WIDTH(), labelBounds.size.height+10)];
-    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth]/2.0, (diffPoint.y-self.bfAnnotationView.height/2))];
-    UILabel *annotationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,labelBounds.size.width,labelBounds.size.height)];
+    [self.bfAnnotationView setFrame:CGRectMake(0, 0, _BF_GET_WIDTH(), labelBounds.size.height + 10)];
+    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth] / 2.0, (diffPoint.y - self.bfAnnotationView.height / 2))];
+    UILabel *annotationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, labelBounds.size.width, labelBounds.size.height)];
     [annotationLabel setFont:self.buff.annotationFont];
     [annotationLabel setNumberOfLines:2];
     [annotationLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -149,59 +156,73 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     CGPoint p1 = CGPointMake(0, 0);
     //箭头layer的位置
     CGPoint p2 = CGPointMake(0, 0);
-    p2.x = self.bfAnnotationView.width/2;
-    p2.y = labelBounds.size.height+5;
-    p1.x=self.bfAnnotationView.width/2;
-    p1.y= labelBounds.size.height/2;
+    p2.x = self.bfAnnotationView.width / 2;
+    p2.y = labelBounds.size.height + 5;
+    p1.x = self.bfAnnotationView.width / 2;
+    p1.y = labelBounds.size.height / 2;
     CAShapeLayer *annotationLayer = [CAShapeLayer layer];
-    [annotationLayer setBounds:CGRectMake(0, 0, labelBounds.size.width+10, labelBounds.size.height)];
+    [annotationLayer setBounds:CGRectMake(0, 0, labelBounds.size.width + 10, labelBounds.size.height)];
     [annotationLayer setPosition:p1];
     [annotationLayer setStrokeColor:[UIColor clearColor].CGColor];
     [annotationLayer setFillColor:self.buff.annotationBGColor.CGColor];
     [annotationLayer setOpacity:self.buff.annotationOpacity];
     [annotationLabel setCenter:p1];
-    UIBezierPath *borderPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, labelBounds.size.width+10, labelBounds.size.height) cornerRadius:4];
+    UIBezierPath *borderPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, labelBounds.size.width + 10, labelBounds.size.height) cornerRadius:4];
     [annotationLayer setPath:borderPath.CGPath];
     CAShapeLayer *arrowLayer = [CAShapeLayer layer];
-    [arrowLayer setBounds:CGRectMake(0, 0, 10, 10)];
+    [arrowLayer setBounds:CGRectMake(0, 0, 18, 10)];
     [arrowLayer setPosition:p2];
     [arrowLayer setStrokeColor:[UIColor clearColor].CGColor];
     [arrowLayer setFillColor:self.buff.annotationBGColor.CGColor];
     [arrowLayer setOpacity:self.buff.annotationOpacity];
     UIBezierPath *arrowPath = [UIBezierPath bezierPath];
     [arrowPath moveToPoint:CGPointMake(0, 0)];
-    [arrowPath addLineToPoint:CGPointMake(5, 10)];
-    [arrowPath addLineToPoint:CGPointMake(10, 0)];
+    [arrowPath addLineToPoint:CGPointMake(9, 10)];
+    [arrowPath addLineToPoint:CGPointMake(18, 0)];
     [arrowLayer setPath:arrowPath.CGPath];
     [self.bfAnnotationView.layer addSublayer:annotationLayer];
     [self.bfAnnotationView.layer addSublayer:arrowLayer];
     [self.bfAnnotationView addSubview:annotationLabel];
+    [UIView animateWithDuration:0.2 animations:^{
+         [self.bfAnnotationView setAlpha:1];
+    }];
+   
+   
 }
 
 - (void)hideAnnotation {
-    [self.bfAnnotationBtn removeFromSuperview];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.bfAnnotationView setAlpha:0];
+    }completion:^(BOOL finished) {
+        [self.bfAnnotationBtn removeFromSuperview];
+        self.bfAnnotationBtn = nil;
+    }];
+    
 }
+
 #pragma mark Method swizzling
-+(void)load{
+
++ (void)load {
     static dispatch_once_t cellBuffToken;
     dispatch_once(&cellBuffToken, ^{
-        Class class=[UITableViewCell class];
-        SEL origSel=@selector(layoutSubviews);
-        SEL swizSel=@selector(bf_swizzled_layoutSubviews);
-        Method origMethod=class_getInstanceMethod(class, origSel);
-        Method swizMethod=class_getInstanceMethod(class, swizSel);
-        BOOL didAddMethod=class_addMethod(class, origSel, method_getImplementation(swizMethod), method_getTypeEncoding(swizMethod));
+        Class class = [UITableViewCell class];
+        SEL origSel = @selector(layoutSubviews);
+        SEL swizSel = @selector(bf_swizzled_layoutSubviews);
+        Method origMethod = class_getInstanceMethod(class, origSel);
+        Method swizMethod = class_getInstanceMethod(class, swizSel);
+        BOOL didAddMethod = class_addMethod(class, origSel, method_getImplementation(swizMethod), method_getTypeEncoding(swizMethod));
         if (didAddMethod) {
             class_replaceMethod(class, swizSel, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
         }
-        else{
+        else {
             method_exchangeImplementations(origMethod, swizMethod);
         }
     });
 }
--(void)bf_swizzled_layoutSubviews{
+
+- (void)bf_swizzled_layoutSubviews {
     [self bf_swizzled_layoutSubviews];
-    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth]/2.0, (topY-self.bfAnnotationView.height/2))];
+    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth] / 2.0, (topY - self.bfAnnotationView.height / 2))];
 }
 @end
 
@@ -211,7 +232,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (self) {
         self.annotationBGColor = [UIColor blackColor];
         self.annotationTextColor = [UIColor whiteColor];
-        self.annotationFont = [UIFont systemFontOfSize:12];
+        self.annotationFont = [UIFont systemFontOfSize:12 weight:UIFontWeightLight];
         self.annotationOpacity = 0.8;
     }
     return self;

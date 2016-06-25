@@ -103,7 +103,7 @@
             [wSelf.textView endEditing:YES];
         });
         NSLog(@"PlainText:\n%@\nCypherText:\n%@", plaintText, cypherText);
-        [cryptoData bfCryptoAESDecodeWithMode:currentMode iv:@"abcdefgh12345679" key:@"12345678abcdefg1" completion:^(NSData *cryptoData2) {
+        [cryptoData bfCryptoAESDecodeWithMode:currentMode iv:@"wb128364wb128364" key:@"wb128364wb128364" completion:^(NSData *cryptoData2) {
             NSString *result= [[NSString alloc] initWithData:cryptoData2 encoding:NSUTF8StringEncoding];
             NSLog(@"%@",result);
 

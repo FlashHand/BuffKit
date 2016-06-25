@@ -39,7 +39,6 @@
     [[RootSplitBuff rootViewController]setMainRotateAngle:1.2];
     [RootSplitBuff rootViewController].shouldLeftStill=YES;
     [RootSplitBuff rootViewController].shouldRightStill=YES;
-
     [_window makeKeyAndVisible];
     return YES;
 }

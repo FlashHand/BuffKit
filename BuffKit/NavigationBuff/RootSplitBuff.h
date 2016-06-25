@@ -17,7 +17,8 @@
 typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleCovered = 1,
     BuffSplitStyleScaled = 2,
-    BuffSplitStylePerspective =3,//When BuffSplitStylePerspective,leftWidth & rightWidth will not be used
+    //When BuffSplitStylePerspective,leftWidth & rightWidth will not be used
+    BuffSplitStylePerspective =3,
     BuffSplitStyleCustom =4,
     //TODO: USING BLOCK TO SET START/END LAYOUT
 };
@@ -66,8 +67,6 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 
 @interface BFRootViewController : UIViewController<UIGestureRecognizerDelegate>
 {
-    NSMutableArray*fullScreenConstraints;
-    
     NSMutableArray *mainStartConstraints;
     NSMutableArray *mainEndConstraints;
 
@@ -135,6 +134,7 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 @end
 
 @interface RootSplitBuff : NSObject
+
 + (BFRootViewController *)rootViewController;
 
 + (void)showLeftViewController;
