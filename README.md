@@ -30,6 +30,6 @@ BuffKit 尽量以扩展+AOP模式开发，以帮助开发者快速开始一个�
 6. [UIColor-extension]()通过16进制字符串或数字设置颜色，以及分获取一个颜色的RGBA信息
 7. [Split-view]()显示高可自定义的左右侧边栏，支持AutoLayout横竖屏/手势/可自定义/多样式/Method-Swizzling提高兼容
 
-If you have any problems or suggestions,please mail me(**ralwayne@163.com**).
+If you have any problems or suggestions,please issue me or mail me(**ralwayne@163.com**).
 
 BuffKit is released under the MIT license.
