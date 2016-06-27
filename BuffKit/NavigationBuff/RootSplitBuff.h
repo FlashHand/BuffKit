@@ -131,11 +131,17 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 //-(void)showRightViewController;
 //-(void)hideRightViewController;
 
+#pragma mark for method-swizzling
+@property (nonatomic,assign,readonly) BOOL isRootViewContollerShowing;
 @end
 
 @interface RootSplitBuff : NSObject
 
 + (BFRootViewController *)rootViewController;
+
++ (void)setMainViewController:(UIViewController *)mainViewController;
++ (void)setLeftViewController:(UIViewController *)leftViewController;
++ (void)setRightViewController:(UIViewController *)rightViewController;
 
 + (void)showLeftViewController;
 + (void)hideLeftViewController;
@@ -146,5 +152,8 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 +(void)deactiveLeftPanGesture;
 +(void)activeRightPanGesture;
 +(void)deactiveRightPanGesture;
+@end
+@interface UIViewController (RootSplitBuff)
+
 @end
 

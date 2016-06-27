@@ -8,7 +8,7 @@
 
 #import "RootSplitBuff.h"
 #import "FrameBuff.h"
-
+#import <objc/runtime.h>
 @interface BFRootViewController ()
 @end
 
@@ -58,6 +58,7 @@ static BFRootViewController *rootViewController = nil;
 }
 
 - (void)viewDidLoad {
+    _isRootViewContollerShowing=YES;
     self.rootBackgroundImageView = [[UIImageView alloc] init];
     [self.rootBackgroundImageView setUserInteractionEnabled:YES];
     [self.rootBackgroundImageView setBackgroundColor:[UIColor whiteColor]];
@@ -78,7 +79,14 @@ static BFRootViewController *rootViewController = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBecomeActive) name:UIApplicationWillEnterForegroundNotification object:nil];
 
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    _isRootViewContollerShowing=YES;
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    _isRootViewContollerShowing=NO;
+}
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     if (self.view.width > self.view.height) {
@@ -609,7 +617,6 @@ static BFRootViewController *rootViewController = nil;
             [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [containerView layoutIfNeeded];
                 [_dimView setAlpha:[RootSplitBuff rootViewController].dimOpacity];
-
             }                completion:^(BOOL finished) {
                 [self setIsLeftShowing:YES];
             }];
@@ -1968,8 +1975,18 @@ static BFRootViewController *rootViewController = nil;
 + (BFRootViewController *)rootViewController {
     return [BFRootViewController sharedController];
 }
+#pragma mark - set split viewControllers;
++ (void)setMainViewController:(UIViewController *)mainViewController{
+    [[BFRootViewController sharedController]setBfMainViewController:mainViewController];
+}
++ (void)setLeftViewController:(UIViewController *)leftViewController{
+    [[BFRootViewController sharedController]setBfLeftViewController:leftViewController];
+}
++ (void)setRightViewController:(UIViewController *)rightViewController{
+    [[BFRootViewController sharedController]setBfRightViewController:rightViewController];
+}
 
-#pragma mark - show or hide side viewController;
+#pragma mark - show or hide split viewControllers;
 
 + (void)showLeftViewController {
     [[BFRootViewController sharedController] showLeftViewController];
@@ -2005,3 +2022,39 @@ static BFRootViewController *rootViewController = nil;
     [[BFRootViewController sharedController] deactiveRightPanGesture];
 }
 @end
+@implementation UIViewController (RootSplitBuff)
+#pragma mark UIViewController Method swizzling+forwarding
+
++ (void)load {
+    static dispatch_once_t rootSplitBuffToken;
+    dispatch_once(&rootSplitBuffToken, ^{
+        Class class = [UIViewController class];
+        SEL origSel = @selector(presentViewController:animated:completion:);
+        SEL swizSel = @selector(bf_swizzled_presentViewController:animated:completion:);
+        Method origMethod = class_getInstanceMethod(class, origSel);
+        Method swizMethod = class_getInstanceMethod(class, swizSel);
+        BOOL didAddMethod = class_addMethod(class, origSel, method_getImplementation(swizMethod), method_getTypeEncoding(swizMethod));
+        if (didAddMethod) {
+            class_replaceMethod(class, swizSel, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+        }
+        else {
+            method_exchangeImplementations(origMethod, swizMethod);
+        }
+    });
+    
+}
+-(void)bf_swizzled_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
+    if (self==[RootSplitBuff rootViewController]) {
+        [self bf_swizzled_presentViewController:viewControllerToPresent animated:flag completion:completion];
+    }
+    else {
+        if ([RootSplitBuff rootViewController].isRootViewContollerShowing){
+            [[RootSplitBuff rootViewController] bf_swizzled_presentViewController:viewControllerToPresent animated:flag completion:completion];
+        }
+        else {
+            [self bf_swizzled_presentViewController:viewControllerToPresent animated:flag completion:completion];
+        }
+    }
+}
+@end
+

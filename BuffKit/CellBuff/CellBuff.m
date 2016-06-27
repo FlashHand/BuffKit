@@ -218,6 +218,7 @@ static CGFloat topY = 0;
             method_exchangeImplementations(origMethod, swizMethod);
         }
     });
+    
 }
 
 - (void)bf_swizzled_layoutSubviews {
