@@ -22,13 +22,13 @@ BuffKit 包含了对Foundation框架的扩展以及iOS app的基础功能，目�
 BuffKit 尽可能以扩展+AOP模式开发，以帮助开发者快速开始一个新的应用，或者使用到现有代码中。
 
 #Supported features
-1. [CryptoBuff]()加解密:MD5,SHA1,SHA2,AES,DES,3DES,BLOWFISH. 
-2. [NullBuff]()Null对象处理:preventing crash when NSDictionary,NSString,NSNumber or NSArray is null.
-3. [FrameBuff]()快速获取UIView,CALayer和UIScreen的尺寸信息。
-4. [LBSBuff]()地球坐标转火星坐标: wgs84(gps) to gcj02(china)，精度约是小数点后4位。
-5. [CellBuff]()为无法完整显示字符串的Cell提供一个标注。
-6. [UIClorBuff]()通过16进制字符串或数字设置颜色，以及分获取一个颜色的RGBA信息。
-7. [RootSplitBuff]()显示高可自定义的左右侧边栏，支持AutoLayout横竖屏/手势/可自定义/多样式/Method-Swizzling提高兼容。
+1. [CryptoBuff]():包含了MD5,SHA1,SHA2的计算,以及对称加密：AES,DES,3DES,BLOWFISH. 
+2. [NullBuff]():Null对象处理，防止NSDictionary,NSString,NSNumber,NSArray类型的指针执行Null对象导致的闪退问题。
+3. [FrameBuff]():快速获取UIView,CALayer和UIScreen的尺寸信息。
+4. [LBSBuff]():地球坐标转火星坐标: wgs84(gps) to gcj02(china)，精度约是小数点后4位。
+5. [CellBuff]():为无法完整显示字符串的Cell提供一个标注。
+6. [UIClorBuff]():通过16进制字符串或数字设置颜色，以及分获取一个颜色的RGBA信息。
+7. [RootSplitBuff]():显示高可自定义的左右侧边栏，支持AutoLayout横竖屏/手势/可自定义/多样式/Method-Swizzling提高兼容。
 
 If you have any problems or suggestions,please issue me or mail me(**ralwayne@163.com**).
 
