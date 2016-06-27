@@ -2023,8 +2023,8 @@ static BFRootViewController *rootViewController = nil;
 }
 @end
 @implementation UIViewController (RootSplitBuff)
-#pragma mark UIViewController Method swizzling+forwarding
-
+#pragma mark UIViewController Method swizzling+forwarding 
+//请注意此处Method swizzling会造成UIViewController instance's presentingViewController为[RootSplitBuff rootViewController]而不是presentViewController:animated:completion:的调用者
 + (void)load {
     static dispatch_once_t rootSplitBuffToken;
     dispatch_once(&rootSplitBuffToken, ^{
@@ -2057,4 +2057,3 @@ static BFRootViewController *rootViewController = nil;
     }
 }
 @end
-
