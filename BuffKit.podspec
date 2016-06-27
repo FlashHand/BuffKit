@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "BuffKit"
-  s.version      = "0.14"
+  s.version      = "0.15"
   s.author       = { "R4L" => "ralphwayne1991@gmail.com" }
   s.summary      = "An iOS kit for basic features:split view,cypher,frame access,null handling and more extensions"
   s.description  = <<-DESC
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.platform = :ios
   s.ios.deployment_target = "7.0"
-  s.source = { :git => "https://github.com/FlashHand/BuffKit.git", :tag => "0.14" }
+  s.source = { :git => "https://github.com/FlashHand/BuffKit.git", :tag => "0.15" }
   s.public_header_files = "BuffKit/*.h","BuffKit/**/*.h"
   s.source_files = "BuffKit/BuffKit.h","BuffKit/**/*.{h,m}"
 s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/CommonCrypto" }
