@@ -15,7 +15,6 @@
 		13A6A8EA5C90ACC7F4D8AA75 /* CellBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6AAFC7E12A2575CFEE3A5 /* CellBuff.m */; };
 		13A6A9E70906333FDD7A1118 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 13A6A0FF3BBE72E10CD40266 /* README.md */; };
 		13A6AA1222AEC2A81F826008 /* RootSplitBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6A0DE6EF5BE73C9184418 /* RootSplitBuff.m */; };
-		13A6AB5AA3015655A103C2DF /* ImageBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6AC8452C7BBFDF1FD1ADF /* ImageBuff.m */; };
 		2D4908761D0D36F500C4066F /* WallPaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2D4908751D0D36F500C4066F /* WallPaper.jpg */; };
 		FE2933521CE21DB30096B1DF /* CryptoBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933501CE21DB30096B1DF /* CryptoBuffViewController.m */; };
 		FE29335B1CE2D2420096B1DF /* LBSBuffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335A1CE2D2420096B1DF /* LBSBuffViewController.m */; };
@@ -53,10 +52,8 @@
 		13A6A7A7A2B5DC4C0515E80F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		13A6A8DDEF453B15D7A220D7 /* NullBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullBuff.h; sourceTree = "<group>"; };
 		13A6AA0C0DC528EB939640EC /* lbsbuff.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lbsbuff.jpg; sourceTree = "<group>"; };
-		13A6AA63A123D86A61E27698 /* ImageBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBuff.h; sourceTree = "<group>"; };
 		13A6AAFC7E12A2575CFEE3A5 /* CellBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellBuff.m; sourceTree = "<group>"; };
 		13A6ABAB4D4DCD403A186681 /* BuffKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; name = BuffKit.podspec; path = ../BuffKit.podspec; sourceTree = "<group>"; };
-		13A6AC8452C7BBFDF1FD1ADF /* ImageBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBuff.m; sourceTree = "<group>"; };
 		13A6AF40F80251F84DA0032A /* CellBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellBuff.h; sourceTree = "<group>"; };
 		13A6AFAA8289A356450646CC /* NullBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullBuff.m; sourceTree = "<group>"; };
 		2D4908751D0D36F500C4066F /* WallPaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WallPaper.jpg; sourceTree = "<group>"; };
@@ -125,15 +122,6 @@
 				13A6AAFC7E12A2575CFEE3A5 /* CellBuff.m */,
 			);
 			path = CellBuff;
-			sourceTree = "<group>";
-		};
-		13A6A76A1EE1FE45B8E460FC /* ImageBuff */ = {
-			isa = PBXGroup;
-			children = (
-				13A6AA63A123D86A61E27698 /* ImageBuff.h */,
-				13A6AC8452C7BBFDF1FD1ADF /* ImageBuff.m */,
-			);
-			path = ImageBuff;
 			sourceTree = "<group>";
 		};
 		13A6A88FD2B11B4F3C5F23BC /* ColorBuff */ = {
@@ -280,7 +268,6 @@
 				FE29335F1CE2FA350096B1DF /* LBSBuff */,
 				13A6A88FD2B11B4F3C5F23BC /* ColorBuff */,
 				13A6A1F7AA6C1CD58617D170 /* NullBuff */,
-				13A6A76A1EE1FE45B8E460FC /* ImageBuff */,
 				13A6A2B507685B0CE8378C06 /* CellBuff */,
 				13A6A9439C03DC186ECCAA0E /* NavigationBuff */,
 			);
@@ -405,7 +392,6 @@
 				FEE958D81D128C05000BF979 /* BuffRightViewController.m in Sources */,
 				13A6A7BD9347F3A60459A112 /* NullBuff.m in Sources */,
 				13A6A9E70906333FDD7A1118 /* README.md in Sources */,
-				13A6AB5AA3015655A103C2DF /* ImageBuff.m in Sources */,
 				13A6A8EA5C90ACC7F4D8AA75 /* CellBuff.m in Sources */,
 				13A6AA1222AEC2A81F826008 /* RootSplitBuff.m in Sources */,
 			);

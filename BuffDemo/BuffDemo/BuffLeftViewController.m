@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor clearColor]];
+    [self.view setBackgroundColor:[UIColor colorWithHex:0x1bd1a5 alpha:1]];
     UIView *containerView=self.view;
     UIButton *dismissBtn=[[UIButton alloc]init];
     [dismissBtn setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -46,7 +46,33 @@
     [RootSplitBuff hideLeftViewController];
 }
 -(void)rootSplitBuffDoPushInLeftSplitView{
-    NSLog(@"left");
+    NSLog(@"rootSplitBuffDoPushInLeftSplitView");
+}
+-(void)rootSplitBuffWillPushInLeftSplitView{
+    NSLog(@"rootSplitBuffWillPushInLeftSplitView");
+}
+-(void)rootSplitBuffPushingInLeftSplitView:(CGFloat)percent{
+    NSLog(@"rootSplitBuffPushingInLeftSplitView:%f",percent);
+
+}
+-(void)rootSplitBuffEndPushingInLeftSplitViewAt:(CGFloat)percent{
+    NSLog(@"rootSplitBuffEndPushingInLeftSplitViewAt:%f",percent);
+}
+
+-(void)rootSplitBuffDoPushOutLeftSplitView{
+    NSLog(@"rootSplitBuffDoPushOutLeftSplitView");
+}
+-(void)rootSplitBuffWillPushOutLeftSplitView{
+    NSLog(@"rootSplitBuffWillPushOutLeftSplitView");
+
+}
+-(void)rootSplitBuffPushingOutLeftSplitView:(CGFloat)percent{
+    NSLog(@"rootSplitBuffPushingOutLeftSplitView:%f",percent);
+
+}
+-(void)rootSplitBuffEndPushingOutLeftSplitViewAt:(CGFloat)percent{
+    NSLog(@"rootSplitBuffEndPushingOutLeftSplitViewAt:%f",percent);
+
 }
 /*
 #pragma mark - Navigation

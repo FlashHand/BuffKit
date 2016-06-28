@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor clearColor]];
+    [self.view setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:1]];
     UIView *containerView=self.view;
     UIButton *dismissBtn=[[UIButton alloc]init];
     [dismissBtn setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -34,7 +34,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dismissBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dismissBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [dismissBtn.layer setCornerRadius:4.0];
-    [dismissBtn setBackgroundColor:[UIColor colorWithHex:0xf36838 alpha:0.8]];
+    [dismissBtn setTitleColor:[UIColor colorWithHex:0xffffff alpha:0.8] forState:UIControlStateNormal];
     [dismissBtn addTarget:self action:@selector(dismissAction:) forControlEvents:UIControlEventTouchUpInside];
     [RootSplitBuff rootViewController].rightDelegate=self;
 }
@@ -46,9 +46,33 @@
 -(void)dismissAction:(UIButton *)sender{
     [RootSplitBuff hideRightViewController];
 }
--(void)rootSplitBuffDoPushInLeftSplitView{
-    NSLog(@"right");
+
+-(void)rootSplitBuffDoPushInRightSplitView{
+    NSLog(@"rootSplitBuffDoPushInRightSplitView");
 }
+-(void)rootSplitBuffWillPushInRightSplitView{
+    NSLog(@"rootSplitBuffWillPushInRightSplitView");
+}
+-(void)rootSplitBuffPushingInRightSplitView:(CGFloat)percent{
+    NSLog(@"rootSplitBuffWillPushInRightSplitView:%f",percent);
+}
+-(void)rootSplitBuffEndPushingInRightSplitViewAt:(CGFloat)percent{
+    NSLog(@"rootSplitBuffEndPushingInRightSplitViewAt:%f",percent);
+}
+
+-(void)rootSplitBuffDoPushOutRightSplitView{
+    NSLog(@"rootSplitBuffDoPushOutRightSplitView");
+}
+-(void)rootSplitBuffWillPushOutRightSplitView{
+    NSLog(@"rootSplitBuffWillPushOutRightSplitView");
+}
+-(void)rootSplitBuffPushingOutRightSplitView:(CGFloat)percent{
+    NSLog(@"rootSplitBuffPushingOutRightSplitView:%f",percent);
+}
+-(void)rootSplitBuffEndPushingOutRightSplitViewAt:(CGFloat)percent{
+    NSLog(@"rootSplitBuffEndPushingOutRightSplitViewAt:%f",percent);
+}
+
 /*
 #pragma mark - Navigation
 

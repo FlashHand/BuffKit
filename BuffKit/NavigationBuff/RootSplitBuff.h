@@ -1,5 +1,5 @@
 //
-//  RootVCSplitBuff.h
+//  RootSplitBuff.h
 //  BuffDemo
 //
 //  Created by 王博 on 16/6/7.
@@ -17,7 +17,8 @@
 typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleCovered = 1,
     BuffSplitStyleScaled = 2,
-    BuffSplitStylePerspective =3,//When BuffSplitStylePerspective,leftWidth & rightWidth will not be used
+    //When BuffSplitStylePerspective,leftWidth & rightWidth will not be used
+    BuffSplitStylePerspective =3,
     BuffSplitStyleCustom =4,
     //TODO: USING BLOCK TO SET START/END LAYOUT
 };
@@ -66,8 +67,6 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 
 @interface BFRootViewController : UIViewController<UIGestureRecognizerDelegate>
 {
-    NSMutableArray*fullScreenConstraints;
-    
     NSMutableArray *mainStartConstraints;
     NSMutableArray *mainEndConstraints;
 
@@ -103,14 +102,15 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 @property(nonatomic, assign) BuffSplitStyle splitStyle;
 @property(nonatomic, assign) CGFloat leftWidth;
 @property(nonatomic, assign) CGFloat rightWidth;
-@property(nonatomic, assign) CGFloat leftStartOffset;
-@property(nonatomic, assign) CGFloat rightStartOffset;
 //mainViewEndOffset only works for BuffSplitStyleCovered
 @property(nonatomic, assign) CGFloat mainEndOffsetForLeft;
 @property(nonatomic, assign) CGFloat mainEndOffsetForRight;
 //mainViewScale only works for BuffSplitStyleScaled
 @property(nonatomic, assign) CGFloat mainScale;
-@property(nonatomic, assign)CGFloat mainRotateAngle;
+@property(nonatomic, assign) CGFloat mainRotateAngle;
+
+@property(nonatomic, assign) BOOL shouldLeftStill;//when YES bfLeftViewController.view's origin will always be （0,0）
+@property(nonatomic, assign) BOOL shouldRightStill;//when YES bfRightViewController.view's origin will always be （self.view.width-_rightWidth,0）
 
 //Duration
 @property(nonatomic, assign) CGFloat leftAnimationDuration;
@@ -131,10 +131,17 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 //-(void)showRightViewController;
 //-(void)hideRightViewController;
 
+#pragma mark for method-swizzling
+@property (nonatomic,assign,readonly) BOOL isRootViewContollerShowing;
 @end
 
 @interface RootSplitBuff : NSObject
+
 + (BFRootViewController *)rootViewController;
+
++ (void)setMainViewController:(UIViewController *)mainViewController;
++ (void)setLeftViewController:(UIViewController *)leftViewController;
++ (void)setRightViewController:(UIViewController *)rightViewController;
 
 + (void)showLeftViewController;
 + (void)hideLeftViewController;
@@ -145,5 +152,8 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 +(void)deactiveLeftPanGesture;
 +(void)activeRightPanGesture;
 +(void)deactiveRightPanGesture;
+@end
+@interface UIViewController (RootSplitBuff)
+
 @end
 

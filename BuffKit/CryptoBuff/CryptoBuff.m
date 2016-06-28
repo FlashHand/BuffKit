@@ -6,6 +6,7 @@
 //
 
 #import "CryptoBuff.h"
+#import <CommonCrypto/CommonCrypto.h>
 
 #pragma mark - NSData extension
 
@@ -17,7 +18,6 @@ NSData *_buffMD5FromData(NSData *source) {
     NSData *data;
     [data bytes];
     return md5;
-
 }
 
 //SHA1
@@ -76,7 +76,6 @@ BOOL _buffCheckKey(CCAlgorithm al, NSString *key, NSString *iv) {
                 NSLog(@"AES:KEY LENGTH MUST BE 16,24 OR 32");
 #endif
 
-
                 isKeyRight = NO;
             }
             break;
@@ -107,10 +106,17 @@ BOOL _buffCheckKey(CCAlgorithm al, NSString *key, NSString *iv) {
         default:
             break;
     }
-    //IV有效性判断
-    if (key.length != iv.length) {
+    if (al==kCCAlgorithmAES) {
+        if (iv.length!=16) {
 #ifdef DEBUG
-        NSLog(@"IV LENGTH MUST BE EQUAL TO KEY LENGTH");
+            NSLog(@"IV LENGTH MUST BE 16 WHEN kCCAlgorithmAES");
+#endif
+            isKeyRight = NO;
+        }
+    }
+    else if ((iv.length!=8)){
+#ifdef DEBUG
+        NSLog(@"IV LENGTH MUST BE 8 WHEN kCCAlgorithmDES,kCCAlgorithm3DES,kCCAlgorithmBlowfish");
 #endif
         isKeyRight = NO;
     }
@@ -133,7 +139,6 @@ NSData *_buffCryptoFromData(CCOperation op, BuffCryptoMode mode, CCAlgorithm al,
             NSData *padData = [[NSData alloc] initWithBytes:&pad length:1];
             [sourceM appendData:padData];
         }
-
     }
     NSData *ivData = [iv dataUsingEncoding:NSUTF8StringEncoding];
     NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
