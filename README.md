@@ -19,7 +19,7 @@ BuffKit includes extension for foudation class or instance and provides basic fe
 #简介
 BuffKit 包含了对Foundation框架的扩展以及iOS app的基础功能，目前主干功能已经稳定可用，很多features仍在开发中。
 
-#Supported features
+#支持的功能
 1. [CryptoBuff]():包含了MD5,SHA1,SHA2的计算,以及对称加密：AES,DES,3DES,BLOWFISH. 
 2. [NullBuff]():Null对象处理，防止NSDictionary,NSString,NSNumber,NSArray类型的指针执行Null对象导致的闪退问题。
 3. [FrameBuff]():快速获取UIView,CALayer和UIScreen的尺寸信息。
