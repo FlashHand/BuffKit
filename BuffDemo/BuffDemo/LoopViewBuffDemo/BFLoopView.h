@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BFLoopView : UIView
+@interface BFLoopView : UIView <UIScrollViewDelegate>
 @property(nonatomic,strong)NSArray *loopItems;
+@property(nonatomic,assign)NSTimeInterval loopPeriod;
+@property(nonatomic,assign)NSTimeInterval loopAnimationDuration;
 -(void)beginLoop;
 -(void)endLoop;
++(BFLoopView*)loopViewWithItems:(NSArray *)items loopPeriod:(NSTimeInterval )period animationDuration:(NSTimeInterval)duration frame:(CGRect)frame;
 @end

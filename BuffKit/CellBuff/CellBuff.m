@@ -133,7 +133,7 @@ static UIView *bfAnnotationView=nil;
     }
     bfAnnotationView = [UIView new];
     [bfAnnotationView setAlpha:0];
-    [bfAnnotationView setBackgroundColor:[UIColor greenColor]];
+    [bfAnnotationView setBackgroundColor:[UIColor clearColor]];
     [bfAnnotationView setFrame:CGRectMake(0, 0, _BF_GET_WIDTH(), labelBounds.size.height + 10)];
     [bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth] / 2.0, (diffPoint.y - bfAnnotationView.height / 2))];
     UILabel *annotationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, labelBounds.size.width, labelBounds.size.height)];

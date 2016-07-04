@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -24,9 +25,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)displayLinkAction:(id)sender{
-    NSLog(@"%f",CACurrentMediaTime());
-}
+
 -(void)dealloc{
     
 }
