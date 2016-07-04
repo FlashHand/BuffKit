@@ -50,7 +50,7 @@
 }
 
 - (void)setWidth:(CGFloat)width {
-    self.frame = CGRectMake(self.x , self.y , width , self.height);
+    self.frame = CGRectMake(self.x, self.y, width, self.height);
 }
 
 - (CGFloat)height {
@@ -58,7 +58,7 @@
 }
 
 - (void)setHeight:(CGFloat)height {
-    self.frame = CGRectMake(self.x , self.y , self.width , height);
+    self.frame = CGRectMake(self.x, self.y, self.width, height);
 }
 
 #pragma mark 原点和尺寸
@@ -68,7 +68,7 @@
 }
 
 - (void)setOrigin:(CGPoint)origin {
-    self.frame = CGRectMake(origin.x , origin.y , self.width , self.height);
+    self.frame = CGRectMake(origin.x, origin.y, self.width, self.height);
 }
 
 - (CGSize)size {
@@ -76,7 +76,7 @@
 }
 
 - (void)setSize:(CGSize)size {
-    self.frame = CGRectMake(self.x , self.y , size.width , size.height);
+    self.frame = CGRectMake(self.x, self.y, size.width, size.height);
 }
 
 #pragma mark 原点坐标
@@ -86,7 +86,7 @@
 }
 
 - (void)setX:(CGFloat)x {
-    self.frame = CGRectMake(x , self.y , self.width , self.height);
+    self.frame = CGRectMake(x, self.y, self.width, self.height);
 }
 
 - (CGFloat)y {
@@ -95,7 +95,7 @@
 
 - (void)setY:(CGFloat)y {
     ;
-    self.frame = CGRectMake(self.x , y , self.width , self.height);
+    self.frame = CGRectMake(self.x, y, self.width, self.height);
 }
 
 #pragma mark 中心坐标
@@ -119,7 +119,7 @@
 #pragma mark 中心相对于原点位置，readonly
 
 - (CGPoint)midPoint {
-    return CGPointMake(self.width / 2 , self.height / 2);
+    return CGPointMake(self.width / 2, self.height / 2);
 }
 
 - (CGFloat)midX {
@@ -135,6 +135,7 @@
 
 @implementation CALayer (FrameBuff)
 #pragma mark 边界
+
 - (CGFloat)left {
     return self.x - self.width / 2;
 }
@@ -152,28 +153,29 @@
 }
 
 - (CGFloat)right {
-    return self.x+self.width/2;
+    return self.x + self.width / 2;
 }
 
 - (void)setRight:(CGFloat)right {
-    [self setX:right-self.width/2];
+    [self setX:right - self.width / 2];
 }
 
 - (CGFloat)bottom {
-    return self.y+self.height/2;
+    return self.y + self.height / 2;
 }
 
 - (void)setBottom:(CGFloat)bottom {
-    [self setY:bottom-self.height/2];
+    [self setY:bottom - self.height / 2];
 }
 
 #pragma mark 边界
+
 - (CGFloat)width {
     return self.bounds.size.width;
 }
 
 - (void)setWidth:(CGFloat)width {
-    [self setBounds:CGRectMake(0,0,self.height,width)];
+    [self setBounds:CGRectMake(0, 0, self.height, width)];
 }
 
 - (CGFloat)height {
@@ -181,7 +183,7 @@
 }
 
 - (void)setHeight:(CGFloat)height {
-    [self setBounds:CGRectMake(0,0,self.width,height)];
+    [self setBounds:CGRectMake(0, 0, self.width, height)];
 }
 
 - (CGSize)size {
@@ -189,16 +191,17 @@
 }
 
 - (void)setSize:(CGSize)size {
-    [self setBounds:CGRectMake(0,0,size.width,size.height)];
+    [self setBounds:CGRectMake(0, 0, size.width, size.height)];
 }
 
 #pragma mark 位置
+
 - (CGFloat)x {
     return self.position.x;
 }
 
 - (void)setX:(CGFloat)x {
-    [self setPosition:CGPointMake(x , self.y)];
+    [self setPosition:CGPointMake(x, self.y)];
 }
 
 - (CGFloat)y {
@@ -206,7 +209,7 @@
 }
 
 - (void)setY:(CGFloat)y {
-    [self setPosition:CGPointMake(self.x,y)];
+    [self setPosition:CGPointMake(self.x, y)];
 }
 
 - (CGFloat)z {
@@ -218,20 +221,22 @@
 }
 
 #pragma mark 中心相对于左上角的坐标
+
 - (CGPoint)midPoint {
-    return CGPointMake(self.width/2,self.height/2);
+    return CGPointMake(self.width / 2, self.height / 2);
 }
 
 
 - (CGFloat)midX {
-    return self.width/2;
+    return self.width / 2;
 }
 
 - (CGFloat)midY {
-    return self.height/2;
+    return self.height / 2;
 }
 
 @end
+
 @implementation UIImage (FrameBuff)
 - (CGFloat)width {
     return self.size.width;
@@ -242,6 +247,7 @@
 }
 
 @end
+
 @implementation FrameBuff
 + (CGFloat)screenWidth {
     return [[UIScreen mainScreen] bounds].size.width;

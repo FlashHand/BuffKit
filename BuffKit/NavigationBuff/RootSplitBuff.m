@@ -9,6 +9,7 @@
 #import "RootSplitBuff.h"
 #import "FrameBuff.h"
 #import <objc/runtime.h>
+
 @interface BFRootViewController ()
 @end
 
@@ -58,7 +59,7 @@ static BFRootViewController *rootViewController = nil;
 }
 
 - (void)viewDidLoad {
-    _isRootViewContollerShowing=YES;
+    _isRootViewContollerShowing = YES;
     self.rootBackgroundImageView = [[UIImageView alloc] init];
     [self.rootBackgroundImageView setUserInteractionEnabled:YES];
     [self.rootBackgroundImageView setBackgroundColor:[UIColor whiteColor]];
@@ -79,14 +80,17 @@ static BFRootViewController *rootViewController = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBecomeActive) name:UIApplicationWillEnterForegroundNotification object:nil];
 
 }
--(void)viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    _isRootViewContollerShowing=YES;
+    _isRootViewContollerShowing = YES;
 }
--(void)viewDidDisappear:(BOOL)animated{
+
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    _isRootViewContollerShowing=NO;
+    _isRootViewContollerShowing = NO;
 }
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     if (self.view.width > self.view.height) {
@@ -1975,15 +1979,19 @@ static BFRootViewController *rootViewController = nil;
 + (BFRootViewController *)rootViewController {
     return [BFRootViewController sharedController];
 }
+
 #pragma mark - set split viewControllers;
-+ (void)setMainViewController:(UIViewController *)mainViewController{
-    [[BFRootViewController sharedController]setBfMainViewController:mainViewController];
+
++ (void)setMainViewController:(UIViewController *)mainViewController {
+    [[BFRootViewController sharedController] setBfMainViewController:mainViewController];
 }
-+ (void)setLeftViewController:(UIViewController *)leftViewController{
-    [[BFRootViewController sharedController]setBfLeftViewController:leftViewController];
+
++ (void)setLeftViewController:(UIViewController *)leftViewController {
+    [[BFRootViewController sharedController] setBfLeftViewController:leftViewController];
 }
-+ (void)setRightViewController:(UIViewController *)rightViewController{
-    [[BFRootViewController sharedController]setBfRightViewController:rightViewController];
+
++ (void)setRightViewController:(UIViewController *)rightViewController {
+    [[BFRootViewController sharedController] setBfRightViewController:rightViewController];
 }
 
 #pragma mark - show or hide split viewControllers;
@@ -2022,8 +2030,10 @@ static BFRootViewController *rootViewController = nil;
     [[BFRootViewController sharedController] deactiveRightPanGesture];
 }
 @end
+
 @implementation UIViewController (RootSplitBuff)
 #pragma mark UIViewController Method swizzling+forwarding 
+
 //请注意此处Method swizzling会造成UIViewController instance's presentingViewController为[RootSplitBuff rootViewController]而不是presentViewController:animated:completion:的调用者
 + (void)load {
     static dispatch_once_t rootSplitBuffToken;
@@ -2041,14 +2051,15 @@ static BFRootViewController *rootViewController = nil;
             method_exchangeImplementations(origMethod, swizMethod);
         }
     });
-    
+
 }
--(void)bf_swizzled_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
-    if (self==[RootSplitBuff rootViewController]) {
+
+- (void)bf_swizzled_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    if (self == [RootSplitBuff rootViewController]) {
         [self bf_swizzled_presentViewController:viewControllerToPresent animated:flag completion:completion];
     }
     else {
-        if ([RootSplitBuff rootViewController].isRootViewContollerShowing){
+        if ([RootSplitBuff rootViewController].isRootViewContollerShowing) {
             [[RootSplitBuff rootViewController] bf_swizzled_presentViewController:viewControllerToPresent animated:flag completion:completion];
         }
         else {

@@ -7,6 +7,8 @@
 #import <objc/runtime.h>
 #import "FrameBuff.h"
 
+#define BF_CELLBUFF_PADDING 8.0
+
 CGFloat _BF_GET_WIDTH() {
     CGFloat w = [FrameBuff screenWidth];
     CGFloat h = [FrameBuff screenHeight];
@@ -17,9 +19,8 @@ CGFloat _BF_GET_WIDTH() {
 static void *annotation = (void *) @"annotation";
 static void *annotationBG = (void *) @"annotationBG";
 static void *cellBuff = (void *) @"cellBuff";
-static void *annotationView = (void *) @"annotationView";
 static CGFloat topY = 0;
-
+static UIView *bfAnnotationView=nil;
 @implementation UITableViewCell (CellBuff)
 #pragma mark gesture delegate
 
@@ -32,6 +33,7 @@ static CGFloat topY = 0;
 }
 
 #pragma mark - property access
+
 - (UIButton *)bfAnnotationBtn {
     return objc_getAssociatedObject(self, annotationBG);
 }
@@ -71,14 +73,6 @@ static CGFloat topY = 0;
     }
 }
 
-- (UIView *)bfAnnotationView {
-    return objc_getAssociatedObject(self, annotationView);
-}
-
-- (void)setBfAnnotationView:(UIView *)bfAnnotationView {
-    objc_setAssociatedObject(self, annotationView, bfAnnotationView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (CellBuff *)buff {
     return objc_getAssociatedObject(self, cellBuff);
 }
@@ -87,7 +81,7 @@ static CGFloat topY = 0;
     objc_setAssociatedObject(self, cellBuff, aBuff, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)bf_setAnnotation:(NSString *)annotation{
+- (void)bf_setAnnotation:(NSString *)annotation {
     [self setBfAnnotation:annotation];
     CellBuff *aBuff = [[CellBuff alloc] init];
     self.buff = aBuff;
@@ -130,19 +124,18 @@ static CGFloat topY = 0;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5.0];
     CGRect labelBounds = [attributedString boundingRectWithSize:CGSizeMake(_BF_GET_WIDTH() - 30, 45) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    labelBounds = CGRectMake(0, 0, labelBounds.size.width, labelBounds.size.height + 10);
+    labelBounds = CGRectMake(0, 0, labelBounds.size.width+BF_CELLBUFF_PADDING, labelBounds.size.height + 10);
     if (labelBounds.size.height < 30) {
         labelBounds.size.height = 30;
     }
     if (labelBounds.size.width < 30) {
         labelBounds.size.width = 30;
     }
-    self.bfAnnotationView = [UIView new];
-    [self.bfAnnotationView setAlpha:0];
-    [btn addSubview:self.bfAnnotationView];
-    [self.bfAnnotationView setBackgroundColor:[UIColor clearColor]];
-    [self.bfAnnotationView setFrame:CGRectMake(0, 0, _BF_GET_WIDTH(), labelBounds.size.height + 10)];
-    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth] / 2.0, (diffPoint.y - self.bfAnnotationView.height / 2))];
+    bfAnnotationView = [UIView new];
+    [bfAnnotationView setAlpha:0];
+    [bfAnnotationView setBackgroundColor:[UIColor greenColor]];
+    [bfAnnotationView setFrame:CGRectMake(0, 0, _BF_GET_WIDTH(), labelBounds.size.height + 10)];
+    [bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth] / 2.0, (diffPoint.y - bfAnnotationView.height / 2))];
     UILabel *annotationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, labelBounds.size.width, labelBounds.size.height)];
     [annotationLabel setFont:self.buff.annotationFont];
     [annotationLabel setNumberOfLines:2];
@@ -156,9 +149,9 @@ static CGFloat topY = 0;
     CGPoint p1 = CGPointMake(0, 0);
     //箭头layer的位置
     CGPoint p2 = CGPointMake(0, 0);
-    p2.x = self.bfAnnotationView.width / 2;
+    p2.x = bfAnnotationView.width / 2;
     p2.y = labelBounds.size.height + 5;
-    p1.x = self.bfAnnotationView.width / 2;
+    p1.x = bfAnnotationView.width / 2;
     p1.y = labelBounds.size.height / 2;
     CAShapeLayer *annotationLayer = [CAShapeLayer layer];
     [annotationLayer setBounds:CGRectMake(0, 0, labelBounds.size.width + 10, labelBounds.size.height)];
@@ -180,24 +173,23 @@ static CGFloat topY = 0;
     [arrowPath addLineToPoint:CGPointMake(9, 10)];
     [arrowPath addLineToPoint:CGPointMake(18, 0)];
     [arrowLayer setPath:arrowPath.CGPath];
-    [self.bfAnnotationView.layer addSublayer:annotationLayer];
-    [self.bfAnnotationView.layer addSublayer:arrowLayer];
-    [self.bfAnnotationView addSubview:annotationLabel];
+    [bfAnnotationView.layer addSublayer:annotationLayer];
+    [bfAnnotationView.layer addSublayer:arrowLayer];
+    [bfAnnotationView addSubview:annotationLabel];
+    [self.bfAnnotationBtn.layer addSublayer:bfAnnotationView.layer];
     [UIView animateWithDuration:0.2 animations:^{
-         [self.bfAnnotationView setAlpha:1];
+        [bfAnnotationView setAlpha:1];
     }];
-   
-   
 }
 
 - (void)hideAnnotation {
     [UIView animateWithDuration:0.2 animations:^{
-        [self.bfAnnotationView setAlpha:0];
-    }completion:^(BOOL finished) {
+        [bfAnnotationView setAlpha:0];
+    }                completion:^(BOOL finished) {
         [self.bfAnnotationBtn removeFromSuperview];
         self.bfAnnotationBtn = nil;
     }];
-    
+
 }
 
 #pragma mark Method swizzling
@@ -223,7 +215,7 @@ static CGFloat topY = 0;
 
 - (void)bf_swizzled_layoutSubviews {
     [self bf_swizzled_layoutSubviews];
-    [self.bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth] / 2.0, (topY - self.bfAnnotationView.height / 2))];
+    [bfAnnotationView setCenter:CGPointMake([FrameBuff screenWidth] / 2.0, (topY - bfAnnotationView.height / 2))];
 }
 @end
 

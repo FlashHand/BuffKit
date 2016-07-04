@@ -4,18 +4,21 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #define BF_CELL_ANNOTATION_MINWIDTH 30.0
 #define BF_CELL_ANNOTATION_MINHEIGHT 30.0
 #define BF_CELL_ANNOTATION_MAXHEIGHT 60.0
 
 @class CellBuff;
+
 @interface UITableViewCell (CellBuff)
--(void)bf_swizzled_layoutSubviews;
-@property (nonatomic, strong)CellBuff *buff;
-@property (nonatomic, strong)NSString *bfAnnotation;
-@property (nonatomic, strong)UIButton *bfAnnotationBtn;
-@property (nonatomic,strong,readonly)UIView *bfAnnotationView;
--(void)bf_setAnnotation:(NSString *)annotation;
+- (void)bf_swizzled_layoutSubviews;
+
+@property(nonatomic, strong) CellBuff *buff;
+@property(nonatomic, strong) NSString *bfAnnotation;
+@property(nonatomic, strong) UIButton *bfAnnotationBtn;
+
+- (void)bf_setAnnotation:(NSString *)annotation;
 @end
 
 @interface CellBuff : NSObject

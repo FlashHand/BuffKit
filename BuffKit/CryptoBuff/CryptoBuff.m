@@ -106,15 +106,15 @@ BOOL _buffCheckKey(CCAlgorithm al, NSString *key, NSString *iv) {
         default:
             break;
     }
-    if (al==kCCAlgorithmAES) {
-        if (iv.length!=16) {
+    if (al == kCCAlgorithmAES) {
+        if (iv.length != 16) {
 #ifdef DEBUG
             NSLog(@"IV LENGTH MUST BE 16 WHEN kCCAlgorithmAES");
 #endif
             isKeyRight = NO;
         }
     }
-    else if ((iv.length!=8)){
+    else if ((iv.length != 8)) {
 #ifdef DEBUG
         NSLog(@"IV LENGTH MUST BE 8 WHEN kCCAlgorithmDES,kCCAlgorithm3DES,kCCAlgorithmBlowfish");
 #endif

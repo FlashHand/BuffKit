@@ -6,14 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #pragma mark 支持的CCMode
 typedef NS_ENUM(NSInteger, BuffCryptoMode) {
-            BuffCryptoModeECB = 1, //kCCModeECB
-            BuffCryptoModeCBC = 2, //kCCModeCBC
-            BuffCryptoModeCFB = 3, //kCCModeCFB
-            BuffCryptoModeCTR = 4, //kCCModeCTR
-            BuffCryptoModeOFB = 7, //kCCModeOFB
-            BuffCryptoModeCFB8 = 10,//kCCModeCFB8
+    BuffCryptoModeECB = 1, //kCCModeECB
+    BuffCryptoModeCBC = 2, //kCCModeCBC
+    BuffCryptoModeCFB = 3, //kCCModeCFB
+    BuffCryptoModeCTR = 4, //kCCModeCTR
+    BuffCryptoModeOFB = 7, //kCCModeOFB
+    BuffCryptoModeCFB8 = 10,//kCCModeCFB8
 };
 typedef NS_ENUM(NSInteger, BuffCryptoAlgorithm) {
     BuffCryptoAlgorithmAES = 1,

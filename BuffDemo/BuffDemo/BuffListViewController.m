@@ -9,6 +9,7 @@
 #import "BuffListViewController.h"
 #import "CryptoBuffViewController.h"
 #import "LBSBuffViewController.h"
+#import "LoopViewController.h"
 @interface BuffListViewController ()
 
 @end
@@ -80,8 +81,8 @@
     if (!cell) {
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
-    [cell.textLabel setText:@"ph"];
-    [cell.detailTextLabel setText:@"ph"];
+    [cell.textLabel setText:@"placeholder"];
+    [cell.detailTextLabel setText:@"placeholder"];
     switch (indexPath.row) {
         case 0:
             [cell.textLabel setText:@"加解密(CryptoBuff.h)"];
@@ -90,6 +91,9 @@
         case 1:
             [cell.textLabel setText:@"坐标纠偏(LBSBuff.h)"];
             [cell.detailTextLabel setText:@"算法来源:http://emq.googlecode.com/svn/emq/src/Algorithm/Coords/Converter.java"];
+            break;
+        case 2:
+            [cell.textLabel setText:@"轮播图(LoopViewBuff.h)"];
             break;
         default:
             break;
@@ -111,6 +115,12 @@
         {
             LBSBuffViewController *lbsVC=[[LBSBuffViewController alloc]init];
             [self.navigationController pushViewController:lbsVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            LoopViewController *loopVC=[[LoopViewController alloc]init];
+            [self.navigationController pushViewController:loopVC animated:YES];
         }
             break;
         default:

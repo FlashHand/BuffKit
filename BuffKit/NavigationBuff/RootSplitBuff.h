@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #define BF_PERCENTAGE_SHOW_LEFT  0.5
 #define BF_PERCENTAGE_SHOW_RIGHT  0.5
 #define BF_SCALED_PAN 1.2
@@ -18,8 +19,8 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleCovered = 1,
     BuffSplitStyleScaled = 2,
     //When BuffSplitStylePerspective,leftWidth & rightWidth will not be used
-    BuffSplitStylePerspective =3,
-    BuffSplitStyleCustom =4,
+            BuffSplitStylePerspective = 3,
+    BuffSplitStyleCustom = 4,
     //TODO: USING BLOCK TO SET START/END LAYOUT
 };
 //typedef NS_ENUM(NSInteger, BuffPanDirection) {
@@ -36,37 +37,48 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 //    BuffSplitStateHidingRight = 5,
 //};
 
-@protocol RootSplitBuffDelegate<NSObject>
+@protocol RootSplitBuffDelegate <NSObject>
 //显示左、右侧栏执行的协议方法
 //percent为当前所处的滑动进度
 
 //Protocol methods are called when showing or hiding split view
 //percent indicates how many have you pan
 @optional
--(void)rootSplitBuffDoPushInLeftSplitView;
--(void)rootSplitBuffWillPushInLeftSplitView;
--(void)rootSplitBuffPushingInLeftSplitView:(CGFloat)percent;
--(void)rootSplitBuffEndPushingInLeftSplitViewAt:(CGFloat)percent;
+- (void)rootSplitBuffDoPushInLeftSplitView;
 
--(void)rootSplitBuffDoPushOutLeftSplitView;
--(void)rootSplitBuffWillPushOutLeftSplitView;
--(void)rootSplitBuffPushingOutLeftSplitView:(CGFloat)percent;
--(void)rootSplitBuffEndPushingOutLeftSplitViewAt:(CGFloat)percent;
+- (void)rootSplitBuffWillPushInLeftSplitView;
 
--(void)rootSplitBuffDoPushInRightSplitView;
--(void)rootSplitBuffWillPushInRightSplitView;
--(void)rootSplitBuffPushingInRightSplitView:(CGFloat)percent;
--(void)rootSplitBuffEndPushingInRightSplitViewAt:(CGFloat)percent;
+- (void)rootSplitBuffPushingInLeftSplitView:(CGFloat)percent;
 
--(void)rootSplitBuffDoPushOutRightSplitView;
--(void)rootSplitBuffWillPushOutRightSplitView;
--(void)rootSplitBuffPushingOutRightSplitView:(CGFloat)percent;
--(void)rootSplitBuffEndPushingOutRightSplitViewAt:(CGFloat)percent;
+- (void)rootSplitBuffEndPushingInLeftSplitViewAt:(CGFloat)percent;
+
+- (void)rootSplitBuffDoPushOutLeftSplitView;
+
+- (void)rootSplitBuffWillPushOutLeftSplitView;
+
+- (void)rootSplitBuffPushingOutLeftSplitView:(CGFloat)percent;
+
+- (void)rootSplitBuffEndPushingOutLeftSplitViewAt:(CGFloat)percent;
+
+- (void)rootSplitBuffDoPushInRightSplitView;
+
+- (void)rootSplitBuffWillPushInRightSplitView;
+
+- (void)rootSplitBuffPushingInRightSplitView:(CGFloat)percent;
+
+- (void)rootSplitBuffEndPushingInRightSplitViewAt:(CGFloat)percent;
+
+- (void)rootSplitBuffDoPushOutRightSplitView;
+
+- (void)rootSplitBuffWillPushOutRightSplitView;
+
+- (void)rootSplitBuffPushingOutRightSplitView:(CGFloat)percent;
+
+- (void)rootSplitBuffEndPushingOutRightSplitViewAt:(CGFloat)percent;
 
 @end
 
-@interface BFRootViewController : UIViewController<UIGestureRecognizerDelegate>
-{
+@interface BFRootViewController : UIViewController <UIGestureRecognizerDelegate> {
     NSMutableArray *mainStartConstraints;
     NSMutableArray *mainEndConstraints;
 
@@ -75,11 +87,11 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     NSMutableArray *rightStartConstraints;
     NSMutableArray *rightEndConstraints;
     NSMutableArray *dimConstraints;
-    
+
     CGPoint beginPoint;
-    CGFloat currentWidth;
 }
 + (BFRootViewController *)sharedController;
+
 @property(nonatomic, weak) id <RootSplitBuffDelegate> leftDelegate;
 @property(nonatomic, weak) id <RootSplitBuffDelegate> rightDelegate;
 
@@ -89,11 +101,11 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 @property(nonatomic, strong) UIViewController *bfMainViewController;
 
 //gestures
-@property(nonatomic, strong,readonly) UIScreenEdgePanGestureRecognizer *bfLeftPan;
-@property(nonatomic, strong,readonly) UIScreenEdgePanGestureRecognizer *bfRightPan;
+@property(nonatomic, strong, readonly) UIScreenEdgePanGestureRecognizer *bfLeftPan;
+@property(nonatomic, strong, readonly) UIScreenEdgePanGestureRecognizer *bfRightPan;
 
 //dim button
-@property(nonatomic, strong,readonly) UIView *dimView;
+@property(nonatomic, strong, readonly) UIView *dimView;
 @property(nonatomic, assign) CGFloat dimOpacity;
 @property(nonatomic, strong) UIColor *dimColor;
 
@@ -109,30 +121,37 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 @property(nonatomic, assign) CGFloat mainScale;
 @property(nonatomic, assign) CGFloat mainRotateAngle;
 
-@property(nonatomic, assign) BOOL shouldLeftStill;//when YES bfLeftViewController.view's origin will always be （0,0）
-@property(nonatomic, assign) BOOL shouldRightStill;//when YES bfRightViewController.view's origin will always be （self.view.width-_rightWidth,0）
+@property(nonatomic, assign) BOOL shouldLeftStill;
+//when YES bfLeftViewController.view's origin will always be （0,0）
+//when YES bfRightViewController.view's origin will always be （self.view.width-_rightWidth,0）
+@property(nonatomic, assign) BOOL shouldRightStill;
 
 //Duration
 @property(nonatomic, assign) CGFloat leftAnimationDuration;
 @property(nonatomic, assign) CGFloat rightAnimationDuration;
 
 //rootViewController backgroudImage
-@property (nonatomic, strong) UIImage *rootBackgroundPortraitImage;
-@property (nonatomic, strong) UIImage *rootBackgroundLandscapeImage;
-@property (nonatomic, strong) UIImageView *rootBackgroundImageView;
+@property(nonatomic, strong) UIImage *rootBackgroundPortraitImage;
+@property(nonatomic, strong) UIImage *rootBackgroundLandscapeImage;
+@property(nonatomic, strong) UIImageView *rootBackgroundImageView;
 
 
-@property (nonatomic,assign,readonly) BOOL isLeftShowing;
-@property (nonatomic,assign,readonly) BOOL isRightShowing;
+@property(nonatomic, assign, readonly) BOOL isLeftShowing;
+@property(nonatomic, assign, readonly) BOOL isRightShowing;
 
-//#pragma mark - show & hide
-//-(void)showLeftViewController;
-//-(void)hideLeftViewController;
-//-(void)showRightViewController;
-//-(void)hideRightViewController;
+#pragma mark - show & hide
+
+- (void)showLeftViewController;
+
+- (void)hideLeftViewController;
+
+- (void)showRightViewController;
+
+- (void)hideRightViewController;
 
 #pragma mark for method-swizzling
-@property (nonatomic,assign,readonly) BOOL isRootViewContollerShowing;
+
+@property(nonatomic, assign, readonly) BOOL isRootViewContollerShowing;
 @end
 
 @interface RootSplitBuff : NSObject
@@ -140,19 +159,28 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
 + (BFRootViewController *)rootViewController;
 
 + (void)setMainViewController:(UIViewController *)mainViewController;
+
 + (void)setLeftViewController:(UIViewController *)leftViewController;
+
 + (void)setRightViewController:(UIViewController *)rightViewController;
 
 + (void)showLeftViewController;
+
 + (void)hideLeftViewController;
+
 + (void)showRightViewController;
+
 + (void)hideRightViewController;
 
-+(void)activeLeftPanGesture;
-+(void)deactiveLeftPanGesture;
-+(void)activeRightPanGesture;
-+(void)deactiveRightPanGesture;
++ (void)activeLeftPanGesture;
+
++ (void)deactiveLeftPanGesture;
+
++ (void)activeRightPanGesture;
+
++ (void)deactiveRightPanGesture;
 @end
+
 @interface UIViewController (RootSplitBuff)
 
 @end
