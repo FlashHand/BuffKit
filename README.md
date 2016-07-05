@@ -2,7 +2,7 @@
 
 ![pod version](https://img.shields.io/cocoapods/v/BuffKit.svg)
 
-### Required iOS7.0+
+### Require iOS7.0+
 
 **iOS基础功能组件**
 
