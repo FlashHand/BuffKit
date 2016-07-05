@@ -81,8 +81,8 @@
     if (!cell) {
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
-    [cell.textLabel setText:@"placeholder"];
-    [cell.detailTextLabel setText:@"placeholder"];
+    [cell.textLabel setText:@"🔜"];
+    [cell.detailTextLabel setText:@""];
     switch (indexPath.row) {
         case 0:
             [cell.textLabel setText:@"加解密(CryptoBuff.h)"];
@@ -94,6 +94,7 @@
             break;
         case 2:
             [cell.textLabel setText:@"轮播图(LoopViewBuff.h)"];
+            [cell.detailTextLabel setText:@"基于CADisplay+NSTimer+UIScrollView实现"];
             break;
         default:
             break;
