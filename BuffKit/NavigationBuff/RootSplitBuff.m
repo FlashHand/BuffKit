@@ -11,6 +11,10 @@
 #import <objc/runtime.h>
 
 @interface BFRootViewController ()
+{
+    BOOL _shouldLeftPanActive;
+    BOOL _shouldRightPanActive;
+}
 @end
 
 CGSize _bfGetSizeForSplitView(UIView *rootView, CGFloat angle) {
@@ -595,6 +599,18 @@ static BFRootViewController *rootViewController = nil;
     }
 }
 
+-(void)_setShouldLeftPanActive:(BOOL)shouldActive{
+    _shouldLeftPanActive=shouldActive;
+}
+-(void)_setShouldRightPanActive:(BOOL)shouldActive{
+    _shouldRightPanActive=shouldActive;
+}
+-(BOOL)_shouldLeftPanActive{
+    return _shouldLeftPanActive;
+}
+-(BOOL)_shouldRightPanActive{
+    return _shouldRightPanActive;
+}
 #pragma mark Public method
 
 - (void)showLeftViewController {
@@ -973,9 +989,6 @@ static BFRootViewController *rootViewController = nil;
             [otherGestureRecognizer requireGestureRecognizerToFail:gestureRecognizer];
             return NO;
         }
-        if ([otherGestureRecognizer isKindOfClass:[UISwipeGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
-            return YES;
-        }
         return NO;
     }
     //如果不进行判断dimPan会因为dimTap导致明显延迟
@@ -985,9 +998,6 @@ static BFRootViewController *rootViewController = nil;
     return YES;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return NO;
-}
 
 #pragma mark - Gesture Action
 
@@ -2016,18 +2026,22 @@ static BFRootViewController *rootViewController = nil;
 
 + (void)activeLeftPanGesture {
     [[BFRootViewController sharedController] activeLeftPanGesture];
+    [[BFRootViewController sharedController] _setShouldLeftPanActive:YES];
 }
 
 + (void)deactiveLeftPanGesture {
     [[BFRootViewController sharedController] deactiveLeftPanGesture];
+    [[BFRootViewController sharedController] _setShouldLeftPanActive:NO];
 }
 
 + (void)activeRightPanGesture {
     [[BFRootViewController sharedController] activeRightPanGesture];
+    [[BFRootViewController sharedController] _setShouldRightPanActive:YES];
 }
 
 + (void)deactiveRightPanGesture {
     [[BFRootViewController sharedController] deactiveRightPanGesture];
+    [[BFRootViewController sharedController] _setShouldRightPanActive:NO];
 }
 @end
 
@@ -2051,8 +2065,8 @@ static BFRootViewController *rootViewController = nil;
             method_exchangeImplementations(origMethod, swizMethod);
         }
         
-        SEL originalSelector = @selector(viewDidLoad);
-        SEL swizzledSelector = @selector(tjs_swizzled_viewDidLoad);
+        SEL originalSelector = @selector(viewDidAppear:);
+        SEL swizzledSelector = @selector(bf_swizzled_viewDidAppear:);
         
         Method originalMethod = class_getInstanceMethod(class, originalSelector);
         Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
@@ -2070,8 +2084,27 @@ static BFRootViewController *rootViewController = nil;
         } else {
             method_exchangeImplementations(originalMethod, swizzledMethod);
         }
-
         
+        
+//        SEL originalSelector2 = @selector(viewDidDisappear:);
+//        SEL swizzledSelector2 = @selector(tjs_swizzled_viewDidDisappear:);
+//        
+//        Method originalMethod2 = class_getInstanceMethod(class, originalSelector2);
+//        Method swizzledMethod2 = class_getInstanceMethod(class, swizzledSelector2);
+//        BOOL didAddMethod3 =
+//        class_addMethod(class,
+//                        originalSelector2,
+//                        method_getImplementation(swizzledMethod2),
+//                        method_getTypeEncoding(swizzledMethod2));
+//        
+//        if (didAddMethod3) {
+//            class_replaceMethod(class,
+//                                swizzledSelector2,
+//                                method_getImplementation(originalMethod2),
+//                                method_getTypeEncoding(originalMethod2));
+//        } else {
+//            method_exchangeImplementations(originalMethod2, swizzledMethod2);
+//        }
     });
 
 }
@@ -2089,4 +2122,24 @@ static BFRootViewController *rootViewController = nil;
         }
     }
 }
+-(void)bf_swizzled_viewDidAppear:(BOOL)animated{
+    [self bf_swizzled_viewDidAppear:animated];
+    if (self.navigationController) {
+        if (self.navigationController.viewControllers.count>1){
+            [RootSplitBuff rootViewController].bfLeftPan.enabled=NO;
+            [RootSplitBuff rootViewController].bfRightPan.enabled=NO;
+            self.navigationController.interactivePopGestureRecognizer.enabled=YES;
+            self.navigationController.interactivePopGestureRecognizer.delegate=(id<UIGestureRecognizerDelegate> )self;
+        }
+        else if (self.navigationController.viewControllers.count==1){
+            [RootSplitBuff rootViewController].bfLeftPan.enabled=[[RootSplitBuff rootViewController]_shouldLeftPanActive];
+            [RootSplitBuff rootViewController].bfRightPan.enabled=[[RootSplitBuff rootViewController]_shouldRightPanActive];
+            self.navigationController.interactivePopGestureRecognizer.enabled=NO;
+            self.navigationController.interactivePopGestureRecognizer.delegate=nil;
+        }
+    }
+}
+//-(void)tjs_swizzled_viewDidDisappear:(BOOL)animated{
+//    [self tjs_swizzled_viewDidDisappear:animated];
+//}
 @end

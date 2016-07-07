@@ -19,9 +19,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.interactivePopGestureRecognizer.enabled=YES;
+    self.navigationController.interactivePopGestureRecognizer.delegate=(id<UIGestureRecognizerDelegate> )self;
+    UIButton *backButton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 50)];
+    [backButton setTitle:@"Back" forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [backButton setBackgroundColor:[UIColor clearColor]];
+    UIBarButtonItem *leftItem=[[UIBarButtonItem alloc]initWithCustomView:backButton];
+    [self.navigationItem setLeftBarButtonItem:leftItem animated:YES];
     [self setTitle:@"CryptoBuff"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.navigationItem setHidesBackButton:NO animated:YES];
     currentMode = BuffCryptoModeECB;
     alg = 1;
 
@@ -59,6 +67,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [textView becomeFirstResponder];
 }
 - (void)didReceiveMemoryWarning {
@@ -66,7 +75,9 @@
 
     // Dispose of any resources that can be recreated.
 }
-
+-(void)backAction:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark Actions
 
 - (void)segAction:(UISegmentedControl *)sender {

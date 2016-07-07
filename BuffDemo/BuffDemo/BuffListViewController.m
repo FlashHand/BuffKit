@@ -10,6 +10,7 @@
 #import "CryptoBuffViewController.h"
 #import "LBSBuffViewController.h"
 #import "LoopViewController.h"
+#import <objc/runtime.h>
 @interface BuffListViewController ()
 
 @end
@@ -17,6 +18,16 @@
 @implementation BuffListViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    u_int count;
+    Class currentClass=[UINavigationBar class];
+    objc_property_t *properties=class_copyPropertyList(currentClass,&count);
+    for (int i = 0; i < count ; i++)
+    {
+        const char* propertyName = property_getName(properties[i]);
+        NSString *propertyString=[NSString  stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",propertyString);
+    }
+    
     [self.view setBackgroundColor:[UIColor whiteColor]];
     //sidebar
     _buffListTableView=[[UITableView alloc]init];

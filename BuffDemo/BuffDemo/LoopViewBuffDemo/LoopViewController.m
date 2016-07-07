@@ -17,6 +17,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    NSMutableArray *btnArr=[NSMutableArray new];
+    for (int i=0; i<5; i++) {
+        UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 220)];
+        [btn setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];
+        [btnArr addObject:btn];
+    }
+    BFLoopView *bfLoopView=[BFLoopView loopViewWithItems:btnArr frame:CGRectMake(0, 100, self.view.width, 220) loopPeriod:5 animationDuration:1 animationStyle:BuffLoopViewAnimationStyleLinearEasyInOut];
+    [self.view addSubview:bfLoopView];
+    [bfLoopView setShouldAnimation:YES];
     
     // Do any additional setup after loading the view.
 }
@@ -28,6 +37,9 @@
 
 -(void)dealloc{
     
+}
+-(void)loopViewClickAction:(UIButton *)sender{
+    NSLog(@"Tag:%d",sender.tag);
 }
 /*
 #pragma mark - Navigation

@@ -54,14 +54,13 @@ static NSInteger _bfGetCurrentIndex(NSInteger t,NSInteger p){
 }
 -(void)setShouldAnimation:(BOOL)shouldAnimation{
     _shouldAnimation=shouldAnimation;
-    if (self.loopItems.count>0) {
-    
+    if (self.loopItems.count==0) {
+        _shouldAnimation=NO;
     }
-    
 }
 -(void)setLoopItems:(NSArray *)loopItems{
     _loopItems=loopItems;
-    
+
 }
 #pragma mark scrollView delegate
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
