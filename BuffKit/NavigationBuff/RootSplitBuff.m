@@ -2064,20 +2064,20 @@ static BFRootViewController *rootViewController = nil;
         else {
             method_exchangeImplementations(origMethod, swizMethod);
         }
-        
+        Class class2 = [UIViewController class];
         SEL originalSelector = @selector(viewDidAppear:);
         SEL swizzledSelector = @selector(bf_swizzled_viewDidAppear:);
         
-        Method originalMethod = class_getInstanceMethod(class, originalSelector);
-        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+        Method originalMethod = class_getInstanceMethod(class2, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(class2, swizzledSelector);
         BOOL didAddMethod2 =
-        class_addMethod(class,
+        class_addMethod(class2,
                         originalSelector,
                         method_getImplementation(swizzledMethod),
                         method_getTypeEncoding(swizzledMethod));
         
         if (didAddMethod2) {
-            class_replaceMethod(class,
+            class_replaceMethod(class2,
                                 swizzledSelector,
                                 method_getImplementation(originalMethod),
                                 method_getTypeEncoding(originalMethod));
