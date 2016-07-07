@@ -10,8 +10,7 @@
 #import "FrameBuff.h"
 #import <objc/runtime.h>
 
-@interface BFRootViewController ()
-{
+@interface BFRootViewController () {
     BOOL _shouldLeftPanActive;
     BOOL _shouldRightPanActive;
 }
@@ -599,18 +598,22 @@ static BFRootViewController *rootViewController = nil;
     }
 }
 
--(void)_setShouldLeftPanActive:(BOOL)shouldActive{
-    _shouldLeftPanActive=shouldActive;
+- (void)_setShouldLeftPanActive:(BOOL)shouldActive {
+    _shouldLeftPanActive = shouldActive;
 }
--(void)_setShouldRightPanActive:(BOOL)shouldActive{
-    _shouldRightPanActive=shouldActive;
+
+- (void)_setShouldRightPanActive:(BOOL)shouldActive {
+    _shouldRightPanActive = shouldActive;
 }
--(BOOL)_shouldLeftPanActive{
+
+- (BOOL)_shouldLeftPanActive {
     return _shouldLeftPanActive;
 }
--(BOOL)_shouldRightPanActive{
+
+- (BOOL)_shouldRightPanActive {
     return _shouldRightPanActive;
 }
+
 #pragma mark Public method
 
 - (void)showLeftViewController {
@@ -2067,25 +2070,25 @@ static BFRootViewController *rootViewController = nil;
         Class class2 = [UIViewController class];
         SEL originalSelector = @selector(viewDidAppear:);
         SEL swizzledSelector = @selector(bf_swizzled_viewDidAppear:);
-        
+
         Method originalMethod = class_getInstanceMethod(class2, originalSelector);
         Method swizzledMethod = class_getInstanceMethod(class2, swizzledSelector);
         BOOL didAddMethod2 =
-        class_addMethod(class2,
+                class_addMethod(class2,
                         originalSelector,
                         method_getImplementation(swizzledMethod),
                         method_getTypeEncoding(swizzledMethod));
-        
+
         if (didAddMethod2) {
             class_replaceMethod(class2,
-                                swizzledSelector,
-                                method_getImplementation(originalMethod),
-                                method_getTypeEncoding(originalMethod));
+                    swizzledSelector,
+                    method_getImplementation(originalMethod),
+                    method_getTypeEncoding(originalMethod));
         } else {
             method_exchangeImplementations(originalMethod, swizzledMethod);
         }
-        
-        
+
+
 //        SEL originalSelector2 = @selector(viewDidDisappear:);
 //        SEL swizzledSelector2 = @selector(tjs_swizzled_viewDidDisappear:);
 //        
@@ -2122,20 +2125,21 @@ static BFRootViewController *rootViewController = nil;
         }
     }
 }
--(void)bf_swizzled_viewDidAppear:(BOOL)animated{
+
+- (void)bf_swizzled_viewDidAppear:(BOOL)animated {
     [self bf_swizzled_viewDidAppear:animated];
     if (self.navigationController) {
-        if (self.navigationController.viewControllers.count>1){
-            [RootSplitBuff rootViewController].bfLeftPan.enabled=NO;
-            [RootSplitBuff rootViewController].bfRightPan.enabled=NO;
-            self.navigationController.interactivePopGestureRecognizer.enabled=YES;
-            self.navigationController.interactivePopGestureRecognizer.delegate=(id<UIGestureRecognizerDelegate> )self;
+        if (self.navigationController.viewControllers.count > 1) {
+            [RootSplitBuff rootViewController].bfLeftPan.enabled = NO;
+            [RootSplitBuff rootViewController].bfRightPan.enabled = NO;
+            self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+            self.navigationController.interactivePopGestureRecognizer.delegate = (id <UIGestureRecognizerDelegate>) self;
         }
-        else if (self.navigationController.viewControllers.count==1){
-            [RootSplitBuff rootViewController].bfLeftPan.enabled=[[RootSplitBuff rootViewController]_shouldLeftPanActive];
-            [RootSplitBuff rootViewController].bfRightPan.enabled=[[RootSplitBuff rootViewController]_shouldRightPanActive];
-            self.navigationController.interactivePopGestureRecognizer.enabled=NO;
-            self.navigationController.interactivePopGestureRecognizer.delegate=nil;
+        else if (self.navigationController.viewControllers.count == 1) {
+            [RootSplitBuff rootViewController].bfLeftPan.enabled = [[RootSplitBuff rootViewController] _shouldLeftPanActive];
+            [RootSplitBuff rootViewController].bfRightPan.enabled = [[RootSplitBuff rootViewController] _shouldRightPanActive];
+            self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+            self.navigationController.interactivePopGestureRecognizer.delegate = nil;
         }
     }
 }
