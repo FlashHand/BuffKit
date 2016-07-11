@@ -1,6 +1,6 @@
-# BuffKit  ![license](https://img.shields.io/cocoapods/l/BuffKit.svg)
+# BuffKit 
 
-![pod version](https://img.shields.io/cocoapods/v/BuffKit.svg)
+![pod version](https://img.shields.io/cocoapods/v/BuffKit.svg) ![license](https://img.shields.io/cocoapods/l/BuffKit.svg)
 
 ### Require iOS7.0+
 
