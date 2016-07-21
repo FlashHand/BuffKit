@@ -3,7 +3,7 @@
 //  BuffDemo
 //
 //  Created by 王博 on 16/6/7.
-//  Copyright © 2016年 BoWang. All rights reserved.
+//  Copyright © 2016年 BoWang(r4l.xyz). All rights reserved.
 //
 
 #import "RootSplitBuff.h"

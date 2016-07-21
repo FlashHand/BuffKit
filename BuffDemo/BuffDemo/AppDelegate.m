@@ -2,8 +2,8 @@
 //  AppDelegate.m
 //  BuffDemo
 //
-//  Created by BoWang on 16/5/3.
-//  Copyright © 2016年 BoWang. All rights reserved.
+//  Created by BoWang(r4l.xyz) on 16/5/3.
+//  Copyright © 2016年 BoWang(r4l.xyz). All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -25,6 +25,7 @@
     BuffListViewController  *buffListVC=[[BuffListViewController alloc]init];
     [buffListVC setTitle:@"BuffKit"];
     UINavigationController *navi=[[UINavigationController alloc]initWithRootViewController:buffListVC];
+    
     [[RootSplitBuff rootViewController]setRootBackgroundPortraitImage:[UIImage imageNamed:@"WallPaper.jpg"]];
     [[RootSplitBuff rootViewController]setRootBackgroundLandscapeImage:[UIImage imageNamed:@"WallPaper2.jpg"]];
     [[RootSplitBuff rootViewController]setBfMainViewController:navi];
@@ -34,11 +35,12 @@
     BuffRightViewController *rvc=[[BuffRightViewController alloc]init];
     [[RootSplitBuff rootViewController]setBfRightViewController:rvc];
     [RootSplitBuff activeRightPanGesture];
-    [_window setRootViewController:[RootSplitBuff rootViewController]];
-    [[RootSplitBuff rootViewController]setSplitStyle:BuffSplitStyleScaled];
+    [[RootSplitBuff rootViewController]setSplitStyle:BuffSplitStylePerspective];
     [[RootSplitBuff rootViewController]setMainRotateAngle:1.2];
     [RootSplitBuff rootViewController].shouldLeftStill=YES;
     [RootSplitBuff rootViewController].shouldRightStill=YES;
+    
+    [_window setRootViewController:[RootSplitBuff rootViewController]];
     [_window makeKeyAndVisible];
     return YES;
 }

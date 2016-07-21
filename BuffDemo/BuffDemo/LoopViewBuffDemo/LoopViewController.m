@@ -2,8 +2,8 @@
 //  LoopViewController.m
 //  BuffDemo
 //
-//  Created by BoWang on 16/6/28.
-//  Copyright © 2016年 BoWang. All rights reserved.
+//  Created by BoWang(r4l.xyz) on 16/6/28.
+//  Copyright © 2016年 BoWang(r4l.xyz). All rights reserved.
 //
 
 #import "LoopViewController.h"
@@ -17,19 +17,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+
     NSMutableArray *btnArr=[NSMutableArray new];
-    for (int i=0; i<5; i++) {
+    
+    for (int i=0; i<2; i++) {
         UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 220)];
-        [btn setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];
+        [btn setTitle:[NSString stringWithFormat:@"Button:%d",i] forState:UIControlStateNormal];
+        UIImage *img=[UIImage imageNamed:[NSString stringWithFormat:@"loop%d.jpg",i+1]];
+        [btn setBackgroundImage:img forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(loopViewClickAction:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTag:i];
         [btnArr addObject:btn];
     }
-    BFLoopView *bfLoopView=[BFLoopView loopViewWithItems:btnArr frame:CGRectMake(0, 100, self.view.width, 220) loopPeriod:5 animationDuration:1 animationStyle:BuffLoopViewAnimationStyleLinearEasyInOut];
+    bfLoopView=[BFLoopView loopViewWithItems:btnArr frame:CGRectMake(0, 64, self.view.width, 220) loopPeriod:4 animationDuration:1 animationStyle:BuffLoopViewAnimationStyleEasyInOut indexChanged:^(NSInteger loopIndex) {
+    }];
     [self.view addSubview:bfLoopView];
     [bfLoopView setShouldAnimation:YES];
     
     // Do any additional setup after loading the view.
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [bfLoopView setShouldAnimation:NO];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

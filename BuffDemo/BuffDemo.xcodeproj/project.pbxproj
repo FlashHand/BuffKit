@@ -33,6 +33,8 @@
 		FEC2C39E1D2A58C8009E532B /* BFLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC2C39D1D2A58C8009E532B /* BFLoopView.m */; };
 		FEE958D51D128BF7000BF979 /* BuffLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE958D41D128BF7000BF979 /* BuffLeftViewController.m */; };
 		FEE958D81D128C05000BF979 /* BuffRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE958D71D128C05000BF979 /* BuffRightViewController.m */; };
+		FEFBCBD71D40D1690076DD8E /* loop2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FEFBCBD51D40D1690076DD8E /* loop2.jpg */; };
+		FEFBCBD81D40D1690076DD8E /* loop1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FEFBCBD61D40D1690076DD8E /* loop1.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,8 @@
 		FEE958D41D128BF7000BF979 /* BuffLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffLeftViewController.m; sourceTree = "<group>"; };
 		FEE958D61D128C05000BF979 /* BuffRightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffRightViewController.h; sourceTree = "<group>"; };
 		FEE958D71D128C05000BF979 /* BuffRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffRightViewController.m; sourceTree = "<group>"; };
+		FEFBCBD51D40D1690076DD8E /* loop2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loop2.jpg; sourceTree = "<group>"; };
+		FEFBCBD61D40D1690076DD8E /* loop1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loop1.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +283,8 @@
 			children = (
 				FE83B7E21D224DDA00EE98A0 /* LoopViewController.h */,
 				FE83B7E31D224DDA00EE98A0 /* LoopViewController.m */,
+				FEFBCBD51D40D1690076DD8E /* loop2.jpg */,
+				FEFBCBD61D40D1690076DD8E /* loop1.jpg */,
 			);
 			path = LoopViewBuffDemo;
 			sourceTree = "<group>";
@@ -386,6 +392,8 @@
 				FE51CC071CD8DE2B00A7E897 /* Assets.xcassets in Resources */,
 				13A6A27E32ECCB3F0B1A4B04 /* BuffKit.podspec in Resources */,
 				13A6A6A424AD496A9DFE30E7 /* LICENSE in Resources */,
+				FEFBCBD81D40D1690076DD8E /* loop1.jpg in Resources */,
+				FEFBCBD71D40D1690076DD8E /* loop2.jpg in Resources */,
 				2D4908761D0D36F500C4066F /* WallPaper.jpg in Resources */,
 				FE83B7ED1D224DF300EE98A0 /* lbsbuff.jpg in Resources */,
 				FE4616D11D17B3F600BEE9B6 /* WallPaper2.jpg in Resources */,
