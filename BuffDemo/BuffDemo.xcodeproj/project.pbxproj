@@ -34,6 +34,7 @@
 		FEE958D81D128C05000BF979 /* BuffRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE958D71D128C05000BF979 /* BuffRightViewController.m */; };
 		FEFBCBD71D40D1690076DD8E /* loop2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FEFBCBD51D40D1690076DD8E /* loop2.jpg */; };
 		FEFBCBD81D40D1690076DD8E /* loop1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FEFBCBD61D40D1690076DD8E /* loop1.jpg */; };
+		FEFBCBDC1D4113410076DD8E /* BFLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFBCBDB1D4113410076DD8E /* BFLoopView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,8 @@
 		FEE958D71D128C05000BF979 /* BuffRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffRightViewController.m; sourceTree = "<group>"; };
 		FEFBCBD51D40D1690076DD8E /* loop2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loop2.jpg; sourceTree = "<group>"; };
 		FEFBCBD61D40D1690076DD8E /* loop1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loop1.jpg; sourceTree = "<group>"; };
+		FEFBCBDA1D4113410076DD8E /* BFLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFLoopView.h; sourceTree = "<group>"; };
+		FEFBCBDB1D4113410076DD8E /* BFLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFLoopView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +262,7 @@
 				FE29335F1CE2FA350096B1DF /* LBSBuff */,
 				13A6A2B507685B0CE8378C06 /* CellBuff */,
 				13A6A9439C03DC186ECCAA0E /* NavigationBuff */,
+				FEFBCBD91D4113410076DD8E /* LoopViewBuff */,
 			);
 			name = BuffKit;
 			path = ../../BuffKit;
@@ -292,6 +296,15 @@
 				FE83B7EB1D224DF300EE98A0 /* LBSBuffViewController.m */,
 			);
 			path = LBSBuffDemo;
+			sourceTree = "<group>";
+		};
+		FEFBCBD91D4113410076DD8E /* LoopViewBuff */ = {
+			isa = PBXGroup;
+			children = (
+				FEFBCBDA1D4113410076DD8E /* BFLoopView.h */,
+				FEFBCBDB1D4113410076DD8E /* BFLoopView.m */,
+			);
+			path = LoopViewBuff;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +416,7 @@
 				FEE958D51D128BF7000BF979 /* BuffLeftViewController.m in Sources */,
 				FE2933631CE2FA350096B1DF /* LBSBuff.m in Sources */,
 				FE51CBFF1CD8DE2B00A7E897 /* AppDelegate.m in Sources */,
+				FEFBCBDC1D4113410076DD8E /* BFLoopView.m in Sources */,
 				FE2933671CE3110A0096B1DF /* FrameBuff.m in Sources */,
 				FE83B7E41D224DDA00EE98A0 /* LoopViewController.m in Sources */,
 				FE2933621CE2FA350096B1DF /* CryptoBuff.m in Sources */,
