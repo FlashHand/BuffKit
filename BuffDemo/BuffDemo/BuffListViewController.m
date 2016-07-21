@@ -2,8 +2,8 @@
 //  BuffListViewController.m
 //  BuffDemo
 //
-//  Created by BoWang on 16/5/5.
-//  Copyright © 2016年 BoWang. All rights reserved.
+//  Created by BoWang(r4l.xyz) on 16/5/5.
+//  Copyright © 2016年 BoWang(r4l.xyz). All rights reserved.
 //
 
 #import "BuffListViewController.h"
@@ -18,16 +18,7 @@
 @implementation BuffListViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    u_int count;
-    Class currentClass=[UINavigationBar class];
-    objc_property_t *properties=class_copyPropertyList(currentClass,&count);
-    for (int i = 0; i < count ; i++)
-    {
-        const char* propertyName = property_getName(properties[i]);
-        NSString *propertyString=[NSString  stringWithCString:propertyName encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",propertyString);
-    }
-    
+
     [self.view setBackgroundColor:[UIColor whiteColor]];
     //sidebar
     _buffListTableView=[[UITableView alloc]init];

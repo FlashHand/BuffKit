@@ -1,8 +1,8 @@
 //
 //  LBSBuff.m
 //
-//  Created by BoWang on 13-7-17.
-//  Copyright © 2013年 BoWang. All rights reserved.
+//  Created by BoWang(r4l.xyz) on 13-7-17.
+//  Copyright © 2013年 BoWang(r4l.xyz). All rights reserved.
 //
 
 #import "LBSBuff.h"
