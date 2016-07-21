@@ -1,13 +1,13 @@
-# BuffKit  ![license](https://img.shields.io/cocoapods/l/BuffKit.svg)
+# BuffKit 
 
-![pod version](https://img.shields.io/cocoapods/v/BuffKit.svg)
+![pod version](https://img.shields.io/cocoapods/v/BuffKit.svg) ![license](https://img.shields.io/cocoapods/l/BuffKit.svg)
 
 ### Require iOS7.0+
 
 **iOS基础功能组件**
 
 #Intro
-BuffKit includes extension for foudation class or instance and provides basic features of iOS application.
+BuffKit includes extensions for foudation class or instance and provides basic features of iOS application.
 
 #Supported features
 1. [Cypher]():MD5,SHA1,SHA2,AES,DES,3DES,BLOWFISH. 
