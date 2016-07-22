@@ -95,8 +95,8 @@
             [cell.detailTextLabel setText:@"算法来源:http://emq.googlecode.com/svn/emq/src/Algorithm/Coords/Converter.java"];
             break;
         case 2:
-            [cell.textLabel setText:@"轮播图(LoopViewBuff.h)"];
-            [cell.detailTextLabel setText:@"基于CADisplay+NSTimer+UIScrollView实现"];
+            [cell.textLabel setText:@"轮播图(BFLoopView.h)"];
+            [cell.detailTextLabel setText:@"基于CADisplayLink+NSTimer+UIScrollView实现"];
             break;
         default:
             break;

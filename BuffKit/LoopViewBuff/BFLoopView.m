@@ -28,36 +28,40 @@ static void(^_bfIndexChanged)(NSInteger i);
     NSInteger startBlockIndex;//default 0;
     NSInteger currentBlockIndex;
     NSInteger lastBlockIndex;
-    NSInteger currentBlockIndexFPS;//
-    NSInteger lastBlockIndexFPS;//
+    NSInteger currentBlockIndexFPS;
+    NSInteger lastBlockIndexFPS;
 
     CGFloat lastOffSetX;//last contentOffset.x before contentOffset.x changed
     NSTimeInterval startTimestamp;//Timestamp of animation's beginning
     CADisplayLink *link;//controls loop animation
-    NSInteger loopStartBlockIndex;
-    BOOL isTap;
+
+    BOOL isTap;//use this to prevent scrollview stucking
 }
 @end
 @implementation BFLoopView
+#pragma mark Life circle
 -(instancetype)initWithFrame:(CGRect)frame indexChanged:(void(^)(NSInteger loopIndex))indexChanged{
     self=[super initWithFrame:frame];
     if (self) {
-        
+        [self setBackgroundColor:[UIColor whiteColor]];
+
         //prevent 64 y-offset by automaticallyAdjustsScrollViewInsets
         UIView *placeHolderView=[[UIView alloc]initWithFrame:CGRectZero];
         [self addSubview:placeHolderView];
+        
+        //Default settings
         self.shouldAnimation=NO;
-        isTap=YES;
         shouldFPSAnimation=NO;
         startBlockIndex=0;
         currentBlockIndexFPS=0;
         lastBlockIndex=0;
         lastBlockIndexFPS=0;
-        self.loopPeriod=4.0;//Default
-        self.loopAnimationDuration=1.0;//Default
+        self.loopPeriod=4.0;
+        self.loopAnimationDuration=1.0;
+        
+        //scrollView
         loopView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self addSubview:loopView];
-        [self setBackgroundColor:[UIColor whiteColor]];
         [loopView setPagingEnabled:YES];
         [loopView setBounces:NO];
         [loopView setContentSize:CGSizeMake(frame.size.width*(INT16_MAX+1), frame.size.height)];
@@ -65,14 +69,34 @@ static void(^_bfIndexChanged)(NSInteger i);
         [loopView setShowsHorizontalScrollIndicator:NO];
         [loopView setDirectionalLockEnabled:YES];
         [loopView setDelegate:self];
-        link=[CADisplayLink displayLinkWithTarget:self selector:@selector(linkAction:)];
-        startTimestamp=CACurrentMediaTime();
-        [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-        loopTimer=[NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(loop) userInfo:nil repeats:YES];
+        
+        //page control
+        _loopPageControl = [UIPageControl new];
+        [_loopPageControl setCenter:CGPointMake(self.width/2, self.height-20)];
+        [_loopPageControl setBounds:CGRectMake(0, 0, self.width, 20)];
+        [_loopPageControl setPageIndicatorTintColor:[UIColor colorWithWhite:1 alpha:0.5]];
+        [_loopPageControl setEnabled:NO];
+        [_loopPageControl setCurrentPageIndicatorTintColor:[UIColor colorWithHex:0x4285f4 alpha:0.8]];
+        [self addSubview:_loopPageControl];
+        
+        //callback
         _bfIndexChanged=indexChanged;
+        
+        isTap=YES;
     }
     return self;
 }
+-(void)dealloc{
+    //destroy link and timer
+    link.paused = YES;
+    [link invalidate];
+    link = nil;
+    if (loopTimer.isValid) {
+        [loopTimer invalidate];
+        loopTimer = nil;
+    }
+}
+#pragma mark - properties access
 -(void)setShouldAnimation:(BOOL)shouldAnimation{
     _shouldAnimation=shouldAnimation;
     [loopView setScrollEnabled:YES];
@@ -80,10 +104,24 @@ static void(^_bfIndexChanged)(NSInteger i);
         _shouldAnimation=NO;
         [loopView setScrollEnabled:NO];
     }
+    link.paused = YES;
+    [link invalidate];
+    link = nil;
+    if (loopTimer.isValid) {
+        [loopTimer invalidate];
+        loopTimer = nil;
+    }
+    if (shouldAnimation) {
+        //auto paging control
+        link=[CADisplayLink displayLinkWithTarget:self selector:@selector(linkAction:)];
+        startTimestamp=CACurrentMediaTime();
+        [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+        loopTimer=[NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(loop) userInfo:nil repeats:YES];
+    }
 }
 -(void)setLoopItems:(NSArray *)loopItems{
     _loopItems=loopItems;
-    CGFloat initialOffsetX=floor(loopView.contentSize.width/2.0/loopView.width)*loopView.width;
+    CGFloat initialOffsetX=floor(loopView.contentSize.width/2.0/loopItems.count/loopView.width)*loopView.width*loopItems.count;
     [loopView setContentOffset:CGPointMake(initialOffsetX, 0)];
     for (NSInteger i = 0; i < _loopItems.count; i++) {
         UIView *tmp=_loopItems[i];
@@ -96,6 +134,7 @@ static void(^_bfIndexChanged)(NSInteger i);
         _shouldAnimation=NO;
         [loopView setScrollEnabled:NO];
     }
+    [_loopPageControl setNumberOfPages:loopItems.count];
 }
 -(void)setLoopAnimationStyle:(BuffLoopViewAnimationStyle)loopAnimationStyle{
     _loopAnimationStyle=loopAnimationStyle;
@@ -126,7 +165,7 @@ static void(^_bfIndexChanged)(NSInteger i);
             break;
     }
 }
-#pragma mark scrollView delegate
+#pragma mark - ScrollView delegate
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     lastOffSetX=scrollView.contentOffset.x;
     _shouldAnimation=NO;
@@ -136,11 +175,11 @@ static void(^_bfIndexChanged)(NSInteger i);
     isTap=NO;
 }
 
-
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     lastOffSetX=scrollView.contentOffset.x;
     loopTimer=[NSTimer scheduledTimerWithTimeInterval:self.loopPeriod target:self selector:@selector(loop) userInfo:nil repeats:YES];
 }
+//prevent scrollView stucking
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     NSInteger tmp=0;
     if (scrollView.contentOffset.x>=lastOffSetX) {
@@ -171,6 +210,7 @@ static void(^_bfIndexChanged)(NSInteger i);
         UIView *view=self.loopItems[next];
         [view setFrame:CGRectMake(loopView.width*(currentBlockIndex+1), 0, loopView.width, loopView.height)];
         _bfIndexChanged(currentIndex);
+        [_loopPageControl setCurrentPage:currentIndex];
     }
     else{
         currentBlockIndex=ceil(scrollView.contentOffset.x/loopView.width);
@@ -180,12 +220,12 @@ static void(^_bfIndexChanged)(NSInteger i);
         UIView *view=self.loopItems[next];
         [view setFrame:CGRectMake(loopView.width*(ceil(scrollView.contentOffset.x/loopView.width)-1), 0, loopView.width, loopView.height)];
         _bfIndexChanged(currentIndex);
+        [_loopPageControl setCurrentPage:currentIndex];
     }
     lastOffSetX=scrollView.contentOffset.x;
 }
-
+#pragma mark - Auto paging control
 -(void)loop{
-    _shouldAnimation=YES;
     startTimestamp=CACurrentMediaTime();
     shouldFPSAnimation=YES;
     lastBlockIndexFPS=floor(loopView.contentOffset.x/loopView.width);
@@ -211,7 +251,7 @@ static void(^_bfIndexChanged)(NSInteger i);
             }
         }
     }
-    //release link and loopTimer
+    //destroy link and timer
     if (!(self.superview)) {
         link.paused = YES;
         [link invalidate];
@@ -222,15 +262,7 @@ static void(^_bfIndexChanged)(NSInteger i);
         }
     }
 }
--(void)dealloc{
-    link.paused = YES;
-    [link invalidate];
-    link = nil;
-    if (loopTimer.isValid) {
-        [loopTimer invalidate];
-        loopTimer = nil;
-    }
-}
+#pragma mark creat a BFLoopView instance
 +(BFLoopView*)loopViewWithItems:(NSArray *)items frame:(CGRect)frame loopPeriod:(NSTimeInterval )period animationDuration:(NSTimeInterval)duration animationStyle:(BuffLoopViewAnimationStyle)style indexChanged:(void(^)(NSInteger loopIndex))indexChanged{
     BFLoopView *loopView=[[BFLoopView alloc]initWithFrame:frame indexChanged:indexChanged];
     [loopView setLoopItems:items];
@@ -240,7 +272,6 @@ static void(^_bfIndexChanged)(NSInteger i);
         indexChanged=^(NSInteger loopIndex){};
     }
     loopView.loopAnimationStyle=style;
-    
     return loopView;
 }
 
