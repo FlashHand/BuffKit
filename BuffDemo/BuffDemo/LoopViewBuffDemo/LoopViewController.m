@@ -50,8 +50,8 @@
     
 }
 -(void)loopViewClickAction:(UIButton *)sender{
-    NSLog(@"Tag:%d",sender.tag);
-    [bfLoopView setShouldAnimation:!(bfLoopView.shouldAnimation)];
+    NSLog(@"Tag:%ld",sender.tag);
+//    [bfLoopView setShouldAnimation:!(bfLoopView.shouldAnimation)];
 }
 /*
 #pragma mark - Navigation

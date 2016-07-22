@@ -156,7 +156,6 @@ static void(^_bfIndexChanged)(NSInteger i);
                     p=-p*p+2*p;
                 }
             };
-
         }
             break;
         case BuffLoopViewAnimationStyleEasyOut:
@@ -260,6 +259,16 @@ static void(^_bfIndexChanged)(NSInteger i);
         if (loopTimer.isValid) {
             [loopTimer invalidate];
             loopTimer = nil;
+        }
+    }
+}
+//设置自定义页面切换动画，注意，必须满足f(0)=0,f(1)=1
+-(void)setCustomAnimationStyle:(void(^)(CGFloat p))animationFunction{
+    //p ∈ [0,1]
+    if (_loopAnimationStyle == BuffLoopViewAnimationStyleCustom) {
+        _bfAnimationFunction=animationFunction;
+        if (!_bfAnimationFunction) {
+            _bfAnimationFunction=^(CGFloat p){};
         }
     }
 }
