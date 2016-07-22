@@ -168,7 +168,7 @@ static void(^_bfIndexChanged)(NSInteger i);
 #pragma mark - ScrollView delegate
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     lastOffSetX=scrollView.contentOffset.x;
-    _shouldAnimation=NO;
+    shouldFPSAnimation=NO;
     [loopTimer invalidate];
     loopTimer = nil;
     lastBlockIndex=floor(scrollView.contentOffset.x/loopView.width);
