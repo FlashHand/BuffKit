@@ -113,6 +113,7 @@ static void(^_bfIndexChanged)(NSInteger i);
     }
     if (shouldAnimation) {
         //auto paging control
+        shouldFPSAnimation=NO;
         link=[CADisplayLink displayLinkWithTarget:self selector:@selector(linkAction:)];
         startTimestamp=CACurrentMediaTime();
         [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
