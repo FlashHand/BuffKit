@@ -15,6 +15,7 @@
 		13A6A9E70906333FDD7A1118 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 13A6A0FF3BBE72E10CD40266 /* README.md */; };
 		13A6AA1222AEC2A81F826008 /* RootSplitBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6A0DE6EF5BE73C9184418 /* RootSplitBuff.m */; };
 		2D4908761D0D36F500C4066F /* WallPaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2D4908751D0D36F500C4066F /* WallPaper.jpg */; };
+		2D8245D71D41E6260065864C /* loop3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2D8245D61D41E6260065864C /* loop3.jpg */; };
 		FE2933621CE2FA350096B1DF /* CryptoBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE29335E1CE2FA350096B1DF /* CryptoBuff.m */; };
 		FE2933631CE2FA350096B1DF /* LBSBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933611CE2FA350096B1DF /* LBSBuff.m */; };
 		FE2933671CE3110A0096B1DF /* FrameBuff.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2933661CE3110A0096B1DF /* FrameBuff.m */; };
@@ -60,6 +61,7 @@
 		13A6AF40F80251F84DA0032A /* CellBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellBuff.h; sourceTree = "<group>"; };
 		13A6AFAA8289A356450646CC /* NullBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullBuff.m; sourceTree = "<group>"; };
 		2D4908751D0D36F500C4066F /* WallPaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WallPaper.jpg; sourceTree = "<group>"; };
+		2D8245D61D41E6260065864C /* loop3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loop3.jpg; sourceTree = "<group>"; };
 		FE2933541CE21DFC0096B1DF /* Buff.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buff.pch; sourceTree = "<group>"; };
 		FE29335D1CE2FA350096B1DF /* CryptoBuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptoBuff.h; sourceTree = "<group>"; };
 		FE29335E1CE2FA350096B1DF /* CryptoBuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptoBuff.m; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				FE83B7E31D224DDA00EE98A0 /* LoopViewController.m */,
 				FEFBCBD51D40D1690076DD8E /* loop2.jpg */,
 				FEFBCBD61D40D1690076DD8E /* loop1.jpg */,
+				2D8245D61D41E6260065864C /* loop3.jpg */,
 			);
 			path = LoopViewBuffDemo;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				FE51CC0A1CD8DE2B00A7E897 /* LaunchScreen.storyboard in Resources */,
 				FE51CC071CD8DE2B00A7E897 /* Assets.xcassets in Resources */,
 				13A6A27E32ECCB3F0B1A4B04 /* BuffKit.podspec in Resources */,
+				2D8245D71D41E6260065864C /* loop3.jpg in Resources */,
 				13A6A6A424AD496A9DFE30E7 /* LICENSE in Resources */,
 				FEFBCBD81D40D1690076DD8E /* loop1.jpg in Resources */,
 				FEFBCBD71D40D1690076DD8E /* loop2.jpg in Resources */,

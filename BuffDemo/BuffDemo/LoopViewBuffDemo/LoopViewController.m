@@ -20,11 +20,12 @@
 
     NSMutableArray *btnArr=[NSMutableArray new];
     
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
         UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 220)];
         [btn setTitle:[NSString stringWithFormat:@"Button:%d",i] forState:UIControlStateNormal];
         UIImage *img=[UIImage imageNamed:[NSString stringWithFormat:@"loop%d.jpg",i+1]];
         [btn setBackgroundImage:img forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor lightGrayColor]];
         [btn addTarget:self action:@selector(loopViewClickAction:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTag:i];
         [btnArr addObject:btn];
@@ -50,6 +51,7 @@
 }
 -(void)loopViewClickAction:(UIButton *)sender{
     NSLog(@"Tag:%d",sender.tag);
+    [bfLoopView setShouldAnimation:!(bfLoopView.shouldAnimation)];
 }
 /*
 #pragma mark - Navigation
