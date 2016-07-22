@@ -17,7 +17,7 @@ static NSInteger _bfGetCurrentIndex(NSInteger t,NSInteger p){
 //    }
     return currentIndex;
 }
-static void(^_bfAnimationFunction)(CGFloat p);
+static CGFloat(^_bfAnimationFunction)(CGFloat p);
 static void(^_bfIndexChanged)(NSInteger i);
 
 @interface BFLoopView ()
@@ -141,25 +141,26 @@ static void(^_bfIndexChanged)(NSInteger i);
     _loopAnimationStyle=loopAnimationStyle;
     switch (loopAnimationStyle) {
         case BuffLoopViewAnimationStyleLinear:
-            _bfAnimationFunction=^(CGFloat p){};
+            _bfAnimationFunction=^(CGFloat p){return p;};
             break;
         case BuffLoopViewAnimationStyleEasyIn:
-            _bfAnimationFunction=^(CGFloat p){p=p*p;};
+            _bfAnimationFunction=^(CGFloat p){
+                p=-cos(p*M_PI/2)+1;
+                return p;
+            };
             break;
         case BuffLoopViewAnimationStyleEasyInOut:
         {
             _bfAnimationFunction=^(CGFloat p){
-                if (p<0.25) {
-                    p=p*p;
-                }
-                else if (p>=0.75){
-                    p=-p*p+2*p;
-                }
+                p=-0.5*cos(M_PI*p)+0.5;
+                return p;
             };
         }
             break;
         case BuffLoopViewAnimationStyleEasyOut:
-            _bfAnimationFunction=^(CGFloat p){p=-p*p+2*p;};
+            _bfAnimationFunction=^(CGFloat p){
+                p=sin(p*M_PI/2);
+                return p;};
             break;
         default:
             break;
@@ -237,7 +238,7 @@ static void(^_bfIndexChanged)(NSInteger i);
             __block CGFloat percent=(sender.timestamp-startTimestamp)/_loopAnimationDuration;
             percent=percent>=1?1:percent;
             //style:
-            _bfAnimationFunction(percent);
+            percent=_bfAnimationFunction(percent);
             currentBlockIndexFPS=floor(loopView.contentOffset.x/loopView.width);
             if (currentBlockIndexFPS>lastBlockIndexFPS) {
                 NSInteger tmp=currentBlockIndexFPS;
@@ -263,12 +264,12 @@ static void(^_bfIndexChanged)(NSInteger i);
     }
 }
 //设置自定义页面切换动画，注意，必须满足f(0)=0,f(1)=1
--(void)setCustomAnimationStyle:(void(^)(CGFloat p))animationFunction{
+-(void)setCustomAnimationStyle:(CGFloat(^)(CGFloat p))animationFunction{
     //p ∈ [0,1]
     if (_loopAnimationStyle == BuffLoopViewAnimationStyleCustom) {
         _bfAnimationFunction=animationFunction;
         if (!_bfAnimationFunction) {
-            _bfAnimationFunction=^(CGFloat p){};
+            _bfAnimationFunction=^(CGFloat p){return p;};
         }
     }
 }

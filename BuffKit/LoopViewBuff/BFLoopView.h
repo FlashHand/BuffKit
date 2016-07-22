@@ -8,19 +8,18 @@
 
 #import <UIKit/UIKit.h>
 typedef NS_ENUM(NSInteger, BuffLoopViewAnimationStyle) {
-
-    
-    BuffLoopViewAnimationStyleLinear = 1,//f(x)=x;
-    BuffLoopViewAnimationStyleEasyIn = 2,//f(x)=x*x;
-    
+    //easing 算法
+    //x ∈ [0,1]
+    //Linear:f(x)=x
+    BuffLoopViewAnimationStyleLinear = 1,
+    //easyIn:f(x)=-cos(x * (M_PI/2)+1
+    BuffLoopViewAnimationStyleEasyIn = 2,
+    //easyInOut:f(x)=-0.5*cos(M_PI*x)+0.5
     BuffLoopViewAnimationStyleEasyInOut = 3,
-    //step function:
-    //f(x)=x*x (x<0.25);
-    //f(x)=x (0.75>x>=0.25)
-    //f(x)=-x*x+2*x (x>=0.75)
-    
-    BuffLoopViewAnimationStyleEasyOut = 4,//f(x)=-x*x+2*x;
-    BuffLoopViewAnimationStyleCustom = 100,//使用 "-(void)setAnimationStyle:(void(^)(CGFloat p))animationFunction;"自定义切换效果。注意，必须满足f(0)=0,f(1)=1
+    //easyOut:f(x)=sin(x * M_PI/2)
+    BuffLoopViewAnimationStyleEasyOut = 4,
+    //custom:使用 "-(void)setAnimationStyle:(void(^)(CGFloat p))animationFunction;"自定义切换效果。注意，必须满足f(0)=0,f(1)=1
+    BuffLoopViewAnimationStyleCustom = 100,
     
 };
 
@@ -45,5 +44,5 @@ typedef NS_ENUM(NSInteger, BuffLoopViewAnimationStyle) {
  */
 +(BFLoopView*)loopViewWithItems:(NSArray *)items frame:(CGRect)frame loopPeriod:(NSTimeInterval )period animationDuration:(NSTimeInterval)duration animationStyle:(BuffLoopViewAnimationStyle)style indexChanged:(void(^)(NSInteger loopIndex))indexChanged;
 
--(void)setCustomAnimationStyle:(void(^)(CGFloat p))animationFunction;
+-(void)setCustomAnimationStyle:(CGFloat(^)(CGFloat p))animationFunction;
 @end
