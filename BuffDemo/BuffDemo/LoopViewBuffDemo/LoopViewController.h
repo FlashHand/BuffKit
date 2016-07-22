@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFLoopView.h"
 
 @interface LoopViewController : UIViewController
 {

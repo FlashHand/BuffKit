@@ -5,7 +5,6 @@
 //  Created by BoWang(r4l.xyz) on 16/7/4.
 //  Copyright © 2016年 BoWang(r4l.xyz). All rights reserved.
 //
-#import "BFLoopView.h"
 #import "NullBuff.h"
 #import "FrameBuff.h"
 static NSInteger _bfGetCurrentIndex(NSInteger t,NSInteger p){
