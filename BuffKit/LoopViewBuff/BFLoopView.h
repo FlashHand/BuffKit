@@ -16,7 +16,6 @@ typedef NS_ENUM(NSInteger, BuffLoopViewAnimationStyle) {
     //f(x)=x (0.75>x>=0.25)
     //f(x)=-x*x+2*x (x>=0.75)
     BuffLoopViewAnimationStyleEasyOut = 4,//f(x)=-x*x+2*x;
-    //TODO:more style
 };
 @interface BFLoopView : UIView <UIScrollViewDelegate>
 @property(nonatomic,strong)NSArray *loopItems;
