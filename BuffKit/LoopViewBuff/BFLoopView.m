@@ -58,7 +58,10 @@ static void(^_bfIndexChanged)(NSInteger i);
         lastBlockIndexFPS=0;
         self.loopPeriod=4.0;
         self.loopAnimationDuration=1.0;
-        
+        _bfAnimationFunction=^(CGFloat p){
+            p=-0.5*cos(M_PI*p)+0.5;
+            return p;
+        };
         //scrollView
         loopView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self addSubview:loopView];

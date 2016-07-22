@@ -37,10 +37,15 @@
     
     // Do any additional setup after loading the view.
 }
--(void)viewWillDisappear:(BOOL)animated{
+-(void)viewDidDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [bfLoopView setShouldAnimation:NO];
 }
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [bfLoopView setShouldAnimation:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
