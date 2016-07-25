@@ -42,7 +42,7 @@
     [bfLoopView setShouldAnimation:NO];
 }
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    [super viewDidAppear:animated];
     [bfLoopView setShouldAnimation:YES];
 }
 
