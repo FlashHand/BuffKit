@@ -27,7 +27,7 @@ BuffKit 包含了对Foundation框架的扩展以及iOS app的基础功能，目�
 3. [FrameBuff]():快速获取UIView,CALayer和UIScreen的尺寸信息。
 4. [LBSBuff]():地球坐标转火星坐标: wgs84(gps) to gcj02(china)，精度约是小数点后4位。
 5. [CellBuff]():为无法完整显示字符串的Cell提供一个标注。
-6. [UIClorBuff]():通过16进制字符串或数字设置颜色，以及获取一个颜色的RGBA信息。
+6. [UIColorBuff]():通过16进制字符串或数字设置颜色，以及获取一个颜色的RGBA信息。
 7. [RootSplitBuff]():显示高可自定义的左右侧边栏，支持AutoLayout横竖屏/手势/可自定义/多样式/Method-Swizzling提高兼容。
 
 If you have any problems or suggestions,please issue me or mail me(**ralwayne@163.com**).
