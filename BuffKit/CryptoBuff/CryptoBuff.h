@@ -63,6 +63,7 @@ typedef NS_ENUM(NSInteger, BuffCryptoAlgorithm) {
  */
 
 - (void)bfCryptoAESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoAESBytesEncodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 /**
  *  对NSData进行AES解密
@@ -73,25 +74,33 @@ typedef NS_ENUM(NSInteger, BuffCryptoAlgorithm) {
  *  @param cryptoBlock 解密完成后回调，出错则返回nil
  */
 - (void)bfCryptoAESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoAESBytesDecodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 //参数同上
 #pragma mark DES
 
 - (void)bfCryptoDESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoDESBytesEncodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 - (void)bfCryptoDESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoDESBytesDecodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 #pragma mark 3DES
 
 - (void)bfCrypto3DESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCrypto3DESBytesEncodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
-- (void)bfCrypto3DESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCrypto3DESDecodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCrypto3DESBytesDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+
 
 #pragma mark Blowfish
 
 - (void)bfCryptoBlowfishEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoBlowfishBytesEncodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 - (void)bfCryptoBlowfishDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
+- (void)bfCryptoBlowfishBytesDecodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock;
 
 
 @end
