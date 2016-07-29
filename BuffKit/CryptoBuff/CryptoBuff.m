@@ -7,6 +7,7 @@
 
 #import "CryptoBuff.h"
 #import <CommonCrypto/CommonCrypto.h>
+NSStringEncoding const BuffDefaultStringEncoding = NSUTF8StringEncoding;
 
 #pragma mark - NSData extension
 
@@ -204,8 +205,8 @@ NSData *_buffCipherByUsingString(CCOperation op, BuffCryptoMode mode, CCAlgorith
             [sourceM appendData:padData];
         }
     }
-    NSData *ivData = [iv dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *ivData = [iv dataUsingEncoding:BuffDefaultStringEncoding];
+    NSData *keyData = [key dataUsingEncoding:BuffDefaultStringEncoding];
     //CTR模式必填kCCModeOptionCTR_BE
     CCModeOptions mo = 0;
     if (mode == BuffCryptoModeCTR) {
@@ -536,7 +537,7 @@ NSString *_buffMD5FromString(NSString *source) {
 }
 
 NSString *_buffSHA1FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(data.bytes, (CC_LONG) data.length, digest);
@@ -548,7 +549,7 @@ NSString *_buffSHA1FromString(NSString *source) {
 }
 
 NSString *_buffSHA224FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA224_DIGEST_LENGTH];
     CC_SHA224(data.bytes, (CC_LONG) data.length, digest);
@@ -560,7 +561,7 @@ NSString *_buffSHA224FromString(NSString *source) {
 }
 
 NSString *_buffSHA256FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA256_DIGEST_LENGTH];
     CC_SHA256(data.bytes, (CC_LONG) data.length, digest);
@@ -572,7 +573,7 @@ NSString *_buffSHA256FromString(NSString *source) {
 }
 
 NSString *_buffSHA384FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA384_DIGEST_LENGTH];
     CC_SHA384(data.bytes, (CC_LONG) data.length, digest);
@@ -584,7 +585,7 @@ NSString *_buffSHA384FromString(NSString *source) {
 }
 
 NSString *_buffSHA512FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA512_DIGEST_LENGTH];
     CC_SHA512(data.bytes, (CC_LONG) data.length, digest);

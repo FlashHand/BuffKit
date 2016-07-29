@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSStringEncoding  const BuffDefaultStringEncoding;
 #pragma mark 支持的CCMode
 typedef NS_ENUM(NSInteger, BuffCryptoMode) {
     BuffCryptoModeECB = 1, //kCCModeECB

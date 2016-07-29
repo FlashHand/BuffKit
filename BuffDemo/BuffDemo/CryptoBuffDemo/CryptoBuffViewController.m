@@ -95,7 +95,7 @@
 - (void)encodeAction:(UIButton *)sender {
     NSString *plaintText = textView.text;
     NSData *source = [plaintText dataUsingEncoding:NSUTF8StringEncoding];
-    [source bfCryptoAESEncodeWithMode:currentMode iv:@"wb128364wb128364" key:@"wb128364wb128364" completion:^(NSData *cryptoData) {
+    [source bfCryptoAESEncodeWithMode:currentMode iv:@"qwer1234qwer1234" key:@"qwer1234qwer1234" completion:^(NSData *cryptoData) {
         NSMutableString *cypherText = [[NSMutableString alloc] init];
         [cryptoData enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
             unsigned char *dataBytes = (unsigned char *) bytes;
@@ -113,7 +113,9 @@
             [self.textView endEditing:YES];
         });
         NSLog(@"PlainText:\n%@\nCypherText:\n%@", plaintText, cypherText);
-        [cryptoData bfCryptoAESDecodeWithMode:currentMode iv:@"wb128364wb128364" key:@"wb128364wb128364" completion:^(NSData *cryptoData2) {
+        NSData *iv=[@"qwer1234qwer1234" dataUsingEncoding:BuffDefaultStringEncoding];
+        NSData *key=[@"qwer1234qwer1234" dataUsingEncoding:BuffDefaultStringEncoding];
+        [cryptoData bfCryptoAESBytesDecodeWithMode:currentMode iv:iv key:key completion:^(NSData *cryptoData2) {
             NSString *result= [[NSString alloc] initWithData:cryptoData2 encoding:NSUTF8StringEncoding];
             NSLog(@"%@",result);
 
