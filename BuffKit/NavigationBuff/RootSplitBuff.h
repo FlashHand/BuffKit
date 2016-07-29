@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, BuffSplitStyle) {
     BuffSplitStyleCovered = 1,
     BuffSplitStyleScaled = 2,
     //When BuffSplitStylePerspective,leftWidth & rightWidth will not be used
-            BuffSplitStylePerspective = 3,
+    BuffSplitStylePerspective = 3,
     BuffSplitStyleCustom = 4,
     //TODO: USING BLOCK TO SET START/END LAYOUT
 };

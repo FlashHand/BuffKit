@@ -37,10 +37,15 @@
     
     // Do any additional setup after loading the view.
 }
--(void)viewWillDisappear:(BOOL)animated{
+-(void)viewDidDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [bfLoopView setShouldAnimation:NO];
 }
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [bfLoopView setShouldAnimation:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -50,8 +55,8 @@
     
 }
 -(void)loopViewClickAction:(UIButton *)sender{
-    NSLog(@"Tag:%d",sender.tag);
-    [bfLoopView setShouldAnimation:!(bfLoopView.shouldAnimation)];
+    NSLog(@"Tag:%ld",sender.tag);
+//    [bfLoopView setShouldAnimation:!(bfLoopView.shouldAnimation)];
 }
 /*
 #pragma mark - Navigation
