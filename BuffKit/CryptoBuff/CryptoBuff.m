@@ -7,6 +7,7 @@
 
 #import "CryptoBuff.h"
 #import <CommonCrypto/CommonCrypto.h>
+NSStringEncoding const BuffDefaultStringEncoding = NSUTF8StringEncoding;
 
 #pragma mark - NSData extension
 
@@ -123,7 +124,71 @@ BOOL _buffCheckKey(CCAlgorithm al, NSString *key, NSString *iv) {
     return isKeyRight;
 }
 
-NSData *_buffCryptoFromData(CCOperation op, BuffCryptoMode mode, CCAlgorithm al, NSData *source, NSString *iv, NSString *key, NSInteger keySize) {
+BOOL _buffCheckBytesKey(CCAlgorithm al, NSData *key, NSData *iv) {
+    BOOL isKeyRight = YES;
+    //    NSException *e ;
+    //    e=[NSException
+    //       exceptionWithName: @""
+    //       reason: @""
+    //       userInfo: nil];
+    //    @throw e;
+    //密钥有效性判断
+    //AES密钥长度有3个固定值。DES,3DES密钥长度是一个固定值。Blowfish的密钥长度处于区间[8,56]。
+    switch (al) {
+        case 0:
+            if (key.length != kCCKeySizeAES128 && key.length != kCCKeySizeAES192 && key.length != kCCKeySizeAES256) {
+#ifdef DEBUG
+                NSLog(@"AES:KEY LENGTH MUST BE 16,24 OR 32");
+#endif
+                
+                isKeyRight = NO;
+            }
+            break;
+        case kCCAlgorithmDES:
+            if (key.length != kCCKeySizeDES) {
+#ifdef DEBUG
+                NSLog(@"DES:KEY LENGTH MUST BE 8");
+#endif
+                isKeyRight = NO;
+            }
+            break;
+        case kCCAlgorithm3DES:
+            if (key.length != kCCKeySize3DES) {
+#ifdef DEBUG
+                NSLog(@"3DES:KEY LENGTH MUST BE 24");
+#endif
+                isKeyRight = NO;
+            }
+            break;
+        case kCCAlgorithmBlowfish:
+            if (key.length > 56 || key.length < 8) {
+#ifdef DEBUG
+                NSLog(@"Blowfish:KEY LENGTH MUST BE in closed interval [8,56]");
+#endif
+                isKeyRight = NO;
+            }
+            break;
+        default:
+            break;
+    }
+    if (al == kCCAlgorithmAES) {
+        if (iv.length != 16) {
+#ifdef DEBUG
+            NSLog(@"IV LENGTH MUST BE 16 WHEN kCCAlgorithmAES");
+#endif
+            isKeyRight = NO;
+        }
+    }
+    else if ((iv.length != 8)) {
+#ifdef DEBUG
+        NSLog(@"IV LENGTH MUST BE 8 WHEN kCCAlgorithmDES,kCCAlgorithm3DES,kCCAlgorithmBlowfish");
+#endif
+        isKeyRight = NO;
+    }
+    return isKeyRight;
+}
+
+NSData *_buffCipherByUsingString(CCOperation op, BuffCryptoMode mode, CCAlgorithm al, NSData *source, NSString *iv, NSString *key, NSInteger keySize) {
     CCCryptorRef cryptor;
     //检验传入的key和iv的正确性
     BOOL isKeyRight = _buffCheckKey(al, key, iv);
@@ -140,8 +205,8 @@ NSData *_buffCryptoFromData(CCOperation op, BuffCryptoMode mode, CCAlgorithm al,
             [sourceM appendData:padData];
         }
     }
-    NSData *ivData = [iv dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *ivData = [iv dataUsingEncoding:BuffDefaultStringEncoding];
+    NSData *keyData = [key dataUsingEncoding:BuffDefaultStringEncoding];
     //CTR模式必填kCCModeOptionCTR_BE
     CCModeOptions mo = 0;
     if (mode == BuffCryptoModeCTR) {
@@ -178,39 +243,117 @@ NSData *_buffCryptoFromData(CCOperation op, BuffCryptoMode mode, CCAlgorithm al,
     }
     return outData;
 }
+NSData *_buffCipherByUsingBytes(CCOperation op, BuffCryptoMode mode, CCAlgorithm al, NSData *source, NSData *iv, NSData *key, NSInteger keySize) {
+    CCCryptorRef cryptor;
+    //检验传入的key和iv的正确性
+    BOOL isKeyRight = _buffCheckBytesKey(al, key, iv);
+    if (!isKeyRight) {
+        return nil;
+    }
+    NSMutableData *sourceM = [[NSMutableData alloc] initWithData:source];
+    
+    if (mode == BuffCryptoModeCBC || mode == BuffCryptoModeECB) {
+        //   在CBC和ECB的情况下可能需要进行补位(padding)操作（加解密操作需要源数据的长度必须能被key.length整除。若不能，则通过添加0x07对源数据来补位，直到源数据的长度能被key.length整除。PS:加密后的长度必然能被key.length整除）
+        int pad = 0x07;
+        while (sourceM.length % key.length != 0) {
+            NSData *padData = [[NSData alloc] initWithBytes:&pad length:1];
+            [sourceM appendData:padData];
+        }
+    }
+    //CTR模式必填kCCModeOptionCTR_BE
+    CCModeOptions mo = 0;
+    if (mode == BuffCryptoModeCTR) {
+        mo = kCCModeOptionCTR_BE;
+    }
+    CCCryptorStatus result = CCCryptorCreateWithMode(op,
+                                                     mode,
+                                                     al,
+                                                     0,
+                                                     [iv bytes] ? [iv bytes] : NULL,
+                                                     [key bytes],
+                                                     key.length,
+                                                     NULL,
+                                                     0,
+                                                     0,
+                                                     mo,
+                                                     &cryptor);
+    size_t bufferLength = CCCryptorGetOutputLength(cryptor, [sourceM length], true);
+    size_t outLength;
+    NSMutableData *outData = [[NSMutableData alloc] initWithLength:bufferLength];
+    if (result == kCCSuccess) {
+        result = CCCryptorUpdate(cryptor,
+                                 [sourceM bytes],
+                                 [sourceM length],
+                                 [outData mutableBytes],
+                                 outData.length,
+                                 &outLength);
+        if (result != kCCSuccess) {
+            outData = nil;
+        }
+    }
+    else {
+        outData = nil;
+    }
+    return outData;
+}
 
 #pragma mark -
-
-NSData *_buffAESEncodeFromData(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
-    return _buffCryptoFromData(kCCEncrypt, mode, kCCAlgorithmAES, source, iv, key, key.length);
+//AES
+NSData *_buffAESEncodeByUsingString(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
+    return _buffCipherByUsingString(kCCEncrypt, mode, kCCAlgorithmAES, source, iv, key, key.length);
+}
+NSData *_buffAESEncodeByUsingBytes(NSData *source, BuffCryptoMode mode, NSData *iv, NSData *key) {
+    return _buffCipherByUsingBytes(kCCEncrypt, mode, kCCAlgorithmAES, source, iv, key, key.length);
 }
 
-NSData *_buffAESDecodeFromData(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
-    return _buffCryptoFromData(kCCDecrypt, mode, kCCAlgorithmAES, source, iv, key, key.length);
+NSData *_buffAESDecodeByUsingString(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
+    return _buffCipherByUsingString(kCCDecrypt, mode, kCCAlgorithmAES, source, iv, key, key.length);
+}
+NSData *_buffAESDecodeByUsingBytes(NSData *source, BuffCryptoMode mode, NSData *iv, NSData *key) {
+    return _buffCipherByUsingBytes(kCCDecrypt, mode, kCCAlgorithmAES, source, iv, key, key.length);
+}
+//DES
+NSData *_buffDESEncodeByUsingString(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
+    return _buffCipherByUsingString(kCCEncrypt, mode, kCCAlgorithmDES, source, iv, key, kCCKeySizeDES);
+}
+NSData *_buffDESEncodeByUsingBytes(NSData *source, BuffCryptoMode mode, NSData *iv, NSData *key) {
+    return _buffCipherByUsingBytes(kCCEncrypt, mode, kCCAlgorithmDES, source, iv, key, kCCKeySizeDES);
 }
 
-NSData *_buffDESEncodeFromData(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
-    return _buffCryptoFromData(kCCEncrypt, mode, kCCAlgorithmDES, source, iv, key, kCCKeySizeDES);
+NSData *_buffDESDecodeByUsingString(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
+    return _buffCipherByUsingString(kCCDecrypt, mode, kCCAlgorithmDES, source, iv, key, kCCKeySizeDES);
+}
+NSData *_buffDESDecodeByUsingBytes(NSData *source, BuffCryptoMode mode, NSData *iv, NSData *key) {
+    return _buffCipherByUsingBytes(kCCDecrypt, mode, kCCAlgorithmDES, source, iv, key, kCCKeySizeDES);
+}
+//3DES
+NSData *_buff3DESEncodeByUsingString(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
+    return _buffCipherByUsingString(kCCEncrypt, mode, kCCAlgorithm3DES, source, iv, key, kCCKeySize3DES);
+}
+NSData *_buff3DESEncodeByUsingBytes(NSData *source, BuffCryptoMode mode, NSData *iv, NSData *key) {
+    return _buffCipherByUsingBytes(kCCEncrypt, mode, kCCAlgorithm3DES, source, iv, key, kCCKeySize3DES);
 }
 
-NSData *_buffDESDecodeFromData(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
-    return _buffCryptoFromData(kCCDecrypt, mode, kCCAlgorithmDES, source, iv, key, kCCKeySizeDES);
+
+NSData *_buff3DESDecodeByUsingString(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
+    return _buffCipherByUsingString(kCCDecrypt, mode, kCCAlgorithm3DES, source, iv, key, kCCKeySize3DES);
+}
+NSData *_buff3DESDecodeByUsingBytes(NSData *source, BuffCryptoMode mode, NSData *iv, NSData *key) {
+    return _buffCipherByUsingBytes(kCCDecrypt, mode, kCCAlgorithm3DES, source, iv, key, kCCKeySize3DES);
+}
+//Blowfish
+NSData *_buffBlowfishEncodeByUsingString(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key, NSInteger keySize) {
+    return _buffCipherByUsingString(kCCEncrypt, mode, kCCAlgorithmBlowfish, source, iv, key, keySize);
+}
+NSData *_buffBlowfishEncodeByUsingBytes(NSData *source, BuffCryptoMode mode, NSData *iv, NSData *key, NSInteger keySize) {
+    return _buffCipherByUsingBytes(kCCEncrypt, mode, kCCAlgorithmBlowfish, source, iv, key, keySize);
 }
 
-NSData *_buff3DESEncodeFromData(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
-    return _buffCryptoFromData(kCCEncrypt, mode, kCCAlgorithm3DES, source, iv, key, kCCKeySize3DES);
+NSData *_buffBlowfishDecodeByUsingString(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key, NSInteger keySize) {
+    return _buffCipherByUsingString(kCCDecrypt, mode, kCCAlgorithmBlowfish, source, iv, key, keySize);
 }
-
-NSData *_buff3DESDecodeFromData(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key) {
-    return _buffCryptoFromData(kCCDecrypt, mode, kCCAlgorithm3DES, source, iv, key, kCCKeySize3DES);
-}
-
-NSData *_buffBlowfishEncodeFromData(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key, NSInteger keySize) {
-    return _buffCryptoFromData(kCCEncrypt, mode, kCCAlgorithmBlowfish, source, iv, key, keySize);
-}
-
-NSData *_buffBlowfishDecodeFromData(NSData *source, BuffCryptoMode mode, NSString *iv, NSString *key, NSInteger keySize) {
-    return _buffCryptoFromData(kCCDecrypt, mode, kCCAlgorithmBlowfish, source, iv, key, keySize);
+NSData *_buffBlowfishDecodeByUsingBytes(NSData *source, BuffCryptoMode mode, NSData *iv, NSData *key, NSInteger keySize) {
+    return _buffCipherByUsingBytes(kCCDecrypt, mode, kCCAlgorithmBlowfish, source, iv, key, keySize);
 }
 
 @implementation NSData (CryptoBuff)
@@ -283,28 +426,47 @@ NSData *_buffBlowfishDecodeFromData(NSData *source, BuffCryptoMode mode, NSStrin
 - (void)bfCryptoAESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        cryptoBlock(_buffAESEncodeFromData(self, mode, iv, key));
+        cryptoBlock(_buffAESEncodeByUsingString(self, mode, iv, key));
+    });
+}
+-(void)bfCryptoAESBytesEncodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *))cryptoBlock{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffAESEncodeByUsingBytes(self, mode, iv, key));
     });
 }
 
 - (void)bfCryptoAESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        cryptoBlock(_buffAESDecodeFromData(self, mode, iv, key));
+        cryptoBlock(_buffAESDecodeByUsingString(self, mode, iv, key));
+    });
+}
+- (void)bfCryptoAESBytesDecodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffAESDecodeByUsingBytes(self, mode, iv, key));
     });
 }
 
 #pragma mark DES
 
 - (void)bfCryptoDESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
-
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        cryptoBlock(_buffDESEncodeFromData(self, mode, iv, key));
+        cryptoBlock(_buffDESEncodeByUsingString(self, mode, iv, key));
+    });
+}
+-(void)bfCryptoDESBytesEncodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *))cryptoBlock{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffDESEncodeByUsingBytes(self, mode, iv, key));
     });
 }
 
 - (void)bfCryptoDESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        cryptoBlock(_buffDESDecodeFromData(self, mode, iv, key));
+        cryptoBlock(_buffDESDecodeByUsingString(self, mode, iv, key));
+    });
+}
+- (void)bfCryptoDESBytesDecodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffDESDecodeByUsingBytes(self, mode, iv, key));
     });
 }
 
@@ -312,28 +474,47 @@ NSData *_buffBlowfishDecodeFromData(NSData *source, BuffCryptoMode mode, NSStrin
 
 - (void)bfCrypto3DESEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        cryptoBlock(_buff3DESEncodeFromData(self, mode, iv, key));
+        cryptoBlock(_buff3DESEncodeByUsingString(self, mode, iv, key));
+    });
+}
+- (void)bfCrypto3DESBytesEncodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buff3DESEncodeByUsingBytes(self, mode, iv, key));
     });
 }
 
 - (void)bfCrypto3DESDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        cryptoBlock(_buff3DESDecodeFromData(self, mode, iv, key));
+        cryptoBlock(_buff3DESDecodeByUsingString(self, mode, iv, key));
     });
-
+}
+- (void)bfCrypto3DESBytesDecodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buff3DESDecodeByUsingBytes(self, mode, iv, key));
+    });
 }
 
 #pragma mark Blowfish
 
 - (void)bfCryptoBlowfishEncodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        cryptoBlock(_buffBlowfishEncodeFromData(self, mode, iv, key, key.length));
+        cryptoBlock(_buffBlowfishEncodeByUsingString(self, mode, iv, key, key.length));
+    });
+}
+- (void)bfCryptoBlowfishBytesEncodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffBlowfishEncodeByUsingBytes(self, mode, iv, key, key.length));
     });
 }
 
 - (void)bfCryptoBlowfishDecodeWithMode:(BuffCryptoMode)mode iv:(NSString *)iv key:(NSString *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        cryptoBlock(_buffBlowfishDecodeFromData(self, mode, iv, key, key.length));
+        cryptoBlock(_buffBlowfishDecodeByUsingString(self, mode, iv, key, key.length));
+    });
+}
+- (void)bfCryptoBlowfishBytesDecodeWithMode:(BuffCryptoMode)mode iv:(NSData *)iv key:(NSData *)key completion:(void (^)(NSData *cryptoData))cryptoBlock {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        cryptoBlock(_buffBlowfishDecodeByUsingBytes(self, mode, iv, key, key.length));
     });
 }
 
@@ -356,7 +537,7 @@ NSString *_buffMD5FromString(NSString *source) {
 }
 
 NSString *_buffSHA1FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(data.bytes, (CC_LONG) data.length, digest);
@@ -368,7 +549,7 @@ NSString *_buffSHA1FromString(NSString *source) {
 }
 
 NSString *_buffSHA224FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA224_DIGEST_LENGTH];
     CC_SHA224(data.bytes, (CC_LONG) data.length, digest);
@@ -380,7 +561,7 @@ NSString *_buffSHA224FromString(NSString *source) {
 }
 
 NSString *_buffSHA256FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA256_DIGEST_LENGTH];
     CC_SHA256(data.bytes, (CC_LONG) data.length, digest);
@@ -392,7 +573,7 @@ NSString *_buffSHA256FromString(NSString *source) {
 }
 
 NSString *_buffSHA384FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA384_DIGEST_LENGTH];
     CC_SHA384(data.bytes, (CC_LONG) data.length, digest);
@@ -404,7 +585,7 @@ NSString *_buffSHA384FromString(NSString *source) {
 }
 
 NSString *_buffSHA512FromString(NSString *source) {
-    const char *cstr = [source cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cstr = [source cStringUsingEncoding:BuffDefaultStringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:source.length];
     uint8_t digest[CC_SHA512_DIGEST_LENGTH];
     CC_SHA512(data.bytes, (CC_LONG) data.length, digest);
