@@ -6,7 +6,15 @@
 
 #简介
 
-这是一个功能杂糅的Kit，但是您可以轻松地在自己的工程中使用，BuffKit 包含了对Foundation框架的扩展以及iOS app的常用基础功能，目前主干功能已经稳定可用，很多features仍在开发中，。
+这是一个功能多样、耦合度低的Kit，是根据作者自己的需要而开发，但您可以轻松地在自己的工程中使用。<\br>
+
+BuffKit 包含了对Foundation框架的扩展以及iOS app的常用基础功能，目前主干功能已经稳定可用，很多features仍在开发中。<\br>
+
+如果你需要下面大部分的功能可以选择使用
+```
+pod 'BuffKit'
+```
+或下载BuffKit并选择你需要的文件。
 
 #支持的功能
 1. [CryptoBuff]():包含了MD5,SHA1,SHA2的计算,以及对称加密：AES,DES,3DES,BLOWFISH. 
